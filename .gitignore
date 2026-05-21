@@ -1,0 +1,74 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+htmlcov/
+.coverage
+data/worktoolslab_content_cache.json
+reports/*.md
+reports/*.csv
+!reports/.gitkeep
+!data/.gitkeep
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Secrets
+.env
+.env.*
+
+# Local caches and generated reports
+data/
+reports/
+
+# Real Google Search Console exports
+exports/*.csv
+!exports/*sample*.csv
+!exports/*_sample.csv
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Cursor / local agent workspace artifacts
+agent-tools/
+agent-transcripts/
+mcps/
+terminals/
+.cursor/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Secrets
+.env
+.env.*
+
+# Local WordPress/GSC caches and generated reports
+data/
+reports/
+
+# Real Google Search Console exports
+exports/*.csv
+!exports/*sample*.csv
+!exports/*_sample.csv
+
+# Local manual overrides
+config/query_target_overrides.json
+!config/query_target_overrides.example.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
