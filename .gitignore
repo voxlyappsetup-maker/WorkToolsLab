@@ -72,3 +72,11 @@ config/query_target_overrides.json
 .DS_Store
 Thumbs.db
 .vscode/
+
+# Ignore downloaded GSC zip exports and extracted export folders
+exports/*.zip
+exports/*Performance-on-Search*/
+
+# Keep only sample CSVs trackable
+!exports/*sample*.csv
+!exports/*_sample.csv
