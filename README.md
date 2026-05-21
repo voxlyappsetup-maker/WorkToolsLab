@@ -2,7 +2,7 @@
 
 **Read-only internal linking assistant for [WorkToolsLab.com](https://worktoolslab.com).**
 
-LinkOps v1.4.1 fetches published WordPress posts and pages, analyzes existing internal links, generates human-reviewable internal link suggestions, scores **local Google Search Console CSV exports** for SEO opportunities, and produces **read-only content optimization reports** for target URLs. **It never modifies WordPress content** — no publish, update, delete, or draft operations.
+LinkOps v1.4.2 fetches published WordPress posts and pages, analyzes existing internal links, generates human-reviewable internal link suggestions, scores **local Google Search Console CSV exports** for SEO opportunities, and produces **read-only content optimization reports** for target URLs. **It never modifies WordPress content** — no publish, update, delete, or draft operations.
 
 ## Safety (v1)
 
@@ -322,6 +322,8 @@ v1.3.1 tests cover query/page intent matching, roundup preference for broad quer
 v1.4 tests cover content optimization analysis, coverage audit, FAQ/heading suggestions, title/meta length, intent alignment, and optimization report Markdown/CSV sections.
 
 v1.4.1 improves optimize report quality: no contradictory heading gaps when H2/H3 already match, safe slug guidance (`Keep current slug`), natural title case, related GSC query enrichment, and clearer recommendations (`monitor_only`, `Why this recommendation`, `No urgent content gaps detected`).
+
+v1.4.2 improves broad “best tools” queries: no duplicated `best best` phrasing, topic-specific FAQ/intro/SEO templates (collaboration vs project management vs communication), stricter FAQ detection, suppressed intro sentences when coverage is already strong, and `faq_optimization` when only FAQ coverage is weak.
 
 ## Project layout
 

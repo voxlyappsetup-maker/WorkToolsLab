@@ -97,12 +97,24 @@ def write_content_optimization_reports(
             f"- **Too generic:** {report.intro.too_generic}",
             f"- **Needs direct sentence:** {report.intro.needs_direct_sentence}",
             "",
-            "**Paste-ready sentence:**",
-            "",
-            f"> {report.intro.paste_ready_sentence}",
-            "",
         ]
     )
+    if report.intro.needs_direct_sentence:
+        md_lines.extend(
+            [
+                "**Paste-ready sentence:**",
+                "",
+                f"> {report.intro.paste_ready_sentence}",
+                "",
+            ]
+        )
+    else:
+        md_lines.extend(
+            [
+                f"- **Intro sentence:** {report.intro.paste_ready_sentence}",
+                "",
+            ]
+        )
     for note in report.intro.notes:
         md_lines.append(f"- {note}")
     md_lines.append("")

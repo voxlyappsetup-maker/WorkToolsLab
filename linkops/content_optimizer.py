@@ -5,6 +5,8 @@ from __future__ import annotations
 import re
 from datetime import datetime, timezone
 
+from bs4 import BeautifulSoup
+
 from linkops.content_model import ContentItem
 from linkops.content_optimization_model import (
     ALIGNMENT_ALIGNED,
@@ -26,6 +28,7 @@ from linkops.content_optimization_model import (
     LINK_SUPPORT_UNKNOWN,
     LINK_SUPPORT_WEAK,
     REC_CONTENT,
+    REC_FAQ_OPTIMIZATION,
     REC_INTERNAL_LINKS,
     REC_LIGHT,
     REC_MONITOR,
@@ -34,6 +37,7 @@ from linkops.content_optimization_model import (
     REC_TITLE_META,
     TitleMetaSuggestions,
 )
+from linkops.suggestion_engine import detect_primary_clusters
 from linkops.gsc_intent import (
     INTENT_BROAD_BEST,
     INTENT_COMPARISON,
@@ -93,6 +97,142 @@ _TITLE_CASE_SMALL_WORDS = frozenset(
 _STRONG_COVERAGE = frozenset({COVERAGE_EXACT, COVERAGE_PARTIAL})
 
 _GSC_RELATED_MIN_OVERLAP = 0.45
+
+_CORE_COVERAGE_FIELDS = (
+    "title",
+    "slug",
+    "h1",
+    "headings",
+    "first_100_words",
+    "first_150_words",
+    "body",
+)
+
+_QUESTION_STARTER_RE = re.compile(
+    r"^(what|which|who|when|where|why|how|is|are|do|does|should|can)\b",
+    re.IGNORECASE,
+)
+
+_INTRO_NO_SENTENCE = "No intro sentence needed."
+
+_TOPIC_FAQ_TEMPLATES: dict[str, list[str]] = {
+    "collaboration": [
+        "What are the best collaboration tools for small teams?",
+        "What should small teams look for in collaboration tools?",
+        "Do small teams need collaboration tools?",
+        "What is the easiest collaboration tool for small teams?",
+        "What is the difference between collaboration tools and communication tools?",
+    ],
+    "project_management": [
+        "What is the best project management software for small teams?",
+        "What should small teams look for in project management software?",
+        "Do small teams need project management software?",
+        "What is the easiest project management software for small teams?",
+        "What is the difference between project management tools and project management software?",
+    ],
+    "communication": [
+        "What are the best communication tools for small businesses?",
+        "What should small businesses look for in communication tools?",
+        "Do remote teams need communication tools?",
+        "What is the easiest communication tool for small teams?",
+        "What is the difference between communication tools and collaboration tools?",
+    ],
+    "workflow_management": [
+        "What are the best workflow management tools for small teams?",
+        "What should small teams look for in workflow management tools?",
+        "Do small teams need workflow management software?",
+        "What is the easiest workflow management tool for small teams?",
+        "What is the difference between workflow management and project management?",
+    ],
+    "task_management": [
+        "What are the best task management tools for small teams?",
+        "What should small teams look for in task management tools?",
+        "Do small teams need task management software?",
+        "What is the easiest task management tool for small teams?",
+        "What is the difference between task management and project management?",
+    ],
+}
+
+_TOPIC_INTRO_SENTENCES: dict[str, str] = {
+    "collaboration": (
+        "Good collaboration tools for small teams should help people communicate clearly, "
+        "share work, manage files, and stay aligned without adding unnecessary complexity."
+    ),
+    "project_management": (
+        "The best project management software for small teams should help with task ownership, "
+        "deadlines, collaboration, and project visibility without adding unnecessary complexity."
+    ),
+    "communication": (
+        "The best communication tools for small teams should make meetings, messaging, and "
+        "remote coordination reliable without adding unnecessary complexity."
+    ),
+    "workflow_management": (
+        "Good workflow management tools for small teams should clarify handoffs, approvals, "
+        "and recurring processes without adding unnecessary bureaucracy."
+    ),
+    "task_management": (
+        "Good task management tools for small teams should make ownership, due dates, and "
+        "status visible without adding unnecessary complexity."
+    ),
+}
+
+
+def strip_leading_best(keyword: str) -> str:
+    """Remove a leading 'best ' so titles/questions do not repeat it."""
+    k = keyword.strip()
+    if k.lower().startswith("best "):
+        return k[5:].strip()
+    return k
+
+
+def smart_best_title(keyword: str) -> str:
+    """Title-case a keyword without duplicating 'Best'."""
+    k = keyword.strip()
+    if k.lower().startswith("best "):
+        return smart_title_case(k)
+    return smart_title_case(f"Best {strip_leading_best(k)}")
+
+
+def keyword_to_natural_question_phrase(keyword: str) -> str:
+    """Natural question stem for FAQ suggestions (no 'best best')."""
+    core = strip_leading_best(keyword)
+    if re.search(r"\b(tools|software|apps|platforms)\b", core, re.IGNORECASE):
+        return f"What are the best {core}"
+    return f"What is the best {core}"
+
+
+def detect_content_topic(keyword: str, item: ContentItem) -> str:
+    """Topic for FAQ/intro templates; collaboration is distinct from communication."""
+    slug_title = f"{item.slug.replace('-', ' ')} {item.title}".lower()
+    kw = keyword.lower()
+    blob = f"{kw} {slug_title}"
+
+    if "collaboration" in blob:
+        return "collaboration"
+    if "communication" in blob:
+        return "communication"
+    if "workflow" in blob:
+        return "workflow_management"
+    if "task-management" in item.slug or "task management" in blob:
+        return "task_management"
+    if "project-management" in item.slug or "project management" in blob:
+        return "project_management"
+
+    clusters = detect_primary_clusters(title=item.title, slug=item.slug, keyword=keyword)
+    priority = (
+        "communication",
+        "project_management",
+        "task_management",
+        "workflow_management",
+        "productivity",
+        "freelancers",
+    )
+    for name in priority:
+        if name in clusters:
+            if name == "communication" and "collaboration" in blob:
+                return "collaboration"
+            return name
+    return "project_management"
 
 
 def _normalize_phrase(text: str) -> str:
@@ -233,17 +373,62 @@ def _first_n_words(text: str, n: int) -> str:
     return " ".join(words[:n]) if words else ""
 
 
-def _extract_faq_items(headings: dict[str, list[str]], plain_text: str) -> list[str]:
+def _is_comparison_link_fragment(heading: str) -> bool:
+    """Exclude internal-link comparison titles mistaken for FAQ questions."""
+    h = heading.strip()
+    hl = h.lower()
+    if " vs " not in hl and " versus " not in hl:
+        return False
+    if re.match(r"^[a-z]{1,4}\s+vs\b", hl):
+        return True
+    if not h.endswith("?"):
+        return True
+    if not _QUESTION_STARTER_RE.match(h):
+        return True
+    return False
+
+
+def _is_valid_faq_heading(heading: str, in_faq_section: bool) -> bool:
+    h = heading.strip()
+    if not h or h.lower() in {"faq", "faqs"}:
+        return False
+    if _is_comparison_link_fragment(h):
+        return False
+    hl = h.lower()
+    if any(m in hl for m in _FAQ_HEADING_MARKERS) and h.lower() != "faq":
+        return True
+    if in_faq_section:
+        return h.endswith("?") or _QUESTION_STARTER_RE.match(h)
+    if h.endswith("?"):
+        return _QUESTION_STARTER_RE.match(h) is not None
+    return _QUESTION_STARTER_RE.match(h) is not None
+
+
+def _extract_faq_items(content_html: str, headings: dict[str, list[str]]) -> list[str]:
+    """FAQ headings only — not anchor text or comparison link titles."""
     items: list[str] = []
-    for level in ("h2", "h3"):
-        for h in headings.get(level, []):
-            hl = h.lower()
-            if "?" in h or any(m in hl for m in _FAQ_HEADING_MARKERS):
-                items.append(h)
-    for line in plain_text.split("."):
-        line = line.strip()
-        if line.endswith("?") and len(line) > 15:
-            items.append(line[:200])
+    in_faq_section = False
+
+    if content_html:
+        soup = BeautifulSoup(content_html, "html.parser")
+        for tag in soup.find_all(["h2", "h3"]):
+            text = tag.get_text(strip=True)
+            if not text:
+                continue
+            tl = text.lower()
+            if any(m in tl for m in _FAQ_HEADING_MARKERS):
+                in_faq_section = True
+                if tl not in {"faq", "faqs"} and _is_valid_faq_heading(text, True):
+                    items.append(text)
+                continue
+            if _is_valid_faq_heading(text, in_faq_section):
+                items.append(text)
+    else:
+        for level in ("h2", "h3"):
+            for h in headings.get(level, []):
+                if _is_valid_faq_heading(h, False):
+                    items.append(h)
+
     seen: set[str] = set()
     unique: list[str] = []
     for item in items:
@@ -258,11 +443,12 @@ def _heading_relevant(keyword: str, heading: str) -> bool:
     return _token_overlap_ratio(keyword, heading) >= 0.4 or _phrase_in_text(keyword, heading)
 
 
-def _title_case_keyword(keyword: str) -> str:
-    return smart_title_case(keyword.strip())
-
-
-def _generate_intro_sentence(keyword: str, query_intent: str, page_type: str) -> str:
+def _generate_intro_sentence(
+    keyword: str,
+    query_intent: str,
+    page_type: str,
+    topic: str,
+) -> str:
     kw = keyword.strip().rstrip(".")
     if query_intent == INTENT_REVIEW or page_type == PAGE_REVIEW:
         brand = _keyword_tokens(kw)
@@ -277,35 +463,56 @@ def _generate_intro_sentence(keyword: str, query_intent: str, page_type: str) ->
             f"pricing, and how clearly each platform handles tasks, deadlines, and collaboration."
         )
     if query_intent == INTENT_HOW_TO:
+        core = strip_leading_best(kw)
         return (
-            f"To {kw}, start with a simple workflow your team can follow every week: "
+            f"To improve {core}, start with a simple workflow your team can follow every week: "
             f"clear ownership, visible deadlines, and one shared place for updates."
         )
-    return (
-        f"The best {kw} should help with task ownership, deadlines, collaboration, "
-        f"and project visibility without adding unnecessary complexity."
-    )
+    return _TOPIC_INTRO_SENTENCES.get(topic, _TOPIC_INTRO_SENTENCES["project_management"])
 
 
 def _generate_heading_suggestions(
     keyword: str,
     query_intent: str,
+    topic: str,
     existing: list[str],
     max_suggestions: int,
 ) -> list[str]:
-    title_kw = _title_case_keyword(keyword)
+    title_line = smart_best_title(keyword)
+    core = smart_title_case(strip_leading_best(keyword))
     candidates: list[str] = []
     if query_intent == INTENT_BROAD_BEST:
-        candidates = [
-            smart_title_case(f"Best {title_kw}"),
-            smart_title_case("Project Management Tools vs Project Management Software for Small Teams"),
-            smart_title_case(f"How to Choose Project Management Software for a Small Team"),
-            smart_title_case(f"What Small Teams Should Look for in {title_kw}"),
-            smart_title_case(f"Top Features to Compare in {title_kw}"),
-        ]
+        if topic == "collaboration":
+            candidates = [
+                title_line,
+                smart_title_case(f"How to Choose {strip_leading_best(keyword)}"),
+                smart_title_case(f"What Small Teams Should Look for in {strip_leading_best(keyword)}"),
+                smart_title_case("Collaboration Tools vs Communication Tools for Small Teams"),
+            ]
+        elif topic == "communication":
+            candidates = [
+                title_line,
+                smart_title_case(f"How to Choose {strip_leading_best(keyword)}"),
+                smart_title_case("Communication Tools vs Collaboration Tools for Small Teams"),
+            ]
+        elif topic == "project_management":
+            candidates = [
+                title_line,
+                smart_title_case(
+                    "Project Management Tools vs Project Management Software for Small Teams"
+                ),
+                smart_title_case("How to Choose Project Management Software for a Small Team"),
+                smart_title_case(f"What Small Teams Should Look for in {core}"),
+            ]
+        else:
+            candidates = [
+                title_line,
+                smart_title_case(f"How to Choose {strip_leading_best(keyword)}"),
+                smart_title_case(f"What Small Teams Should Look for in {core}"),
+            ]
     elif query_intent == INTENT_REVIEW:
         brand = _keyword_tokens(keyword)
-        product = brand[0].title() if brand else title_kw.split()[0]
+        product = brand[0].title() if brand else smart_best_title(keyword).split()[0]
         candidates = [
             smart_title_case(f"Is {product} Good for Small Businesses?"),
             smart_title_case(f"{product} Pricing and Plans for Small Teams"),
@@ -314,22 +521,22 @@ def _generate_heading_suggestions(
         ]
     elif query_intent == INTENT_COMPARISON:
         candidates = [
-            f"{title_kw}: Quick Comparison",
-            f"Which Tool Is Better for Small Teams?",
-            f"Key Differences at a Glance",
-            f"Pricing and Ease of Use Comparison",
+            f"{title_line}: Quick Comparison",
+            "Which Tool Is Better for Small Teams?",
+            "Key Differences at a Glance",
+            "Pricing and Ease of Use Comparison",
         ]
     elif query_intent == INTENT_HOW_TO:
         candidates = [
-            f"How to {title_kw}",
-            f"Step-by-Step Setup for Small Teams",
-            f"Common Mistakes to Avoid",
+            smart_title_case(f"How to {strip_leading_best(keyword)}"),
+            "Step-by-Step Setup for Small Teams",
+            "Common Mistakes to Avoid",
         ]
     else:
         candidates = [
-            f"{title_kw}: Overview",
-            f"What You Need to Know",
-            f"Practical Recommendations",
+            f"{title_line}: Overview",
+            "What You Need to Know",
+            "Practical Recommendations",
         ]
 
     existing_lower = {h.lower() for h in existing}
@@ -345,11 +552,11 @@ def _generate_heading_suggestions(
 def _generate_faq_suggestions(
     keyword: str,
     query_intent: str,
+    topic: str,
     existing: list[str],
     max_suggestions: int,
 ) -> list[str]:
     kw = keyword.strip().rstrip("?")
-    title_kw = _title_case_keyword(kw)
     if query_intent == INTENT_REVIEW:
         brand = _keyword_tokens(kw)
         product = brand[0].title() if brand else "this tool"
@@ -362,29 +569,25 @@ def _generate_faq_suggestions(
         ]
     elif query_intent == INTENT_COMPARISON:
         candidates = [
-            f"Which is better for small teams in this comparison?",
-            f"What is the main difference between these tools?",
-            f"Which option is easier for a small team to adopt?",
-            f"Which tool has better pricing for small businesses?",
+            "Which is better for small teams in this comparison?",
+            "What is the main difference between these tools?",
+            "Which option is easier for a small team to adopt?",
+            "Which tool has better pricing for small businesses?",
         ]
     elif query_intent == INTENT_BROAD_BEST:
-        candidates = [
-            f"What is the best {kw}?",
-            f"What should small teams look for in {kw}?",
-            f"Do small teams need project management software?",
-            f"What is the easiest {kw}?",
-            f"What is the difference between project management tools and project management software?",
-        ]
+        candidates = list(_TOPIC_FAQ_TEMPLATES.get(topic, _TOPIC_FAQ_TEMPLATES["project_management"]))
     else:
         candidates = [
-            f"What is {title_kw}?",
-            f"Who is {title_kw} best for?",
-            f"What should I consider before choosing?",
+            f"{keyword_to_natural_question_phrase(kw)}?",
+            f"Who is {smart_best_title(kw)} best for?",
+            "What should I consider before choosing?",
         ]
 
     existing_blob = " ".join(existing).lower()
     out: list[str] = []
     for c in candidates:
+        if "best best" in c.lower():
+            continue
         if c.lower() not in existing_blob:
             out.append(c)
         if len(out) >= max_suggestions:
@@ -400,11 +603,15 @@ def _slug_recommendation(item: ContentItem, keyword: str) -> str:
     return "Review manually; changing published slugs can affect SEO and redirects"
 
 
-def _build_title_meta(keyword: str, item: ContentItem, query_intent: str) -> TitleMetaSuggestions:
-    title_kw = _title_case_keyword(keyword)
+def _build_title_meta(
+    keyword: str,
+    item: ContentItem,
+    query_intent: str,
+    topic: str,
+) -> TitleMetaSuggestions:
     if query_intent == INTENT_REVIEW:
         brand = _keyword_tokens(keyword)
-        product = brand[0].title() if brand else title_kw
+        product = brand[0].title() if brand else smart_best_title(keyword)
         seo_title = smart_title_case(f"{product} Review for Small Businesses: Is It Worth It?")
         meta = (
             f"Read our {product} review for small businesses: pricing, pros and cons, "
@@ -412,19 +619,22 @@ def _build_title_meta(keyword: str, item: ContentItem, query_intent: str) -> Tit
         )[:158]
         focus = f"{product.lower()} review small business"
     elif query_intent == INTENT_COMPARISON:
-        seo_title = smart_title_case(f"{title_kw} for Small Teams (Compared)")
+        seo_title = smart_title_case(f"{smart_best_title(keyword)} (Compared)")
         meta = (
             f"Compare features, pricing, and fit for small teams. "
             f"See which option is easier to adopt and better for day-to-day work."
         )[:158]
-        focus = keyword.lower()
+        focus = strip_leading_best(keyword).lower()
     else:
-        seo_title = smart_title_case(f"Best {title_kw} (Practical Guide for Small Teams)")
+        seo_title = smart_title_case(f"{smart_best_title(keyword)}: Practical Guide")
+        topic_hint = topic.replace("_", " ")
         meta = (
-            f"Find the best options for small teams: features, pricing, and practical "
-            f"recommendations to improve visibility and reduce workflow friction."
+            f"Find the best {topic_hint} options for small teams: features, pricing, and "
+            f"practical recommendations without unnecessary complexity."
         )[:158]
-        focus = keyword.lower()
+        focus = strip_leading_best(keyword).lower()
+        if not focus.startswith("best "):
+            focus = f"best {focus}"
 
     if len(meta) > 160:
         meta = meta[:157] + "..."
@@ -558,8 +768,19 @@ def _coverage_is_strong(coverage_map: dict[str, str]) -> bool:
     )
 
 
+def _core_coverage_strong(coverage_map: dict[str, str]) -> bool:
+    return all(coverage_map.get(f) in _STRONG_COVERAGE for f in _CORE_COVERAGE_FIELDS)
+
+
+def _only_faq_gap(coverage_map: dict[str, str]) -> bool:
+    """Core fields strong but FAQ is not an exact match."""
+    return _core_coverage_strong(coverage_map) and coverage_map.get("faq") != COVERAGE_EXACT
+
+
 def _has_material_content_gaps(coverage_map: dict[str, str]) -> bool:
-    check_fields = ("title", "slug", "first_150_words", "headings", "faq", "body")
+    if _only_faq_gap(coverage_map):
+        return False
+    check_fields = ("title", "slug", "first_150_words", "headings", "body")
     return any(coverage_map.get(f) in (COVERAGE_MISSING, COVERAGE_WEAK) for f in check_fields)
 
 
@@ -593,6 +814,15 @@ def _compute_overall_recommendation(
             "are the main levers, not major content rewrites."
         )
         return REC_TITLE_META, priority, rationale
+
+    if _only_faq_gap(coverage_map):
+        priority.append("Improve FAQ coverage only.")
+        rationale = (
+            "Title, slug, intro, headings, and body are already strong; FAQ is the main remaining gap."
+        )
+        if link_support == LINK_SUPPORT_STRONG:
+            return REC_FAQ_OPTIMIZATION, priority, rationale
+        return REC_LIGHT, priority, rationale
 
     if strong and link_support == LINK_SUPPORT_STRONG:
         if gsc and gsc.available and 20 < gsc.position <= 90:
@@ -639,18 +869,25 @@ def _build_content_gaps(
     coverage: list[CoverageField],
     headings: HeadingAnalysis,
     faq: FaqAnalysis,
+    coverage_map: dict[str, str],
 ) -> list[str]:
+    if _only_faq_gap(coverage_map):
+        return ["Improve FAQ coverage only."]
+
     gaps: list[str] = []
     skip_heading_gap = not headings.keyword_in_h2_recommended and not headings.missing_opportunities
     for field in coverage:
         if field.field_name == "headings" and skip_heading_gap:
             continue
+        if field.field_name == "faq":
+            continue
         if field.status in (COVERAGE_MISSING, COVERAGE_WEAK):
             gaps.append(f"Improve {field.field_name}: {field.detail}")
     for h in headings.missing_opportunities[:1]:
         gaps.append(h)
-    if not faq.existing_faq_items and faq.suggestions:
-        gaps.append("Add an FAQ section with question-style H2/H3 headings.")
+    faq_field = coverage_map.get("faq")
+    if faq_field in (COVERAGE_MISSING, COVERAGE_WEAK) and faq.suggestions:
+        gaps.append("Improve FAQ coverage with question-style H2/H3 headings.")
     return gaps
 
 
@@ -696,6 +933,7 @@ def analyze_content_optimization(
 
     keyword = target_keyword.strip()
     gsc_lookup = (gsc_query or keyword).strip()
+    topic = detect_content_topic(keyword, item)
     query_intent = detect_query_intent(keyword)
     page_type = detect_gsc_page_type(item)
     intent_alignment = compute_intent_alignment(query_intent, page_type)
@@ -724,14 +962,22 @@ def analyze_content_optimization(
         CoverageField("body", *classify_coverage(keyword, plain)),
         CoverageField(
             "faq",
-            *classify_coverage(keyword, " ".join(_extract_faq_items(headings_raw, plain))),
+            *classify_coverage(
+                keyword,
+                " ".join(_extract_faq_items(item.content_html, headings_raw)),
+            ),
         ),
     ]
 
     exact_early = _phrase_in_text(keyword, intro_150[: max(len(intro_150) // 2, 80)])
     answers_intent = intent_alignment == ALIGNMENT_ALIGNED or _token_overlap_ratio(keyword, intro_150) >= 0.5
     too_generic = _token_overlap_ratio(keyword, intro_150) < 0.35 and not exact_early
-    needs_direct = not exact_early or too_generic
+    needs_direct = not (exact_early and answers_intent and not too_generic)
+    paste_sentence = (
+        _generate_intro_sentence(keyword, query_intent, page_type, topic)
+        if needs_direct
+        else _INTRO_NO_SENTENCE
+    )
 
     intro = IntroAnalysis(
         word_count=len(intro_150.split()),
@@ -739,7 +985,7 @@ def analyze_content_optimization(
         answers_intent=answers_intent,
         too_generic=too_generic,
         needs_direct_sentence=needs_direct,
-        paste_ready_sentence=_generate_intro_sentence(keyword, query_intent, page_type),
+        paste_ready_sentence=paste_sentence,
         notes=[
             "Exact keyword in first 150 words." if exact_early else "Exact keyword not in opening 150 words.",
             "Intro aligns with detected query intent." if answers_intent else "Intro may not directly answer search intent.",
@@ -758,13 +1004,13 @@ def analyze_content_optimization(
             "Consider one H2 with a close variant of the target keyword (exact phrase not yet in H2/H3)."
         )
         heading_suggestions = _generate_heading_suggestions(
-            keyword, query_intent, all_headings, 1
+            keyword, query_intent, topic, all_headings, 1
         )[:1]
         keyword_h2_rec = False
     elif heading_status in (COVERAGE_MISSING, COVERAGE_WEAK):
         missing_ops.append("Add one H2 that includes the target keyword or a close variant.")
         heading_suggestions = _generate_heading_suggestions(
-            keyword, query_intent, all_headings, 1
+            keyword, query_intent, topic, all_headings, 1
         )[:1]
         keyword_h2_rec = True
     else:
@@ -780,13 +1026,15 @@ def analyze_content_optimization(
         suggestions=heading_suggestions,
     )
 
-    faq_existing = _extract_faq_items(headings_raw, plain)
+    faq_existing = _extract_faq_items(item.content_html, headings_raw)
     faq = FaqAnalysis(
         existing_faq_items=faq_existing,
-        suggestions=_generate_faq_suggestions(keyword, query_intent, faq_existing, max_faq_suggestions),
+        suggestions=_generate_faq_suggestions(
+            keyword, query_intent, topic, faq_existing, max_faq_suggestions
+        ),
     )
 
-    title_meta = _build_title_meta(keyword, item, query_intent)
+    title_meta = _build_title_meta(keyword, item, query_intent, topic)
     gsc_metrics = _lookup_gsc_metrics(gsc_cache, gsc_lookup, target_url)
     internal = _inbound_link_support(catalog, target_url, keyword)
     coverage_map = _aggregate_coverage_status(coverage)
@@ -797,7 +1045,7 @@ def analyze_content_optimization(
         link_support=internal.support_level,
     )
 
-    content_gaps = _build_content_gaps(coverage, headings, faq)
+    content_gaps = _build_content_gaps(coverage, headings, faq, coverage_map)
     target_norm = normalize_internal_url(target_url) or target_url
     next_commands = [
         internal.next_suggest_command,

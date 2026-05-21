@@ -24,6 +24,7 @@ REC_TITLE_META = "title_meta_ctr"
 REC_INTERNAL_LINKS = "internal_links_first"
 REC_REVIEW_MANUAL = "review_manually"
 REC_MONITOR = "monitor_only"
+REC_FAQ_OPTIMIZATION = "faq_optimization"
 
 # Internal link support levels
 LINK_SUPPORT_STRONG = "strong"

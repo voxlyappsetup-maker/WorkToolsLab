@@ -197,7 +197,7 @@ def cmd_suggest(args: argparse.Namespace) -> None:
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(
         prog="linkops",
-        description="WorkToolsLab LinkOps — read-only internal linking assistant (v1.4.1)",
+        description="WorkToolsLab LinkOps — read-only internal linking assistant (v1.4.2)",
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
