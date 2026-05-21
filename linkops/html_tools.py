@@ -63,13 +63,14 @@ def estimate_word_count(plain_text: str) -> int:
 
 
 def extract_headings(html: str) -> dict[str, list[str]]:
-    """Return H1 and H2 heading text from HTML content."""
+    """Return H1, H2, and H3 heading text from HTML content."""
     if not html:
-        return {"h1": [], "h2": []}
+        return {"h1": [], "h2": [], "h3": []}
     soup = BeautifulSoup(html, "html.parser")
     return {
         "h1": [tag.get_text(strip=True) for tag in soup.find_all("h1") if tag.get_text(strip=True)],
         "h2": [tag.get_text(strip=True) for tag in soup.find_all("h2") if tag.get_text(strip=True)],
+        "h3": [tag.get_text(strip=True) for tag in soup.find_all("h3") if tag.get_text(strip=True)],
     }
 
 

@@ -14,6 +14,8 @@ from linkops.link_analyzer import analyze_site
 from linkops.gsc_parser import import_gsc_csvs
 from linkops.gsc_report_writer import write_gsc_opportunity_reports
 from linkops.opportunity_engine import analyze_opportunities
+from linkops.content_optimization_report_writer import write_content_optimization_reports
+from linkops.content_optimizer import analyze_content_optimization
 from linkops.report_writer import write_site_link_map_csv, write_suggestions_reports
 from linkops.suggestion_engine import generate_suggestions
 from linkops.wordpress_client import WordPressClient
@@ -106,6 +108,43 @@ def cmd_gsc_import(args: argparse.Namespace) -> None:
     print(f"Skipped rows: {summary.skipped_rows}")
 
 
+def _load_gsc_cache_optional():
+    from linkops.gsc_model import GscCache
+
+    if not GSC_CACHE_PATH.exists():
+        return None
+    data = json.loads(GSC_CACHE_PATH.read_text(encoding="utf-8"))
+    return GscCache.from_dict(data)
+
+
+def cmd_optimize(args: argparse.Namespace) -> None:
+    _ensure_dirs()
+    catalog = _load_cache()
+    gsc_cache = _load_gsc_cache_optional()
+    keyword = args.target_keyword
+    if not keyword:
+        print("--target-keyword is required for optimize.", file=sys.stderr)
+        sys.exit(1)
+    try:
+        report = analyze_content_optimization(
+            catalog,
+            args.target_url,
+            keyword,
+            gsc_query=args.query,
+            gsc_cache=gsc_cache,
+            max_faq_suggestions=args.max_faq_suggestions,
+            max_heading_suggestions=args.max_heading_suggestions,
+        )
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        sys.exit(1)
+    md_path, csv_path = write_content_optimization_reports(report, slug=report.target_url.split("/")[-2])
+    print(f"Markdown report: {md_path}")
+    print(f"CSV report: {csv_path}")
+    print(f"Overall recommendation: {report.overall_recommendation}")
+    print(f"Intent alignment: {report.intent_alignment}")
+
+
 def cmd_opportunities(args: argparse.Namespace) -> None:
     _ensure_dirs()
     gsc_cache = _load_gsc_cache()
@@ -158,7 +197,7 @@ def cmd_suggest(args: argparse.Namespace) -> None:
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(
         prog="linkops",
-        description="WorkToolsLab LinkOps — read-only internal linking assistant (v1.3.1)",
+        description="WorkToolsLab LinkOps — read-only internal linking assistant (v1.4.1)",
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -199,6 +238,18 @@ def main(argv: list[str] | None = None) -> None:
     p_opp.add_argument("--max-clicks", type=int, default=0)
     p_opp.add_argument("--max-position", type=float, default=90.0)
     p_opp.set_defaults(func=cmd_opportunities)
+
+    p_opt = sub.add_parser("optimize", help="Content optimization report for a target URL")
+    p_opt.add_argument("--target-url", required=True, help="Target article URL on worktoolslab.com")
+    p_opt.add_argument("--target-keyword", required=True, help="Focus keyword to audit")
+    p_opt.add_argument(
+        "--query",
+        default=None,
+        help="Optional GSC query string (defaults to target keyword when GSC cache exists)",
+    )
+    p_opt.add_argument("--max-faq-suggestions", type=int, default=5)
+    p_opt.add_argument("--max-heading-suggestions", type=int, default=5)
+    p_opt.set_defaults(func=cmd_optimize)
 
     args = parser.parse_args(argv)
     args.func(args)

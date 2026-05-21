@@ -2,7 +2,7 @@
 
 **Read-only internal linking assistant for [WorkToolsLab.com](https://worktoolslab.com).**
 
-LinkOps v1.3.1 fetches published WordPress posts and pages, analyzes existing internal links, generates human-reviewable internal link suggestions, and scores **local Google Search Console CSV exports** for SEO opportunities. **It never modifies WordPress content** — no publish, update, delete, or draft operations.
+LinkOps v1.4.1 fetches published WordPress posts and pages, analyzes existing internal links, generates human-reviewable internal link suggestions, scores **local Google Search Console CSV exports** for SEO opportunities, and produces **read-only content optimization reports** for target URLs. **It never modifies WordPress content** — no publish, update, delete, or draft operations.
 
 ## Safety (v1)
 
@@ -158,14 +158,52 @@ python -m linkops.cli gsc-import --queries-csv "exports\gsc_queries.csv" --pages
 python -m linkops.cli opportunities --min-impressions 20 --max-clicks 0 --max-position 90
 ```
 
+### 6. Content optimization report (v1.4)
+
+Requires `data/worktoolslab_content_cache.json` from `fetch`. Optionally enriches with `data/gsc_cache.json` when available (no Google API).
+
+```powershell
+python -m linkops.cli optimize `
+  --target-url "https://worktoolslab.com/best-project-management-tools-for-small-teams/" `
+  --target-keyword "project management software for small teams"
+```
+
+Optional flags:
+
+```powershell
+python -m linkops.cli optimize ... --query "alternate gsc query text"
+python -m linkops.cli optimize ... --max-faq-suggestions 5 --max-heading-suggestions 5
+```
+
+Writes:
+
+- `reports/content_optimization_<slug>_<timestamp>.md`
+- `reports/content_optimization_<slug>_<timestamp>.csv`
+
+The report audits keyword coverage (title, slug, headings, intro, body, FAQ), query/page intent alignment (v1.3.1 logic), intro and heading gaps, FAQ opportunities, deterministic title/meta suggestions, internal link support level, and an overall recommendation (`content_optimization`, `title_meta_ctr`, `internal_links_first`, etc.). **Suggestions only** — apply manually in WordPress.
+
+Example workflow:
+
+```powershell
+python -m linkops.cli fetch
+python -m linkops.cli gsc-import --queries-csv "exports\gsc_queries.csv" --pages-csv "exports\gsc_pages.csv"
+python -m linkops.cli optimize `
+  --target-url "https://worktoolslab.com/best-project-management-tools-for-small-teams/" `
+  --target-keyword "project management software for small teams"
+python -m linkops.cli optimize `
+  --target-url "https://worktoolslab.com/webex-review-for-small-businesses/" `
+  --target-keyword "Webex review for small businesses"
+```
+
 ## Workflow
 
 1. Run `fetch` after publishing new content (or on a schedule).
 2. Export GSC CSVs periodically; run `gsc-import` then `opportunities` to prioritize queries.
-3. Run `suggest` with the new article URL and optional keyword.
-4. Review the Markdown report — suggested sentences use Markdown link syntax for copy/edit.
-5. **Manually** add approved links in WordPress.
-6. Use the report’s “Request Indexing” list in Google Search Console after updates.
+3. Run `optimize` on high-impression targets to audit on-page coverage before editing.
+4. Run `suggest` with the new article URL and optional keyword.
+5. Review the Markdown report — suggested sentences use Markdown link syntax for copy/edit.
+6. **Manually** add approved links and copy changes in WordPress.
+7. Use the report’s “Request Indexing” list in Google Search Console after updates.
 
 **No WordPress update is performed by LinkOps in v1.**
 
@@ -281,17 +319,24 @@ v1.3 tests cover GSC CSV parsing, opportunity scoring, cannibalization/old-URL d
 
 v1.3.1 tests cover query/page intent matching, roundup preference for broad queries, query overrides, action types, and extended report columns.
 
+v1.4 tests cover content optimization analysis, coverage audit, FAQ/heading suggestions, title/meta length, intent alignment, and optimization report Markdown/CSV sections.
+
+v1.4.1 improves optimize report quality: no contradictory heading gaps when H2/H3 already match, safe slug guidance (`Keep current slug`), natural title case, related GSC query enrichment, and clearer recommendations (`monitor_only`, `Why this recommendation`, `No urgent content gaps detected`).
+
 ## Project layout
 
 ```
 linkops/           Core package
-  cli.py           fetch | analyze | suggest | gsc-import | opportunities
+  cli.py           fetch | analyze | suggest | gsc-import | opportunities | optimize
   wordpress_client.py   Read-only REST client
   suggestion_engine.py  Deterministic topical scoring
   gsc_parser.py         Local GSC CSV import
   opportunity_engine.py GSC opportunity scoring
   gsc_report_writer.py  GSC Markdown/CSV reports
+  content_optimizer.py  Content optimization analysis
+  content_optimization_report_writer.py  Optimization Markdown/CSV
 exports/           Place GSC CSV exports here (not committed)
+config/            Optional query_target_overrides.json (local manual)
 data/              Content cache (gitignored)
 reports/           Generated reports (gitignored)
 tests/             Unit tests
