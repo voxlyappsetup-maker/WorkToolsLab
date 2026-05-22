@@ -8,6 +8,7 @@ from typing import Any
 # Coverage field statuses
 COVERAGE_EXACT = "exact_match"
 COVERAGE_PARTIAL = "partial_match"
+COVERAGE_STRONG = "strong_match"
 COVERAGE_WEAK = "weak"
 COVERAGE_MISSING = "missing"
 
@@ -78,6 +79,7 @@ class HeadingAnalysis:
 class FaqAnalysis:
     existing_faq_items: list[str]
     suggestions: list[str] = field(default_factory=list)
+    coverage_note: str = ""
 
 
 @dataclass

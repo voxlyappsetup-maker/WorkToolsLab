@@ -140,6 +140,8 @@ def write_content_optimization_reports(
     md_lines.append("")
 
     md_lines.extend(["## FAQ Opportunities", ""])
+    if report.faq.coverage_note:
+        md_lines.append(f"- **FAQ coverage:** {report.faq.coverage_note}")
     if report.faq.existing_faq_items:
         md_lines.append("- **Existing FAQ-style content:**")
         for f in report.faq.existing_faq_items[:10]:
@@ -150,6 +152,8 @@ def write_content_optimization_reports(
         md_lines.append("- **Suggested FAQ questions:**")
         for s in report.faq.suggestions:
             md_lines.append(f"  - {s}")
+    else:
+        md_lines.append("- **No additional FAQ questions needed.**")
     md_lines.append("")
 
     tm = report.title_meta

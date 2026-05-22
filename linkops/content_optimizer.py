@@ -15,6 +15,7 @@ from linkops.content_optimization_model import (
     COVERAGE_EXACT,
     COVERAGE_MISSING,
     COVERAGE_PARTIAL,
+    COVERAGE_STRONG,
     COVERAGE_WEAK,
     CoverageField,
     ContentOptimizationReport,
@@ -94,7 +95,9 @@ _TITLE_CASE_SMALL_WORDS = frozenset(
     {"a", "an", "the", "and", "or", "but", "for", "nor", "on", "at", "to", "by", "in", "of", "with", "vs"}
 )
 
-_STRONG_COVERAGE = frozenset({COVERAGE_EXACT, COVERAGE_PARTIAL})
+_STRONG_COVERAGE = frozenset({COVERAGE_EXACT, COVERAGE_PARTIAL, COVERAGE_STRONG})
+
+_COMPARISON_FAQ_MIN_STRONG = 3
 
 _GSC_RELATED_MIN_OVERLAP = 0.45
 
@@ -251,6 +254,81 @@ def parse_comparison_parts(keyword: str) -> tuple[str, str] | None:
     if len(parts) == 2 and parts[0].strip() and parts[1].strip():
         return parts[0].strip(), parts[1].strip()
     return None
+
+
+def extract_comparison_entities(keyword: str) -> tuple[str, str] | None:
+    """Return branded entity names for a comparison keyword."""
+    parts = parse_comparison_parts(keyword)
+    if not parts:
+        return None
+    return capitalize_brand(parts[0]), capitalize_brand(parts[1])
+
+
+def _faq_normalize_for_match(text: str) -> str:
+    """Normalize FAQ text for semantic comparison (case and brand insensitive)."""
+    t = apply_brand_capitalization(text)
+    t = t.lower()
+    t = re.sub(r"[^\w\s.]", " ", t)
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def _faq_both_entities(text: str, left: str, right: str) -> bool:
+    norm = _faq_normalize_for_match(text)
+    left_keys = {_faq_normalize_for_match(left), left.lower(), left.lower().replace(".com", "")}
+    right_keys = {_faq_normalize_for_match(right), right.lower(), right.lower().replace(".com", "")}
+    left_hit = any(k and k in norm for k in left_keys)
+    right_hit = any(k and k in norm for k in right_keys)
+    return left_hit and right_hit
+
+
+def _comparison_faq_pattern_types(text: str, left: str, right: str) -> set[str]:
+    """Canonical comparison FAQ pattern types present in a question."""
+    norm = _faq_normalize_for_match(text)
+    if not _faq_both_entities(norm, left, right):
+        return set()
+    types: set[str] = set()
+    if re.search(r"better than", norm):
+        types.add("better_than")
+    if re.search(r"easier to use than|easier.*than", norm):
+        types.add("easier_than")
+    if re.search(r"which is better|which.*better", norm) or (
+        " vs " in norm and "better" in norm
+    ):
+        types.add("which_better")
+    if re.search(r"main difference between|difference between", norm):
+        types.add("main_difference")
+    if re.search(r"should.*(use|choose)", norm) and " or " in norm:
+        types.add("should_use_or")
+    if " or " in norm and re.search(r"for small (teams|business)", norm):
+        types.add("or_for_teams")
+    return types
+
+
+def count_strong_comparison_faqs(faq_items: list[str], left: str, right: str) -> int:
+    """Count FAQ items that match at least one strong comparison pattern."""
+    return sum(1 for item in faq_items if _comparison_faq_pattern_types(item, left, right))
+
+
+def classify_faq_coverage(
+    keyword: str,
+    query_intent: str,
+    faq_items: list[str],
+) -> tuple[str, str]:
+    """Classify FAQ coverage; comparison queries use entity-aware pattern scoring."""
+    if is_comparison_query(keyword, query_intent):
+        entities = extract_comparison_entities(keyword)
+        if entities:
+            left, right = entities
+            strong_count = count_strong_comparison_faqs(faq_items, left, right)
+            if strong_count >= _COMPARISON_FAQ_MIN_STRONG:
+                return (
+                    COVERAGE_STRONG,
+                    f"strong comparison FAQ coverage ({strong_count} questions)",
+                )
+    blob = " ".join(faq_items)
+    if not blob.strip():
+        return COVERAGE_MISSING, "no FAQ-style headings detected"
+    return classify_coverage(keyword, blob)
 
 
 def format_comparison_phrase(keyword: str) -> str:
@@ -648,10 +726,9 @@ def _generate_faq_suggestions(
 ) -> list[str]:
     kw = keyword.strip().rstrip("?")
     if is_comparison_query(kw, query_intent):
-        parts = parse_comparison_parts(kw)
-        if parts:
-            left = capitalize_brand(parts[0])
-            right = capitalize_brand(parts[1])
+        entities = extract_comparison_entities(kw)
+        if entities:
+            left, right = entities
             candidates = [
                 f"Is {left} better than {right}?",
                 f"Is {right} easier to use than {left}?",
@@ -659,6 +736,16 @@ def _generate_faq_suggestions(
                 f"What is the main difference between {left} and {right}?",
                 f"Should a small business use {left} or {right}?",
             ]
+            existing_types: set[str] = set()
+            for ex in existing:
+                existing_types |= _comparison_faq_pattern_types(ex, left, right)
+            filtered: list[str] = []
+            for c in candidates:
+                cand_types = _comparison_faq_pattern_types(c, left, right)
+                if cand_types and cand_types & existing_types:
+                    continue
+                filtered.append(c)
+            candidates = filtered
         else:
             phrase = format_comparison_phrase(kw)
             candidates = [
@@ -876,9 +963,28 @@ def _core_coverage_strong(coverage_map: dict[str, str]) -> bool:
     return all(coverage_map.get(f) in _STRONG_COVERAGE for f in _CORE_COVERAGE_FIELDS)
 
 
+def _faq_coverage_sufficient(coverage_map: dict[str, str]) -> bool:
+    return coverage_map.get("faq") in (COVERAGE_EXACT, COVERAGE_STRONG)
+
+
 def _only_faq_gap(coverage_map: dict[str, str]) -> bool:
-    """Core fields strong but FAQ is not an exact match."""
-    return _core_coverage_strong(coverage_map) and coverage_map.get("faq") != COVERAGE_EXACT
+    """Core fields strong but FAQ still needs work."""
+    return _core_coverage_strong(coverage_map) and not _faq_coverage_sufficient(coverage_map)
+
+
+def _comparison_page_well_covered(
+    keyword: str,
+    query_intent: str,
+    coverage_map: dict[str, str],
+    link_support: str,
+) -> bool:
+    if not is_comparison_query(keyword, query_intent):
+        return False
+    return (
+        _core_coverage_strong(coverage_map)
+        and _faq_coverage_sufficient(coverage_map)
+        and link_support == LINK_SUPPORT_STRONG
+    )
 
 
 def _has_material_content_gaps(coverage_map: dict[str, str]) -> bool:
@@ -890,6 +996,8 @@ def _has_material_content_gaps(coverage_map: dict[str, str]) -> bool:
 
 def _compute_overall_recommendation(
     *,
+    keyword: str,
+    query_intent: str,
     coverage_map: dict[str, str],
     intent_alignment: str,
     gsc: GscQueryMetrics | None,
@@ -918,6 +1026,16 @@ def _compute_overall_recommendation(
             "are the main levers, not major content rewrites."
         )
         return REC_TITLE_META, priority, rationale
+
+    if _comparison_page_well_covered(keyword, query_intent, coverage_map, link_support):
+        priority.append("Monitor GSC performance; comparison page is well covered.")
+        rationale = (
+            "Core comparison coverage, FAQ coverage, and internal link support are strong. "
+            "Monitor GSC performance before making more edits."
+        )
+        if gsc and gsc.available and 20 < gsc.position <= 90:
+            return REC_MONITOR, priority, rationale
+        return REC_NO_CHANGE, priority, rationale
 
     if _only_faq_gap(coverage_map):
         priority.append("Improve FAQ coverage only.")
@@ -1064,14 +1182,11 @@ def analyze_content_optimization(
         CoverageField("first_100_words", *classify_coverage(keyword, intro_100)),
         CoverageField("first_150_words", *classify_coverage(keyword, intro_150)),
         CoverageField("body", *classify_coverage(keyword, plain)),
-        CoverageField(
-            "faq",
-            *classify_coverage(
-                keyword,
-                " ".join(_extract_faq_items(item.content_html, headings_raw)),
-            ),
-        ),
     ]
+
+    faq_existing = _extract_faq_items(item.content_html, headings_raw)
+    faq_status, faq_detail = classify_faq_coverage(keyword, query_intent, faq_existing)
+    coverage.append(CoverageField("faq", faq_status, faq_detail))
 
     exact_early = _phrase_in_text(keyword, intro_150[: max(len(intro_150) // 2, 80)])
     answers_intent = intent_alignment == ALIGNMENT_ALIGNED or _token_overlap_ratio(keyword, intro_150) >= 0.5
@@ -1130,12 +1245,16 @@ def analyze_content_optimization(
         suggestions=heading_suggestions,
     )
 
-    faq_existing = _extract_faq_items(item.content_html, headings_raw)
+    faq_suggestions = _generate_faq_suggestions(
+        keyword, query_intent, topic, faq_existing, max_faq_suggestions
+    )
+    faq_note = ""
+    if faq_status == COVERAGE_STRONG:
+        faq_note = "strong comparison coverage detected"
     faq = FaqAnalysis(
         existing_faq_items=faq_existing,
-        suggestions=_generate_faq_suggestions(
-            keyword, query_intent, topic, faq_existing, max_faq_suggestions
-        ),
+        suggestions=faq_suggestions,
+        coverage_note=faq_note,
     )
 
     title_meta = _build_title_meta(keyword, item, query_intent, topic)
@@ -1143,6 +1262,8 @@ def analyze_content_optimization(
     internal = _inbound_link_support(catalog, target_url, keyword)
     coverage_map = _aggregate_coverage_status(coverage)
     overall, priority, rationale = _compute_overall_recommendation(
+        keyword=keyword,
+        query_intent=query_intent,
         coverage_map=coverage_map,
         intent_alignment=intent_alignment,
         gsc=gsc_metrics,
