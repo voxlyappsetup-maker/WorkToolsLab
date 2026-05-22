@@ -2,7 +2,7 @@
 
 **Read-only internal linking assistant for [WorkToolsLab.com](https://worktoolslab.com).**
 
-LinkOps v1.5.1 fetches published WordPress posts and pages, analyzes existing internal links, generates human-reviewable internal link suggestions, scores **local Google Search Console CSV exports** for SEO opportunities, produces **read-only content optimization reports**, and generates **paste-ready SEO patches** for manual WordPress edits. **It never modifies WordPress content** — no publish, update, delete, or draft operations.
+LinkOps v1.5.2 fetches published WordPress posts and pages, analyzes existing internal links, generates human-reviewable internal link suggestions, scores **local Google Search Console CSV exports** for SEO opportunities, produces **read-only content optimization reports**, and generates **paste-ready SEO patches** for manual WordPress edits. **It never modifies WordPress content** — no publish, update, delete, or draft operations.
 
 ## Safety (v1)
 
@@ -360,6 +360,8 @@ v1.4.4 improves comparison FAQ scoring: pages with 3+ strong comparison FAQ ques
 v1.5 adds the `patch` command: paste-ready SEO patches (Markdown + CSV) derived from the optimize engine, with editorial guardrails (Do Not Change checklist, no full rewrites, no slug churn, topic-specific FAQ templates, internal link command only).
 
 v1.5.1 ensures paste-ready reports no longer place placeholder answers inside copyable sections; current-data FAQ candidates (pricing, plans, etc.) are moved to **Manual Review Needed** with deterministic evergreen answers only when safe.
+
+v1.5.2 improves informational and mixed project/task queries: natural headings, intros, and FAQ (no forced “Best [abstract keyword]” templates), blocks generic filler answers and guillemets in paste-ready sections, and suggests related internal links when a matching article exists in cache.
 
 ## Project layout
 

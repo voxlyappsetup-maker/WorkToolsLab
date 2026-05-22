@@ -26,7 +26,15 @@ from linkops.content_optimizer import (
     analyze_content_optimization,
     detect_content_topic,
 )
+from linkops.informational_topics import (
+    MIXED_PROJECT_TASK_FAQ,
+    MIXED_PROJECT_TASK_HEADINGS,
+    MIXED_PROJECT_TASK_INTRO,
+    is_mixed_project_task_topic,
+    related_task_vs_project_link_note,
+)
 from linkops.seo_patch_faq import (
+    answer_is_paste_safe,
     generate_safe_faq_answer,
     is_pricing_or_current_data_question,
     manual_review_reason,
@@ -59,6 +67,22 @@ def _coverage_map(report: ContentOptimizationReport) -> dict[str, str]:
     return {c.field_name: c.status for c in report.coverage}
 
 
+def _has_content_gaps(report: ContentOptimizationReport) -> bool:
+    """True when intro, headings, or FAQ still need paste-ready support."""
+    if report.intro.needs_direct_sentence:
+        return True
+    if report.headings.keyword_in_h2_recommended or report.headings.missing_opportunities:
+        return True
+    if report.headings.suggestions:
+        return True
+    if _faq_needs_patch(report):
+        if is_mixed_project_task_topic(report.target_keyword):
+            return True
+        if report.faq.suggestions:
+            return True
+    return False
+
+
 def _faq_needs_patch(report: ContentOptimizationReport) -> bool:
     status = _coverage_map(report).get("faq", COVERAGE_MISSING)
     if status in (COVERAGE_EXACT, COVERAGE_STRONG):
@@ -76,14 +100,18 @@ def determine_patch_type(report: ContentOptimizationReport) -> str:
     ):
         return PATCH_MANUAL
 
-    if report.overall_recommendation in (REC_NO_CHANGE, REC_MONITOR):
+    if report.overall_recommendation in (REC_NO_CHANGE, REC_MONITOR) and not _has_content_gaps(
+        report
+    ):
         return PATCH_MONITOR
 
     components: list[str] = []
 
     if report.overall_recommendation == REC_TITLE_META:
         components.append(PATCH_TITLE_META)
-    if _faq_needs_patch(report) and report.faq.suggestions:
+    if _faq_needs_patch(report) and (
+        report.faq.suggestions or is_mixed_project_task_topic(report.target_keyword)
+    ):
         components.append(PATCH_FAQ)
     if report.intro.needs_direct_sentence:
         components.append(PATCH_INTRO)
@@ -216,6 +244,8 @@ def _intro_section(
 ) -> str:
     if patch_type == PATCH_MONITOR:
         return _NO_INTRO
+    if is_mixed_project_task_topic(report.target_keyword) and report.intro.needs_direct_sentence:
+        return MIXED_PROJECT_TASK_INTRO
     if report.intro.needs_direct_sentence or (
         include_intro and patch_type not in (PATCH_MONITOR,)
     ):
@@ -234,7 +264,15 @@ def _heading_section(
 ) -> str:
     if patch_type == PATCH_MONITOR:
         return _NO_HEADING
-    suggestions = report.headings.suggestions
+    suggestions = list(report.headings.suggestions)
+    if is_mixed_project_task_topic(report.target_keyword) and patch_type != PATCH_MONITOR:
+        existing_lower = {
+            h.lower()
+            for h in report.headings.h2 + report.headings.h3 + report.headings.h1
+        }
+        suggestions = [h for h in MIXED_PROJECT_TASK_HEADINGS if h.lower() not in existing_lower]
+        if not suggestions:
+            suggestions = [MIXED_PROJECT_TASK_HEADINGS[0]]
     if not suggestions and not include_headings:
         return _NO_HEADING
     if not suggestions and include_headings:
@@ -260,7 +298,11 @@ def _faq_section(
         return _NO_FAQ, [], []
     if patch_type == PATCH_MONITOR:
         return _NO_FAQ, [], []
-    questions = list(report.faq.suggestions)
+    if is_mixed_project_task_topic(report.target_keyword):
+        existing_blob = " ".join(report.faq.existing_faq_items).lower()
+        questions = [q for q in MIXED_PROJECT_TASK_FAQ if q.lower() not in existing_blob]
+    else:
+        questions = list(report.faq.suggestions)
     if not questions:
         return _NO_FAQ, [], []
 
@@ -270,7 +312,7 @@ def _faq_section(
 
     for q in questions:
         answer = generate_safe_faq_answer(q, report, topic=topic)
-        if answer is None:
+        if answer is None or not answer_is_paste_safe(answer):
             if is_pricing_or_current_data_question(q):
                 manual_items.append(manual_review_reason(q))
             elif "best alternative" in q.lower():
@@ -416,6 +458,11 @@ def generate_seo_patch(
     faq_patch, faq_questions, manual_review = _faq_section(
         opt, patch_type, include_faq=include_faq, topic=topic
     )
+    link_note = related_task_vs_project_link_note(
+        [item.url for item in catalog], target_url
+    )
+    if link_note and link_note not in manual_review:
+        manual_review = [*manual_review, link_note]
     patch_type = _finalize_patch_type(
         patch_type, opt, len(faq_questions), len(manual_review)
     )

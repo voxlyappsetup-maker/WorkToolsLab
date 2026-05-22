@@ -39,6 +39,14 @@ from linkops.content_optimization_model import (
     TitleMetaSuggestions,
 )
 from linkops.suggestion_engine import detect_primary_clusters
+from linkops.informational_topics import (
+    MIXED_PROJECT_TASK_FAQ,
+    MIXED_PROJECT_TASK_HEADINGS,
+    MIXED_PROJECT_TASK_INTRO,
+    is_mixed_project_task_topic,
+    is_unnatural_best_category,
+    should_skip_best_faq_templates,
+)
 from linkops.gsc_intent import (
     INTENT_BROAD_BEST,
     INTENT_COMPARISON,
@@ -355,6 +363,12 @@ def smart_best_title(keyword: str, query_intent: str = "") -> str:
     k = keyword.strip()
     if is_comparison_query(k, query_intent):
         return format_comparison_phrase(k)
+    if is_unnatural_best_category(k) or (
+        query_intent == INTENT_INFORMATIONAL
+        and not k.lower().startswith("best ")
+        and not re.search(r"\b(tools|software|apps|platforms)\b", k, re.IGNORECASE)
+    ):
+        return smart_title_case(apply_brand_capitalization(k))
     if k.lower().startswith("best "):
         return smart_title_case(apply_brand_capitalization(k))
     return smart_title_case(f"Best {apply_brand_capitalization(strip_leading_best(k))}")
@@ -362,6 +376,8 @@ def smart_best_title(keyword: str, query_intent: str = "") -> str:
 
 def keyword_to_natural_question_phrase(keyword: str) -> str:
     """Natural question stem for FAQ suggestions (no 'best best')."""
+    if is_unnatural_best_category(keyword):
+        return smart_title_case(apply_brand_capitalization(keyword.strip()))
     core = strip_leading_best(keyword)
     if re.search(r"\b(tools|software|apps|platforms)\b", core, re.IGNORECASE):
         return f"What are the best {core}"
@@ -636,6 +652,8 @@ def _generate_intro_sentence(
             f"To improve {core}, start with a simple workflow your team can follow every week: "
             f"clear ownership, visible deadlines, and one shared place for updates."
         )
+    if is_mixed_project_task_topic(kw):
+        return MIXED_PROJECT_TASK_INTRO
     return _TOPIC_INTRO_SENTENCES.get(topic, _TOPIC_INTRO_SENTENCES["project_management"])
 
 
@@ -699,6 +717,14 @@ def _generate_heading_suggestions(
             smart_title_case(f"How to {strip_leading_best(keyword)}"),
             "Step-by-Step Setup for Small Teams",
             "Common Mistakes to Avoid",
+        ]
+    elif is_mixed_project_task_topic(keyword):
+        candidates = list(MIXED_PROJECT_TASK_HEADINGS)
+    elif should_skip_best_faq_templates(keyword, query_intent):
+        phrase = smart_title_case(apply_brand_capitalization(keyword.strip()))
+        candidates = [
+            f"{phrase}: What Small Teams Should Know",
+            "Practical Recommendations for Small Teams",
         ]
     else:
         candidates = [
@@ -766,6 +792,10 @@ def _generate_faq_suggestions(
         ]
     elif query_intent == INTENT_BROAD_BEST:
         candidates = list(_TOPIC_FAQ_TEMPLATES.get(topic, _TOPIC_FAQ_TEMPLATES["project_management"]))
+    elif is_mixed_project_task_topic(kw):
+        candidates = list(MIXED_PROJECT_TASK_FAQ)
+    elif should_skip_best_faq_templates(kw, query_intent):
+        candidates = []
     else:
         candidates = [
             f"{keyword_to_natural_question_phrase(kw)}?",

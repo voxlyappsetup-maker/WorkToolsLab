@@ -12,6 +12,10 @@ from linkops.content_optimizer import (
     is_comparison_query,
 )
 from linkops.gsc_intent import INTENT_REVIEW
+from linkops.informational_topics import (
+    is_mixed_project_task_topic,
+    mixed_project_task_faq_answer,
+)
 
 # Must never appear under "## Paste-Ready Changes" in Markdown output.
 PASTE_READY_FORBIDDEN_SUBSTRINGS = (
@@ -20,6 +24,13 @@ PASTE_READY_FORBIDDEN_SUBSTRINGS = (
     "placeholder",
     "fill in later",
     "editorial review needed",
+)
+
+UNSAFE_ANSWER_SUBSTRINGS = (
+    "this type of page is best",
+    "good options for",
+    "depends on team size, budget comfort",
+    "who is best",
 )
 
 _PRICING_TERMS = re.compile(
@@ -208,29 +219,22 @@ def generate_safe_faq_answer(
         if ans:
             return ans
 
+    if is_mixed_project_task_topic(report.target_keyword):
+        ans = mixed_project_task_faq_answer(q)
+        if ans:
+            return ans
+
     if topic:
         ans = _topic_answer(q, topic)
         if ans:
             return ans
 
-    if ql.startswith("what are the best") or ql.startswith("what is the best"):
-        phrase = report.target_keyword.strip()
-        return (
-            f"Good options for «{phrase}» depend on team size, budget comfort, and tools you "
-            f"already use. Compare onboarding effort, daily workflow fit, and support needs—not "
-            f"feature count alone."
-        )
     if "who is" in ql and "best for" in ql:
-        return (
-            "This type of page is best for small teams comparing practical options before they "
-            "commit to a new tool. Readers should leave with clear tradeoffs, not a single "
-            "one-size-fits-all pick."
-        )
+        return None
+    if ql.startswith("what are the best") or ql.startswith("what is the best"):
+        return None
     if "consider before choosing" in ql:
-        return (
-            "Before choosing, list must-have features, team size, integrations with email or chat, "
-            "and how much admin time you can spend on setup and training."
-        )
+        return None
 
     return None
 
@@ -239,6 +243,10 @@ def answer_is_paste_safe(answer: str) -> bool:
     """Reject answers that contain banned placeholder language or unsafe numeric claims."""
     lower = answer.lower()
     if any(b in lower for b in PASTE_READY_FORBIDDEN_SUBSTRINGS):
+        return False
+    if any(b in lower for b in UNSAFE_ANSWER_SUBSTRINGS):
+        return False
+    if "«" in answer or "»" in answer:
         return False
     if _NUMBER_CLAIM.search(answer):
         return False
