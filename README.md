@@ -2,7 +2,7 @@
 
 **Read-only internal linking assistant for [WorkToolsLab.com](https://worktoolslab.com).**
 
-LinkOps v1.4.4 fetches published WordPress posts and pages, analyzes existing internal links, generates human-reviewable internal link suggestions, scores **local Google Search Console CSV exports** for SEO opportunities, and produces **read-only content optimization reports** for target URLs. **It never modifies WordPress content** — no publish, update, delete, or draft operations.
+LinkOps v1.5.1 fetches published WordPress posts and pages, analyzes existing internal links, generates human-reviewable internal link suggestions, scores **local Google Search Console CSV exports** for SEO opportunities, produces **read-only content optimization reports**, and generates **paste-ready SEO patches** for manual WordPress edits. **It never modifies WordPress content** — no publish, update, delete, or draft operations.
 
 ## Safety (v1)
 
@@ -195,15 +195,41 @@ python -m linkops.cli optimize `
   --target-keyword "Webex review for small businesses"
 ```
 
+### 7. Paste-ready SEO patch (v1.5)
+
+Requires `data/worktoolslab_content_cache.json` from `fetch`. Reuses the v1.4 optimize engine and outputs copyable WordPress edits (no HTML rewrites, no WordPress writes).
+
+```powershell
+python -m linkops.cli patch `
+  --target-url "https://worktoolslab.com/clickup-vs-trello-for-small-teams/" `
+  --target-keyword "clickup vs trello"
+```
+
+Optional flags:
+
+```powershell
+python -m linkops.cli patch ... --query "alternate gsc query"
+python -m linkops.cli patch ... --max-faq-suggestions 5 --max-heading-suggestions 3
+python -m linkops.cli patch ... --include-title-meta --include-intro --include-headings --include-faq
+```
+
+Writes:
+
+- `reports/seo_patch_<slug>_<timestamp>.md`
+- `reports/seo_patch_<slug>_<timestamp>.csv`
+
+Patch types include `monitor_only`, `faq_patch`, `title_meta_patch`, `intro_patch`, `heading_patch`, `internal_link_patch`, `combined_light_patch`, and `manual_review`. Reports include a **Do Not Change** checklist and **Paste-Ready Changes** (title, meta, intro, headings, FAQ, internal link command).
+
 ## Workflow
 
 1. Run `fetch` after publishing new content (or on a schedule).
 2. Export GSC CSVs periodically; run `gsc-import` then `opportunities` to prioritize queries.
 3. Run `optimize` on high-impression targets to audit on-page coverage before editing.
-4. Run `suggest` with the new article URL and optional keyword.
-5. Review the Markdown report — suggested sentences use Markdown link syntax for copy/edit.
-6. **Manually** add approved links and copy changes in WordPress.
-7. Use the report’s “Request Indexing” list in Google Search Console after updates.
+4. Run `patch` when you want paste-ready title/meta/intro/heading/FAQ snippets for manual WordPress edits.
+5. Run `suggest` with the new article URL and optional keyword.
+6. Review the Markdown report — suggested sentences use Markdown link syntax for copy/edit.
+7. **Manually** add approved links and copy changes in WordPress.
+8. Use the report’s “Request Indexing” list in Google Search Console after updates.
 
 **No WordPress update is performed by LinkOps in v1.**
 
@@ -321,6 +347,8 @@ v1.3.1 tests cover query/page intent matching, roundup preference for broad quer
 
 v1.4 tests cover content optimization analysis, coverage audit, FAQ/heading suggestions, title/meta length, intent alignment, and optimization report Markdown/CSV sections.
 
+v1.5 tests cover paste-ready SEO patch generation (`monitor_only`, `faq_patch`, brand capitalization, report sections, CSV columns).
+
 v1.4.1 improves optimize report quality: no contradictory heading gaps when H2/H3 already match, safe slug guidance (`Keep current slug`), natural title case, related GSC query enrichment, and clearer recommendations (`monitor_only`, `Why this recommendation`, `No urgent content gaps detected`).
 
 v1.4.2 improves broad “best tools” queries: no duplicated `best best` phrasing, topic-specific FAQ/intro/SEO templates (collaboration vs project management vs communication), stricter FAQ detection, suppressed intro sentences when coverage is already strong, and `faq_optimization` when only FAQ coverage is weak.
@@ -329,11 +357,15 @@ v1.4.3 improves comparison queries (`clickup vs trello`, `monday.com vs asana`):
 
 v1.4.4 improves comparison FAQ scoring: pages with 3+ strong comparison FAQ questions (both brands, better-than / which-is-better / difference / should-use patterns) are treated as covered — no false `faq_optimization` when comparison FAQs are already strong.
 
+v1.5 adds the `patch` command: paste-ready SEO patches (Markdown + CSV) derived from the optimize engine, with editorial guardrails (Do Not Change checklist, no full rewrites, no slug churn, topic-specific FAQ templates, internal link command only).
+
+v1.5.1 ensures paste-ready reports no longer place placeholder answers inside copyable sections; current-data FAQ candidates (pricing, plans, etc.) are moved to **Manual Review Needed** with deterministic evergreen answers only when safe.
+
 ## Project layout
 
 ```
 linkops/           Core package
-  cli.py           fetch | analyze | suggest | gsc-import | opportunities | optimize
+  cli.py           fetch | analyze | suggest | gsc-import | opportunities | optimize | patch
   wordpress_client.py   Read-only REST client
   suggestion_engine.py  Deterministic topical scoring
   gsc_parser.py         Local GSC CSV import
@@ -341,6 +373,8 @@ linkops/           Core package
   gsc_report_writer.py  GSC Markdown/CSV reports
   content_optimizer.py  Content optimization analysis
   content_optimization_report_writer.py  Optimization Markdown/CSV
+  seo_patch_generator.py  Paste-ready SEO patch from optimize
+  seo_patch_report_writer.py  Patch Markdown/CSV
 exports/           Place GSC CSV exports here (not committed)
 config/            Optional query_target_overrides.json (local manual)
 data/              Content cache (gitignored)

@@ -16,6 +16,8 @@ from linkops.gsc_report_writer import write_gsc_opportunity_reports
 from linkops.opportunity_engine import analyze_opportunities
 from linkops.content_optimization_report_writer import write_content_optimization_reports
 from linkops.content_optimizer import analyze_content_optimization
+from linkops.seo_patch_generator import generate_seo_patch
+from linkops.seo_patch_report_writer import write_seo_patch_reports
 from linkops.report_writer import write_site_link_map_csv, write_suggestions_reports
 from linkops.suggestion_engine import generate_suggestions
 from linkops.wordpress_client import WordPressClient
@@ -145,6 +147,39 @@ def cmd_optimize(args: argparse.Namespace) -> None:
     print(f"Intent alignment: {report.intent_alignment}")
 
 
+def cmd_patch(args: argparse.Namespace) -> None:
+    _ensure_dirs()
+    catalog = _load_cache()
+    gsc_cache = _load_gsc_cache_optional()
+    keyword = args.target_keyword
+    if not keyword:
+        print("--target-keyword is required for patch.", file=sys.stderr)
+        sys.exit(1)
+    try:
+        patch = generate_seo_patch(
+            catalog,
+            args.target_url,
+            keyword,
+            gsc_query=args.query,
+            gsc_cache=gsc_cache,
+            max_faq_suggestions=args.max_faq_suggestions,
+            max_heading_suggestions=args.max_heading_suggestions,
+            include_title_meta=args.include_title_meta,
+            include_intro=args.include_intro,
+            include_headings=args.include_headings,
+            include_faq=args.include_faq,
+        )
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        sys.exit(1)
+    slug = patch.target_url.rstrip("/").split("/")[-1]
+    md_path, csv_path = write_seo_patch_reports(patch, slug=slug)
+    print(f"Markdown report: {md_path}")
+    print(f"CSV report: {csv_path}")
+    print(f"Patch type: {patch.patch_type}")
+    print(f"Overall recommendation: {patch.overall_recommendation}")
+
+
 def cmd_opportunities(args: argparse.Namespace) -> None:
     _ensure_dirs()
     gsc_cache = _load_gsc_cache()
@@ -197,7 +232,7 @@ def cmd_suggest(args: argparse.Namespace) -> None:
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(
         prog="linkops",
-        description="WorkToolsLab LinkOps — read-only internal linking assistant (v1.4.4)",
+        description="WorkToolsLab LinkOps — read-only internal linking assistant (v1.5.1)",
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -250,6 +285,38 @@ def main(argv: list[str] | None = None) -> None:
     p_opt.add_argument("--max-faq-suggestions", type=int, default=5)
     p_opt.add_argument("--max-heading-suggestions", type=int, default=5)
     p_opt.set_defaults(func=cmd_optimize)
+
+    p_patch = sub.add_parser("patch", help="Paste-ready SEO patch from optimize analysis")
+    p_patch.add_argument("--target-url", required=True, help="Target article URL on worktoolslab.com")
+    p_patch.add_argument("--target-keyword", required=True, help="Focus keyword to patch")
+    p_patch.add_argument(
+        "--query",
+        default=None,
+        help="Optional GSC query string (defaults to target keyword when GSC cache exists)",
+    )
+    p_patch.add_argument("--max-faq-suggestions", type=int, default=5)
+    p_patch.add_argument("--max-heading-suggestions", type=int, default=3)
+    p_patch.add_argument(
+        "--include-title-meta",
+        action="store_true",
+        help="Include SEO title and meta description even when not required",
+    )
+    p_patch.add_argument(
+        "--include-intro",
+        action="store_true",
+        help="Include intro addition even when not required",
+    )
+    p_patch.add_argument(
+        "--include-headings",
+        action="store_true",
+        help="Include heading suggestions even when not required",
+    )
+    p_patch.add_argument(
+        "--include-faq",
+        action="store_true",
+        help="Include FAQ patch even when not required",
+    )
+    p_patch.set_defaults(func=cmd_patch)
 
     args = parser.parse_args(argv)
     args.func(args)
