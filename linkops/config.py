@@ -13,6 +13,7 @@ DATA_DIR = PROJECT_ROOT / "data"
 REPORTS_DIR = PROJECT_ROOT / "reports"
 CACHE_PATH = DATA_DIR / "worktoolslab_content_cache.json"
 GSC_CACHE_PATH = DATA_DIR / "gsc_cache.json"
+WORKLOG_PATH = PROJECT_ROOT / "config" / "worklog.json"
 
 # v1: all WordPress write operations are blocked
 WRITE_OPERATIONS_BLOCKED = True

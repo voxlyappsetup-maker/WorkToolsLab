@@ -18,6 +18,9 @@ from linkops.content_optimization_report_writer import write_content_optimizatio
 from linkops.content_optimizer import analyze_content_optimization
 from linkops.seo_patch_generator import generate_seo_patch
 from linkops.seo_patch_report_writer import write_seo_patch_reports
+from linkops.next_actions_engine import build_next_actions_report
+from linkops.next_actions_report_writer import write_next_actions_reports
+from linkops.worklog import load_worklog
 from linkops.report_writer import write_site_link_map_csv, write_suggestions_reports
 from linkops.suggestion_engine import generate_suggestions
 from linkops.wordpress_client import WordPressClient
@@ -180,6 +183,32 @@ def cmd_patch(args: argparse.Namespace) -> None:
     print(f"Overall recommendation: {patch.overall_recommendation}")
 
 
+def cmd_next_actions(args: argparse.Namespace) -> None:
+    _ensure_dirs()
+    gsc_cache = _load_gsc_cache()
+    catalog = _load_cache()
+    worklog = load_worklog()
+    report = build_next_actions_report(
+        gsc_cache,
+        catalog,
+        worklog,
+        min_impressions=args.min_impressions,
+        max_clicks=0,
+        max_position=args.max_position,
+        exclude_done=args.exclude_done,
+        include_monitor_only=args.include_monitor_only,
+    )
+    md_path, csv_path = write_next_actions_reports(report)
+    print(f"Markdown report: {md_path}")
+    print(f"CSV report: {csv_path}")
+    print(f"Unresolved page clusters: {len(report.unresolved_clusters)}")
+    print(f"Handled/monitor clusters: {len(report.handled_clusters)}")
+    print(f"No-target queries: {len(report.no_target_queries)}")
+    if report.unresolved_clusters:
+        top = report.unresolved_clusters[0]
+        print(f"Top priority: {top.target_url} ({top.strongest_query})")
+
+
 def cmd_opportunities(args: argparse.Namespace) -> None:
     _ensure_dirs()
     gsc_cache = _load_gsc_cache()
@@ -232,7 +261,7 @@ def cmd_suggest(args: argparse.Namespace) -> None:
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(
         prog="linkops",
-        description="WorkToolsLab LinkOps — read-only internal linking assistant (v1.5.2)",
+        description="WorkToolsLab LinkOps — read-only internal linking assistant (v1.6.1)",
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -267,6 +296,24 @@ def main(argv: list[str] | None = None) -> None:
         help="Path to GSC query+page export CSV (optional)",
     )
     p_gsc.set_defaults(func=cmd_gsc_import)
+
+    p_next = sub.add_parser(
+        "next-actions",
+        help="Grouped GSC next-action report by target page (with optional worklog)",
+    )
+    p_next.add_argument(
+        "--exclude-done",
+        action="store_true",
+        help="Exclude worklog 'done' pages from unresolved recommendations",
+    )
+    p_next.add_argument(
+        "--include-monitor-only",
+        action="store_true",
+        help="Include worklog 'monitor_only' pages in unresolved top recommendations",
+    )
+    p_next.add_argument("--min-impressions", type=int, default=20)
+    p_next.add_argument("--max-position", type=float, default=90.0)
+    p_next.set_defaults(func=cmd_next_actions)
 
     p_opp = sub.add_parser("opportunities", help="Analyze GSC cache vs WordPress content")
     p_opp.add_argument("--min-impressions", type=int, default=20)

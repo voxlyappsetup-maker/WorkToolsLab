@@ -2,7 +2,7 @@
 
 **Read-only internal linking assistant for [WorkToolsLab.com](https://worktoolslab.com).**
 
-LinkOps v1.5.2 fetches published WordPress posts and pages, analyzes existing internal links, generates human-reviewable internal link suggestions, scores **local Google Search Console CSV exports** for SEO opportunities, produces **read-only content optimization reports**, and generates **paste-ready SEO patches** for manual WordPress edits. **It never modifies WordPress content** — no publish, update, delete, or draft operations.
+LinkOps v1.6.1 fetches published WordPress posts and pages, analyzes existing internal links, generates human-reviewable internal link suggestions, scores **local Google Search Console CSV exports** for SEO opportunities, produces **read-only content optimization reports**, and generates **paste-ready SEO patches** for manual WordPress edits. **It never modifies WordPress content** — no publish, update, delete, or draft operations.
 
 ## Safety (v1)
 
@@ -195,7 +195,24 @@ python -m linkops.cli optimize `
   --target-keyword "Webex review for small businesses"
 ```
 
-### 7. Paste-ready SEO patch (v1.5)
+### 7. Next-actions decision report (v1.6)
+
+Groups GSC opportunities by target URL so you can see what to work on next (without repeating the same page for every query). Optional `config/worklog.json` marks pages as done, monitor-only, skip, etc.
+
+```powershell
+python -m linkops.cli next-actions
+python -m linkops.cli next-actions --exclude-done --min-impressions 20 --max-position 90
+python -m linkops.cli next-actions --include-monitor-only
+```
+
+Copy `config/worklog.example.json` to `config/worklog.json` to track handled pages. If the worklog file is missing, the command still runs safely.
+
+Writes:
+
+- `reports/next_actions_<timestamp>.md`
+- `reports/next_actions_<timestamp>.csv`
+
+### 8. Paste-ready SEO patch (v1.5)
 
 Requires `data/worktoolslab_content_cache.json` from `fetch`. Reuses the v1.4 optimize engine and outputs copyable WordPress edits (no HTML rewrites, no WordPress writes).
 
@@ -225,11 +242,12 @@ Patch types include `monitor_only`, `faq_patch`, `title_meta_patch`, `intro_patc
 1. Run `fetch` after publishing new content (or on a schedule).
 2. Export GSC CSVs periodically; run `gsc-import` then `opportunities` to prioritize queries.
 3. Run `optimize` on high-impression targets to audit on-page coverage before editing.
-4. Run `patch` when you want paste-ready title/meta/intro/heading/FAQ snippets for manual WordPress edits.
-5. Run `suggest` with the new article URL and optional keyword.
-6. Review the Markdown report — suggested sentences use Markdown link syntax for copy/edit.
-7. **Manually** add approved links and copy changes in WordPress.
-8. Use the report’s “Request Indexing” list in Google Search Console after updates.
+4. Run `next-actions` after `gsc-import` to see grouped priorities and no-target deep-dives.
+5. Run `patch` when you want paste-ready title/meta/intro/heading/FAQ snippets for manual WordPress edits.
+6. Run `suggest` with the new article URL and optional keyword.
+7. Review the Markdown report — suggested sentences use Markdown link syntax for copy/edit.
+8. **Manually** add approved links and copy changes in WordPress.
+9. Use the report’s “Request Indexing” list in Google Search Console after updates.
 
 **No WordPress update is performed by LinkOps in v1.**
 
@@ -363,11 +381,18 @@ v1.5.1 ensures paste-ready reports no longer place placeholder answers inside co
 
 v1.5.2 improves informational and mixed project/task queries: natural headings, intros, and FAQ (no forced “Best [abstract keyword]” templates), blocks generic filler answers and guillemets in paste-ready sections, and suggests related internal links when a matching article exists in cache.
 
+v1.6 adds `next-actions`: GSC opportunities grouped by target page, optional `config/worklog.json` for done/monitor-only pages, no-target query deep-dives, and decision-focused Markdown/CSV reports.
+
+v1.6.1 fixes worklog URL matching: worklog keys and next-actions target URLs are normalized with `normalize_internal_url` so trailing slashes and http/https variants match correctly.
+
 ## Project layout
 
 ```
 linkops/           Core package
-  cli.py           fetch | analyze | suggest | gsc-import | opportunities | optimize | patch
+  cli.py           fetch | analyze | suggest | gsc-import | opportunities | next-actions | optimize | patch
+  worklog.py       Optional local worklog (config/worklog.json)
+  next_actions_engine.py  Grouped next-action decision report
+  next_actions_report_writer.py  Next-actions Markdown/CSV
   wordpress_client.py   Read-only REST client
   suggestion_engine.py  Deterministic topical scoring
   gsc_parser.py         Local GSC CSV import
