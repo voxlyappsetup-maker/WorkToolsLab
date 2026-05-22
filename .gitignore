@@ -80,3 +80,6 @@ exports/*Performance-on-Search*/
 # Keep only sample CSVs trackable
 !exports/*sample*.csv
 !exports/*_sample.csv
+
+# Local LinkOps worklog state
+config/worklog.json
