@@ -115,6 +115,37 @@ _QUESTION_STARTER_RE = re.compile(
 
 _INTRO_NO_SENTENCE = "No intro sentence needed."
 
+# Longest phrases first when matching inside text.
+BRAND_CAPITALIZATION: dict[str, str] = {
+    "cisco webex": "Cisco Webex",
+    "microsoft teams": "Microsoft Teams",
+    "google workspace": "Google Workspace",
+    "google meet": "Google Meet",
+    "monday.com": "Monday.com",
+    "clickup": "ClickUp",
+    "trello": "Trello",
+    "asana": "Asana",
+    "monday": "Monday.com",
+    "notion": "Notion",
+    "slack": "Slack",
+    "zoom": "Zoom",
+    "webex": "Webex",
+    "todoist": "Todoist",
+    "basecamp": "Basecamp",
+    "smartsheet": "Smartsheet",
+    "airtable": "Airtable",
+    "jira": "Jira",
+    "linear": "Linear",
+    "hubspot": "HubSpot",
+    "salesforce": "Salesforce",
+}
+
+_COMPARISON_SPLIT_RE = re.compile(r"\s+vs\.?\s+|\s+versus\s+", re.IGNORECASE)
+_COMPARISON_SIGNAL_RE = re.compile(
+    r"\bvs\.?\b|\bversus\b|\bcompare\b|\bcomparison\b",
+    re.IGNORECASE,
+)
+
 _TOPIC_FAQ_TEMPLATES: dict[str, list[str]] = {
     "collaboration": [
         "What are the best collaboration tools for small teams?",
@@ -185,12 +216,70 @@ def strip_leading_best(keyword: str) -> str:
     return k
 
 
-def smart_best_title(keyword: str) -> str:
-    """Title-case a keyword without duplicating 'Best'."""
+def capitalize_brand(term: str) -> str:
+    """Return editorial brand capitalization for a single tool name or phrase."""
+    raw = term.strip().rstrip(".")
+    lower = raw.lower()
+    if lower in BRAND_CAPITALIZATION:
+        return BRAND_CAPITALIZATION[lower]
+    for phrase, branded in sorted(BRAND_CAPITALIZATION.items(), key=lambda x: -len(x[0])):
+        if " " in phrase and phrase in lower:
+            return lower.replace(phrase, branded)
+    if "." in raw:
+        return raw.title()
+    return smart_title_case(raw)
+
+
+def apply_brand_capitalization(text: str) -> str:
+    """Apply known brand casing to a phrase (longest multi-word matches first)."""
+    result = text
+    for phrase, branded in sorted(BRAND_CAPITALIZATION.items(), key=lambda x: -len(x[0])):
+        result = re.sub(re.escape(phrase), branded, result, flags=re.IGNORECASE)
+    return result
+
+
+def is_comparison_query(keyword: str, query_intent: str) -> bool:
+    """True when the query is a tool-vs-tool or explicit comparison search."""
+    if query_intent == INTENT_COMPARISON:
+        return True
+    return bool(_COMPARISON_SIGNAL_RE.search(keyword))
+
+
+def parse_comparison_parts(keyword: str) -> tuple[str, str] | None:
+    """Split 'clickup vs trello' into left/right tool name strings."""
+    parts = _COMPARISON_SPLIT_RE.split(keyword.strip(), maxsplit=1)
+    if len(parts) == 2 and parts[0].strip() and parts[1].strip():
+        return parts[0].strip(), parts[1].strip()
+    return None
+
+
+def format_comparison_phrase(keyword: str) -> str:
+    """Editorial 'ClickUp vs Trello' style phrase with correct brand casing."""
+    parts = parse_comparison_parts(keyword)
+    if parts:
+        left, right = parts
+        return f"{capitalize_brand(left)} vs {capitalize_brand(right)}"
+    return apply_brand_capitalization(smart_title_case(strip_leading_best(keyword)))
+
+
+def comparison_seo_titles(keyword: str) -> list[str]:
+    """Natural SEO title options for comparison queries (never prefixed with Best)."""
+    phrase = format_comparison_phrase(keyword)
+    return [
+        f"{phrase} for Small Teams",
+        f"{phrase}: Which Is Better for Small Teams?",
+        f"{phrase} Comparison for Small Teams",
+    ]
+
+
+def smart_best_title(keyword: str, query_intent: str = "") -> str:
+    """Title-case a keyword without duplicating 'Best'; skip Best for comparisons."""
     k = keyword.strip()
+    if is_comparison_query(k, query_intent):
+        return format_comparison_phrase(k)
     if k.lower().startswith("best "):
-        return smart_title_case(k)
-    return smart_title_case(f"Best {strip_leading_best(k)}")
+        return smart_title_case(apply_brand_capitalization(k))
+    return smart_title_case(f"Best {apply_brand_capitalization(strip_leading_best(k))}")
 
 
 def keyword_to_natural_question_phrase(keyword: str) -> str:
@@ -452,14 +541,15 @@ def _generate_intro_sentence(
     kw = keyword.strip().rstrip(".")
     if query_intent == INTENT_REVIEW or page_type == PAGE_REVIEW:
         brand = _keyword_tokens(kw)
-        product = brand[0].title() if brand else "this tool"
+        product = capitalize_brand(brand[0]) if brand else "this tool"
         return (
             f"This {product} review for small businesses covers pricing, meeting quality, "
             f"ease of use, and whether it is worth it for day-to-day team communication."
         )
-    if query_intent == INTENT_COMPARISON or page_type == PAGE_COMPARISON:
+    if is_comparison_query(kw, query_intent) or page_type == PAGE_COMPARISON:
+        phrase = format_comparison_phrase(kw)
         return (
-            f"Choosing between these tools for a small team comes down to workflow complexity, "
+            f"Choosing between {phrase} for a small team comes down to workflow complexity, "
             f"pricing, and how clearly each platform handles tasks, deadlines, and collaboration."
         )
     if query_intent == INTENT_HOW_TO:
@@ -478,10 +568,17 @@ def _generate_heading_suggestions(
     existing: list[str],
     max_suggestions: int,
 ) -> list[str]:
-    title_line = smart_best_title(keyword)
-    core = smart_title_case(strip_leading_best(keyword))
+    title_line = smart_best_title(keyword, query_intent)
+    core = smart_title_case(apply_brand_capitalization(strip_leading_best(keyword)))
     candidates: list[str] = []
-    if query_intent == INTENT_BROAD_BEST:
+    if is_comparison_query(keyword, query_intent):
+        phrase = format_comparison_phrase(keyword)
+        candidates = [
+            f"{phrase}: Quick Verdict",
+            f"{phrase}: Main Differences",
+            f"{phrase} for Small Teams",
+        ]
+    elif query_intent == INTENT_BROAD_BEST:
         if topic == "collaboration":
             candidates = [
                 title_line,
@@ -512,19 +609,12 @@ def _generate_heading_suggestions(
             ]
     elif query_intent == INTENT_REVIEW:
         brand = _keyword_tokens(keyword)
-        product = brand[0].title() if brand else smart_best_title(keyword).split()[0]
+        product = capitalize_brand(brand[0]) if brand else smart_best_title(keyword, query_intent).split()[0]
         candidates = [
             smart_title_case(f"Is {product} Good for Small Businesses?"),
             smart_title_case(f"{product} Pricing and Plans for Small Teams"),
             smart_title_case(f"Pros and Cons of {product} for Small Business Use"),
             smart_title_case(f"Who Should Use {product}?"),
-        ]
-    elif query_intent == INTENT_COMPARISON:
-        candidates = [
-            f"{title_line}: Quick Comparison",
-            "Which Tool Is Better for Small Teams?",
-            "Key Differences at a Glance",
-            "Pricing and Ease of Use Comparison",
         ]
     elif query_intent == INTENT_HOW_TO:
         candidates = [
@@ -557,9 +647,29 @@ def _generate_faq_suggestions(
     max_suggestions: int,
 ) -> list[str]:
     kw = keyword.strip().rstrip("?")
-    if query_intent == INTENT_REVIEW:
+    if is_comparison_query(kw, query_intent):
+        parts = parse_comparison_parts(kw)
+        if parts:
+            left = capitalize_brand(parts[0])
+            right = capitalize_brand(parts[1])
+            candidates = [
+                f"Is {left} better than {right}?",
+                f"Is {right} easier to use than {left}?",
+                f"Which is better for small teams, {left} or {right}?",
+                f"What is the main difference between {left} and {right}?",
+                f"Should a small business use {left} or {right}?",
+            ]
+        else:
+            phrase = format_comparison_phrase(kw)
+            candidates = [
+                f"Which is better for small teams in {phrase}?",
+                f"What is the main difference in {phrase}?",
+                "Which option is easier for a small team to adopt?",
+                "Which tool has better pricing for small businesses?",
+            ]
+    elif query_intent == INTENT_REVIEW:
         brand = _keyword_tokens(kw)
-        product = brand[0].title() if brand else "this tool"
+        product = capitalize_brand(brand[0]) if brand else "this tool"
         candidates = [
             f"Is {product} good for small businesses?",
             f"Is {product} good for small business video meetings and calling?",
@@ -567,19 +677,12 @@ def _generate_faq_suggestions(
             f"What is the best alternative to {product} for small businesses?",
             f"How much does {product} cost for a small team?",
         ]
-    elif query_intent == INTENT_COMPARISON:
-        candidates = [
-            "Which is better for small teams in this comparison?",
-            "What is the main difference between these tools?",
-            "Which option is easier for a small team to adopt?",
-            "Which tool has better pricing for small businesses?",
-        ]
     elif query_intent == INTENT_BROAD_BEST:
         candidates = list(_TOPIC_FAQ_TEMPLATES.get(topic, _TOPIC_FAQ_TEMPLATES["project_management"]))
     else:
         candidates = [
             f"{keyword_to_natural_question_phrase(kw)}?",
-            f"Who is {smart_best_title(kw)} best for?",
+            f"Who is {smart_best_title(kw, query_intent)} best for?",
             "What should I consider before choosing?",
         ]
 
@@ -611,22 +714,23 @@ def _build_title_meta(
 ) -> TitleMetaSuggestions:
     if query_intent == INTENT_REVIEW:
         brand = _keyword_tokens(keyword)
-        product = brand[0].title() if brand else smart_best_title(keyword)
+        product = capitalize_brand(brand[0]) if brand else smart_best_title(keyword, query_intent)
         seo_title = smart_title_case(f"{product} Review for Small Businesses: Is It Worth It?")
         meta = (
             f"Read our {product} review for small businesses: pricing, pros and cons, "
             f"and whether it fits your team's meetings and communication needs."
         )[:158]
         focus = f"{product.lower()} review small business"
-    elif query_intent == INTENT_COMPARISON:
-        seo_title = smart_title_case(f"{smart_best_title(keyword)} (Compared)")
+    elif is_comparison_query(keyword, query_intent):
+        phrase = format_comparison_phrase(keyword)
+        seo_title = comparison_seo_titles(keyword)[0]
         meta = (
-            f"Compare features, pricing, and fit for small teams. "
-            f"See which option is easier to adopt and better for day-to-day work."
+            f"Compare {phrase} for small teams, including ease of use, features, "
+            f"workflows, project management, and which tool fits best."
         )[:158]
-        focus = strip_leading_best(keyword).lower()
+        focus = keyword.lower().strip()
     else:
-        seo_title = smart_title_case(f"{smart_best_title(keyword)}: Practical Guide")
+        seo_title = smart_title_case(f"{smart_best_title(keyword, query_intent)}: Practical Guide")
         topic_hint = topic.replace("_", " ")
         meta = (
             f"Find the best {topic_hint} options for small teams: features, pricing, and "
