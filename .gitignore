@@ -83,3 +83,6 @@ exports/*Performance-on-Search*/
 
 # Local LinkOps worklog state
 config/worklog.json
+
+# Local archived GSC exports
+exports/archive_*/
