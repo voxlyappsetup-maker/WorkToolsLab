@@ -2,7 +2,7 @@
 
 **Read-only internal linking assistant for [WorkToolsLab.com](https://worktoolslab.com).**
 
-LinkOps v1.6.2 fetches published WordPress posts and pages, analyzes existing internal links, generates human-reviewable internal link suggestions, scores **local Google Search Console CSV exports** for SEO opportunities, produces **read-only content optimization reports**, and generates **paste-ready SEO patches** for manual WordPress edits. **It never modifies WordPress content** — no publish, update, delete, or draft operations.
+LinkOps v1.7.0 fetches published WordPress posts and pages, analyzes existing internal links, generates human-reviewable internal link suggestions, scores **local Google Search Console CSV exports** for SEO opportunities, produces **read-only content optimization reports**, and generates **paste-ready SEO patches** for manual WordPress edits. **It never modifies WordPress content** — no publish, update, delete, or draft operations.
 
 ## Safety (v1)
 
@@ -212,7 +212,22 @@ Writes:
 - `reports/next_actions_<timestamp>.md`
 - `reports/next_actions_<timestamp>.csv`
 
-### 8. Paste-ready SEO patch (v1.5)
+### 8. New-article roadmap (v1.7)
+
+Builds a prioritized list of **new articles to write** from GSC queries: no-target gaps, misaligned targets, branded comparisons not on site, review/roundup/guide gaps, and vague queries flagged for manual review. Read-only — does not modify WordPress.
+
+```powershell
+python -m linkops.cli roadmap --min-impressions 10 --max-position 90 --max-candidates 20
+python -m linkops.cli roadmap --min-impressions 20 --max-position 90 --max-candidates 10 --include-manual-review
+python -m linkops.cli roadmap --include-low-priority --no-exclude-existing-covered
+```
+
+Writes:
+
+- `reports/new_article_roadmap_<timestamp>.md`
+- `reports/new_article_roadmap_<timestamp>.csv`
+
+### 9. Paste-ready SEO patch (v1.5)
 
 Requires `data/worktoolslab_content_cache.json` from `fetch`. Reuses the v1.4 optimize engine and outputs copyable WordPress edits (no HTML rewrites, no WordPress writes).
 
@@ -387,11 +402,15 @@ v1.6.1 fixes worklog URL matching: worklog keys and next-actions target URLs are
 
 v1.6.2 adds paste-ready patch relevance guardrails: concept vs software comparisons, review-specific templates (no video-meeting FAQ on Trello reviews), productivity vs project-management wording, and manual-review routing for misaligned branded queries such as Teamwork vs Asana on the wrong comparison URL.
 
+v1.7.0 adds `roadmap`: a new-article opportunities report from GSC queries (no-target, misaligned, branded comparison gaps, review/roundup/guide gaps) with priority scoring, content calendar, internal link plan, and Markdown/CSV output under `reports/new_article_roadmap_<timestamp>.*`.
+
 ## Project layout
 
 ```
 linkops/           Core package
-  cli.py           fetch | analyze | suggest | gsc-import | opportunities | next-actions | optimize | patch
+  cli.py           fetch | analyze | suggest | gsc-import | opportunities | next-actions | roadmap | optimize | patch
+  article_roadmap_engine.py  New-article roadmap from GSC gaps
+  article_roadmap_report_writer.py  Roadmap Markdown/CSV
   worklog.py       Optional local worklog (config/worklog.json)
   next_actions_engine.py  Grouped next-action decision report
   next_actions_report_writer.py  Next-actions Markdown/CSV

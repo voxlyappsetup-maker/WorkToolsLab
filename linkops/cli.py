@@ -18,6 +18,8 @@ from linkops.content_optimization_report_writer import write_content_optimizatio
 from linkops.content_optimizer import analyze_content_optimization
 from linkops.seo_patch_generator import generate_seo_patch
 from linkops.seo_patch_report_writer import write_seo_patch_reports
+from linkops.article_roadmap_engine import build_article_roadmap_report
+from linkops.article_roadmap_report_writer import write_article_roadmap_reports
 from linkops.next_actions_engine import build_next_actions_report
 from linkops.next_actions_report_writer import write_next_actions_reports
 from linkops.worklog import load_worklog
@@ -183,6 +185,38 @@ def cmd_patch(args: argparse.Namespace) -> None:
     print(f"Overall recommendation: {patch.overall_recommendation}")
 
 
+def cmd_roadmap(args: argparse.Namespace) -> None:
+    _ensure_dirs()
+    gsc_cache = _load_gsc_cache()
+    catalog = _load_cache()
+    worklog = load_worklog() if args.worklog_aware else None
+    report = build_article_roadmap_report(
+        gsc_cache,
+        catalog,
+        worklog,
+        min_impressions=args.min_impressions,
+        max_position=args.max_position,
+        max_candidates=args.max_candidates,
+        include_low_priority=args.include_low_priority,
+        include_manual_review=args.include_manual_review,
+        exclude_existing_covered=args.exclude_existing_covered,
+        worklog_aware=args.worklog_aware,
+    )
+    md_path, csv_path = write_article_roadmap_reports(report)
+    print(f"Markdown report: {md_path}")
+    print(f"CSV report: {csv_path}")
+    print(
+        f"Candidates: {len(report.all_candidates)} "
+        f"(high {len(report.high_priority)}, medium {len(report.medium_priority)}, "
+        f"low {len(report.low_priority)}, manual {len(report.manual_review)})"
+    )
+    print(f"Excluded queries: {len(report.excluded_queries)}")
+    if report.top_candidates:
+        print("Top 5 article ideas:")
+        for i, c in enumerate(report.top_candidates, 1):
+            print(f"  {i}. {c.suggested_title} [{c.priority}] — {c.primary_keyword}")
+
+
 def cmd_next_actions(args: argparse.Namespace) -> None:
     _ensure_dirs()
     gsc_cache = _load_gsc_cache()
@@ -261,7 +295,7 @@ def cmd_suggest(args: argparse.Namespace) -> None:
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(
         prog="linkops",
-        description="WorkToolsLab LinkOps — read-only internal linking assistant (v1.6.2)",
+        description="WorkToolsLab LinkOps — read-only internal linking assistant (v1.7.0)",
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -296,6 +330,56 @@ def main(argv: list[str] | None = None) -> None:
         help="Path to GSC query+page export CSV (optional)",
     )
     p_gsc.set_defaults(func=cmd_gsc_import)
+
+    p_roadmap = sub.add_parser(
+        "roadmap",
+        help="New-article opportunities roadmap from GSC queries and content gaps",
+    )
+    p_roadmap.add_argument("--min-impressions", type=int, default=10)
+    p_roadmap.add_argument("--max-position", type=float, default=90.0)
+    p_roadmap.add_argument("--max-candidates", type=int, default=20)
+    p_roadmap.add_argument(
+        "--include-low-priority",
+        action="store_true",
+        help="Include low-priority / monitor candidates in the report",
+    )
+    p_roadmap.add_argument(
+        "--include-manual-review",
+        action="store_true",
+        default=True,
+        help="Include manual-review candidates (default: on)",
+    )
+    p_roadmap.add_argument(
+        "--no-include-manual-review",
+        action="store_false",
+        dest="include_manual_review",
+        help="Omit manual-review section",
+    )
+    p_roadmap.add_argument(
+        "--exclude-existing-covered",
+        action="store_true",
+        default=True,
+        help="Exclude queries already covered by a strong existing page (default: on)",
+    )
+    p_roadmap.add_argument(
+        "--no-exclude-existing-covered",
+        action="store_false",
+        dest="exclude_existing_covered",
+        help="Keep queries even when an existing page appears to cover them",
+    )
+    p_roadmap.add_argument(
+        "--worklog-aware",
+        action="store_true",
+        default=True,
+        help="Load optional worklog for context (default: on)",
+    )
+    p_roadmap.add_argument(
+        "--no-worklog-aware",
+        action="store_false",
+        dest="worklog_aware",
+        help="Do not load worklog.json",
+    )
+    p_roadmap.set_defaults(func=cmd_roadmap)
 
     p_next = sub.add_parser(
         "next-actions",

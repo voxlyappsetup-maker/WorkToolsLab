@@ -1,3 +1,3 @@
-"""WorkToolsLab LinkOps — read-only internal linking assistant (v1.6.1)."""
+"""WorkToolsLab LinkOps — read-only internal linking assistant."""
 
-__version__ = "1.6.2"
+__version__ = "1.7.0"
