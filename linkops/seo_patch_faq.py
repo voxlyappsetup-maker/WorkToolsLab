@@ -9,12 +9,16 @@ from linkops.content_optimizer import (
     apply_brand_capitalization,
     capitalize_brand,
     extract_comparison_entities,
-    is_comparison_query,
 )
 from linkops.gsc_intent import INTENT_REVIEW
 from linkops.informational_topics import (
     is_mixed_project_task_topic,
     mixed_project_task_faq_answer,
+)
+from linkops.patch_relevance_guardrails import (
+    concept_comparison_faq_answer,
+    is_concept_comparison,
+    is_software_comparison,
 )
 
 # Must never appear under "## Paste-Ready Changes" in Markdown output.
@@ -193,28 +197,61 @@ def generate_safe_faq_answer(
     product = _product_from_question(q, report)
 
     if report.query_intent == INTENT_REVIEW:
+        url_l = report.target_url.lower()
         if "best alternative" in ql:
-            return _review_alternative_answer(product)
+            if (
+                "video-meeting" in url_l
+                or "webex" in url_l
+                or "webex" in ql
+                or "zoom" in ql
+                or "google meet" in ql
+                or "microsoft teams" in ql
+            ):
+                return _review_alternative_answer(product)
+        if "trello" in ql or "trello" in url_l:
+            if "freelancer" in ql or "client" in ql:
+                if "alternative" in ql:
+                    return (
+                        "Freelancers often compare Trello with ClickUp, Notion, or Asana when they "
+                        "need stronger task structure or client project views without heavy setup."
+                    )
+                if "worth it" in ql:
+                    return (
+                        "Trello is often worth it for freelancers who want a simple Kanban board "
+                        "for client work, as long as deadlines and ownership stay visible on cards."
+                    )
+                if "good for freelancers" in ql or "good for tracking client" in ql:
+                    return (
+                        "Trello can work well for freelancers who need a visual board for client "
+                        "projects, task lists, and lightweight workflow tracking."
+                    )
+            if "best alternative" in ql:
+                return _review_alternative_answer(product)
         if "worth it" in ql:
             return (
-                f"Whether {product} is worth it depends on how often the team uses video meetings, "
-                f"whether calling features matter, and how it compares with tools the business "
-                f"already pays for. Compare core features and admin effort—not list price alone."
+                f"Whether {product} is worth it depends on how the team works day to day, "
+                f"setup effort, and overlap with tools the business already uses."
             )
         if "video meeting" in ql or "calling" in ql:
-            return (
-                f"{product} can suit small businesses that rely on video meetings and calling, "
-                f"especially teams that want one platform for meetings and business phone features. "
-                f"Confirm licensing, admin setup, and integrations match how the team already works."
-            )
+            if "video-meeting" in report.target_url.lower() or "webex" in product.lower():
+                return (
+                    f"{product} can suit small businesses that rely on video meetings and calling, "
+                    f"especially teams that want one platform for meetings and business phone features. "
+                    f"Confirm licensing, admin setup, and integrations match how the team already works."
+                )
+            return None
         if "good for small business" in ql:
             return (
-                f"{product} can work for small businesses when its meeting, calling, and admin "
-                f"capabilities match day-to-day needs. Compare it with familiar options such as "
-                f"Zoom, Google Meet, or Microsoft Teams before switching."
+                f"{product} can work for small businesses when its core features match daily "
+                f"workflow needs without adding unnecessary complexity."
             )
 
-    if is_comparison_query(report.target_keyword, report.query_intent):
+    if is_concept_comparison(report.target_keyword):
+        ans = concept_comparison_faq_answer(q)
+        if ans:
+            return ans
+
+    if is_software_comparison(report.target_keyword, report.query_intent):
         ans = _comparison_answer(q, report.target_keyword, report.query_intent)
         if ans:
             return ans

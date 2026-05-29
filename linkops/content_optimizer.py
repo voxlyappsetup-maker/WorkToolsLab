@@ -47,6 +47,19 @@ from linkops.informational_topics import (
     is_unnatural_best_category,
     should_skip_best_faq_templates,
 )
+from linkops.patch_relevance_guardrails import (
+    classify_patch_context,
+    concept_comparison_faq_candidates,
+    concept_comparison_heading_candidates,
+    filter_patch_faqs,
+    filter_patch_headings,
+    filter_patch_intro,
+    guarded_faq_candidates,
+    guarded_heading_candidates,
+    guarded_intro_sentence,
+    is_concept_comparison,
+    is_software_comparison,
+)
 from linkops.gsc_intent import (
     INTENT_BROAD_BEST,
     INTENT_COMPARISON,
@@ -323,7 +336,7 @@ def classify_faq_coverage(
     faq_items: list[str],
 ) -> tuple[str, str]:
     """Classify FAQ coverage; comparison queries use entity-aware pattern scoring."""
-    if is_comparison_query(keyword, query_intent):
+    if is_software_comparison(keyword, query_intent):
         entities = extract_comparison_entities(keyword)
         if entities:
             left, right = entities
@@ -390,6 +403,12 @@ def detect_content_topic(keyword: str, item: ContentItem) -> str:
     kw = keyword.lower()
     blob = f"{kw} {slug_title}"
 
+    if "video-meeting" in item.slug or "video meeting" in blob:
+        return "video_meeting"
+    if "freelancer" in blob or "freelance" in item.slug:
+        return "freelancer"
+    if "productivity" in blob and "project-management" not in item.slug:
+        return "productivity"
     if "collaboration" in blob:
         return "collaboration"
     if "communication" in blob:
@@ -631,16 +650,26 @@ def _generate_intro_sentence(
     query_intent: str,
     page_type: str,
     topic: str,
+    item: ContentItem | None = None,
 ) -> str:
     kw = keyword.strip().rstrip(".")
+    ctx = classify_patch_context(
+        kw, query_intent=query_intent, page_type=page_type, topic=topic, item=item
+    )
+    guarded = guarded_intro_sentence(ctx)
+    if guarded:
+        return filter_patch_intro(guarded, ctx) or guarded
     if query_intent == INTENT_REVIEW or page_type == PAGE_REVIEW:
         brand = _keyword_tokens(kw)
         product = capitalize_brand(brand[0]) if brand else "this tool"
-        return (
-            f"This {product} review for small businesses covers pricing, meeting quality, "
-            f"ease of use, and whether it is worth it for day-to-day team communication."
+        sentence = (
+            f"This {product} review for small businesses covers pricing, features, "
+            f"ease of use, and whether it is worth it for day-to-day team work."
         )
-    if is_comparison_query(kw, query_intent) or page_type == PAGE_COMPARISON:
+        return filter_patch_intro(sentence, ctx) or sentence
+    if is_software_comparison(kw, query_intent) or (
+        page_type == PAGE_COMPARISON and not is_concept_comparison(kw)
+    ):
         phrase = format_comparison_phrase(kw)
         return (
             f"Choosing between {phrase} for a small team comes down to workflow complexity, "
@@ -654,7 +683,8 @@ def _generate_intro_sentence(
         )
     if is_mixed_project_task_topic(kw):
         return MIXED_PROJECT_TASK_INTRO
-    return _TOPIC_INTRO_SENTENCES.get(topic, _TOPIC_INTRO_SENTENCES["project_management"])
+    sentence = _TOPIC_INTRO_SENTENCES.get(topic, _TOPIC_INTRO_SENTENCES["project_management"])
+    return filter_patch_intro(sentence, ctx) or sentence
 
 
 def _generate_heading_suggestions(
@@ -663,11 +693,40 @@ def _generate_heading_suggestions(
     topic: str,
     existing: list[str],
     max_suggestions: int,
+    item: ContentItem | None = None,
+) -> list[str]:
+    ctx = classify_patch_context(
+        keyword, query_intent=query_intent, topic=topic, item=item
+    )
+    guarded_heads = guarded_heading_candidates(ctx)
+    if guarded_heads:
+        candidates = list(guarded_heads)
+    else:
+        candidates = _heading_candidates_raw(
+            keyword, query_intent, topic, item=item, ctx=ctx
+        )
+    existing_lower = {h.lower() for h in existing}
+    out: list[str] = []
+    for c in filter_patch_headings(candidates, ctx):
+        if c.lower() not in existing_lower:
+            out.append(c)
+        if len(out) >= max_suggestions:
+            break
+    return out
+
+
+def _heading_candidates_raw(
+    keyword: str,
+    query_intent: str,
+    topic: str,
+    *,
+    item: ContentItem | None,
+    ctx,
 ) -> list[str]:
     title_line = smart_best_title(keyword, query_intent)
     core = smart_title_case(apply_brand_capitalization(strip_leading_best(keyword)))
     candidates: list[str] = []
-    if is_comparison_query(keyword, query_intent):
+    if is_software_comparison(keyword, query_intent):
         phrase = format_comparison_phrase(keyword)
         candidates = [
             f"{phrase}: Quick Verdict",
@@ -718,6 +777,8 @@ def _generate_heading_suggestions(
             "Step-by-Step Setup for Small Teams",
             "Common Mistakes to Avoid",
         ]
+    elif is_concept_comparison(keyword):
+        candidates = concept_comparison_heading_candidates()
     elif is_mixed_project_task_topic(keyword):
         candidates = list(MIXED_PROJECT_TASK_HEADINGS)
     elif should_skip_best_faq_templates(keyword, query_intent):
@@ -732,15 +793,7 @@ def _generate_heading_suggestions(
             "What You Need to Know",
             "Practical Recommendations",
         ]
-
-    existing_lower = {h.lower() for h in existing}
-    out: list[str] = []
-    for c in candidates:
-        if c.lower() not in existing_lower:
-            out.append(c)
-        if len(out) >= max_suggestions:
-            break
-    return out
+    return candidates
 
 
 def _generate_faq_suggestions(
@@ -749,9 +802,21 @@ def _generate_faq_suggestions(
     topic: str,
     existing: list[str],
     max_suggestions: int,
+    item: ContentItem | None = None,
 ) -> list[str]:
     kw = keyword.strip().rstrip("?")
-    if is_comparison_query(kw, query_intent):
+    ctx = classify_patch_context(
+        kw, query_intent=query_intent, topic=topic, item=item
+    )
+    if ctx.force_manual_review:
+        return []
+
+    candidates: list[str] = []
+    if is_mixed_project_task_topic(kw):
+        candidates = list(MIXED_PROJECT_TASK_FAQ)
+    elif ctx.comparison_kind == "concept_comparison":
+        candidates = concept_comparison_faq_candidates()
+    elif is_software_comparison(kw, query_intent):
         entities = extract_comparison_entities(kw)
         if entities:
             left, right = entities
@@ -781,19 +846,25 @@ def _generate_faq_suggestions(
                 "Which tool has better pricing for small businesses?",
             ]
     elif query_intent == INTENT_REVIEW:
-        brand = _keyword_tokens(kw)
-        product = capitalize_brand(brand[0]) if brand else "this tool"
-        candidates = [
-            f"Is {product} good for small businesses?",
-            f"Is {product} good for small business video meetings and calling?",
-            f"Is {product} worth it for a small business?",
-            f"What is the best alternative to {product} for small businesses?",
-            f"How much does {product} cost for a small team?",
-        ]
+        extra = guarded_faq_candidates(ctx)
+        if extra:
+            candidates = extra
+        else:
+            brand = _keyword_tokens(kw)
+            product = capitalize_brand(brand[0]) if brand else "this tool"
+            candidates = [
+                f"Is {product} good for small businesses?",
+                f"Is {product} worth it for a small business?",
+                f"What is the best alternative to {product} for small businesses?",
+                f"How much does {product} cost for a small team?",
+            ]
     elif query_intent == INTENT_BROAD_BEST:
-        candidates = list(_TOPIC_FAQ_TEMPLATES.get(topic, _TOPIC_FAQ_TEMPLATES["project_management"]))
-    elif is_mixed_project_task_topic(kw):
-        candidates = list(MIXED_PROJECT_TASK_FAQ)
+        if ctx.topic == "productivity":
+            candidates = guarded_faq_candidates(ctx) or []
+        else:
+            candidates = list(
+                _TOPIC_FAQ_TEMPLATES.get(topic, _TOPIC_FAQ_TEMPLATES["project_management"])
+            )
     elif should_skip_best_faq_templates(kw, query_intent):
         candidates = []
     else:
@@ -805,7 +876,7 @@ def _generate_faq_suggestions(
 
     existing_blob = " ".join(existing).lower()
     out: list[str] = []
-    for c in candidates:
+    for c in filter_patch_faqs(candidates, ctx):
         if "best best" in c.lower():
             continue
         if c.lower() not in existing_blob:
@@ -1185,7 +1256,9 @@ def analyze_content_optimization(
 
     keyword = target_keyword.strip()
     gsc_lookup = (gsc_query or keyword).strip()
-    topic = detect_content_topic(keyword, item)
+    from linkops.patch_relevance_guardrails import detect_patch_topic
+
+    topic = detect_patch_topic(keyword, item)
     query_intent = detect_query_intent(keyword)
     page_type = detect_gsc_page_type(item)
     intent_alignment = compute_intent_alignment(query_intent, page_type)
@@ -1223,7 +1296,7 @@ def analyze_content_optimization(
     too_generic = _token_overlap_ratio(keyword, intro_150) < 0.35 and not exact_early
     needs_direct = not (exact_early and answers_intent and not too_generic)
     paste_sentence = (
-        _generate_intro_sentence(keyword, query_intent, page_type, topic)
+        _generate_intro_sentence(keyword, query_intent, page_type, topic, item)
         if needs_direct
         else _INTRO_NO_SENTENCE
     )
@@ -1253,13 +1326,13 @@ def analyze_content_optimization(
             "Consider one H2 with a close variant of the target keyword (exact phrase not yet in H2/H3)."
         )
         heading_suggestions = _generate_heading_suggestions(
-            keyword, query_intent, topic, all_headings, 1
+            keyword, query_intent, topic, all_headings, 1, item
         )[:1]
         keyword_h2_rec = False
     elif heading_status in (COVERAGE_MISSING, COVERAGE_WEAK):
         missing_ops.append("Add one H2 that includes the target keyword or a close variant.")
         heading_suggestions = _generate_heading_suggestions(
-            keyword, query_intent, topic, all_headings, 1
+            keyword, query_intent, topic, all_headings, 1, item
         )[:1]
         keyword_h2_rec = True
     else:
@@ -1276,7 +1349,7 @@ def analyze_content_optimization(
     )
 
     faq_suggestions = _generate_faq_suggestions(
-        keyword, query_intent, topic, faq_existing, max_faq_suggestions
+        keyword, query_intent, topic, faq_existing, max_faq_suggestions, item
     )
     faq_note = ""
     if faq_status == COVERAGE_STRONG:

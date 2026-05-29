@@ -33,6 +33,17 @@ from linkops.informational_topics import (
     is_mixed_project_task_topic,
     related_task_vs_project_link_note,
 )
+from linkops.patch_relevance_guardrails import (
+    classify_patch_context,
+    concept_comparison_faq_candidates,
+    concept_comparison_heading_candidates,
+    concept_comparison_intro,
+    filter_patch_faqs,
+    filter_patch_headings,
+    filter_patch_intro,
+    guarded_intro_sentence,
+    is_concept_comparison,
+)
 from linkops.seo_patch_faq import (
     answer_is_paste_safe,
     generate_safe_faq_answer,
@@ -239,11 +250,19 @@ def _meta_section(
 def _intro_section(
     report: ContentOptimizationReport,
     patch_type: str,
+    ctx,
     *,
     include_intro: bool,
 ) -> str:
     if patch_type == PATCH_MONITOR:
         return _NO_INTRO
+    if ctx.force_manual_review:
+        return _NO_INTRO
+    guarded = guarded_intro_sentence(ctx)
+    if guarded and report.intro.needs_direct_sentence:
+        return filter_patch_intro(guarded, ctx) or guarded
+    if is_concept_comparison(report.target_keyword) and report.intro.needs_direct_sentence:
+        return concept_comparison_intro()
     if is_mixed_project_task_topic(report.target_keyword) and report.intro.needs_direct_sentence:
         return MIXED_PROJECT_TASK_INTRO
     if report.intro.needs_direct_sentence or (
@@ -259,13 +278,24 @@ def _intro_section(
 def _heading_section(
     report: ContentOptimizationReport,
     patch_type: str,
+    ctx,
     *,
     include_headings: bool,
 ) -> str:
     if patch_type == PATCH_MONITOR:
         return _NO_HEADING
     suggestions = list(report.headings.suggestions)
-    if is_mixed_project_task_topic(report.target_keyword) and patch_type != PATCH_MONITOR:
+    if is_concept_comparison(report.target_keyword) and patch_type != PATCH_MONITOR:
+        existing_lower = {
+            h.lower()
+            for h in report.headings.h2 + report.headings.h3 + report.headings.h1
+        }
+        suggestions = [
+            h for h in concept_comparison_heading_candidates() if h.lower() not in existing_lower
+        ]
+        if not suggestions:
+            suggestions = [concept_comparison_heading_candidates()[0]]
+    elif is_mixed_project_task_topic(report.target_keyword) and patch_type != PATCH_MONITOR:
         existing_lower = {
             h.lower()
             for h in report.headings.h2 + report.headings.h3 + report.headings.h1
@@ -273,6 +303,7 @@ def _heading_section(
         suggestions = [h for h in MIXED_PROJECT_TASK_HEADINGS if h.lower() not in existing_lower]
         if not suggestions:
             suggestions = [MIXED_PROJECT_TASK_HEADINGS[0]]
+    suggestions = filter_patch_headings(suggestions, ctx)
     if not suggestions and not include_headings:
         return _NO_HEADING
     if not suggestions and include_headings:
@@ -288,21 +319,38 @@ def _heading_section(
 def _faq_section(
     report: ContentOptimizationReport,
     patch_type: str,
+    ctx=None,
     *,
     include_faq: bool,
     topic: str,
 ) -> tuple[str, list[str], list[str]]:
+    if ctx is None:
+        from linkops.patch_relevance_guardrails import classify_patch_context
+
+        ctx = classify_patch_context(
+            report.target_keyword,
+            query_intent=report.query_intent,
+            page_type=report.page_type,
+            topic=topic,
+        )
     if report.faq.coverage_note == "strong comparison coverage detected":
         return _NO_FAQ, [], []
     if not _faq_needs_patch(report) and not include_faq:
         return _NO_FAQ, [], []
     if patch_type == PATCH_MONITOR:
         return _NO_FAQ, [], []
-    if is_mixed_project_task_topic(report.target_keyword):
+    if ctx.force_manual_review:
+        return _NO_PASTE_FAQ, [], []
+    if is_concept_comparison(report.target_keyword):
+        existing_blob = " ".join(report.faq.existing_faq_items).lower()
+        questions = [
+            q for q in concept_comparison_faq_candidates() if q.lower() not in existing_blob
+        ]
+    elif is_mixed_project_task_topic(report.target_keyword):
         existing_blob = " ".join(report.faq.existing_faq_items).lower()
         questions = [q for q in MIXED_PROJECT_TASK_FAQ if q.lower() not in existing_blob]
     else:
-        questions = list(report.faq.suggestions)
+        questions = filter_patch_faqs(list(report.faq.suggestions), ctx)
     if not questions:
         return _NO_FAQ, [], []
 
@@ -444,20 +492,38 @@ def generate_seo_patch(
         max_heading_suggestions=max_heading_suggestions,
     )
 
-    patch_type = determine_patch_type(opt)
+    target_item: ContentItem | None = None
     topic = ""
     for item in catalog:
         if item.url.rstrip("/") == target_url.rstrip("/"):
-            topic = detect_content_topic(target_keyword, item)
+            target_item = item
+            from linkops.patch_relevance_guardrails import detect_patch_topic
+
+            topic = detect_patch_topic(target_keyword, item)
             break
+
+    ctx = classify_patch_context(
+        target_keyword,
+        query_intent=opt.query_intent,
+        page_type=opt.page_type,
+        topic=topic,
+        item=target_item,
+    )
+
+    patch_type = determine_patch_type(opt)
+    manual_review: list[str] = []
+    if ctx.force_manual_review:
+        patch_type = PATCH_MANUAL
+        manual_review.append(ctx.manual_review_reason)
 
     seo_title = _seo_title_section(opt, patch_type, include_title_meta=include_title_meta)
     meta = _meta_section(opt, patch_type, include_title_meta=include_title_meta)
-    intro = _intro_section(opt, patch_type, include_intro=include_intro)
-    heading = _heading_section(opt, patch_type, include_headings=include_headings)
-    faq_patch, faq_questions, manual_review = _faq_section(
-        opt, patch_type, include_faq=include_faq, topic=topic
+    intro = _intro_section(opt, patch_type, ctx, include_intro=include_intro)
+    heading = _heading_section(opt, patch_type, ctx, include_headings=include_headings)
+    faq_patch, faq_questions, faq_manual = _faq_section(
+        opt, patch_type, ctx, include_faq=include_faq, topic=topic
     )
+    manual_review = [*manual_review, *faq_manual]
     link_note = related_task_vs_project_link_note(
         [item.url for item in catalog], target_url
     )

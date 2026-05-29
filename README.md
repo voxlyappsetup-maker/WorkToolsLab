@@ -2,7 +2,7 @@
 
 **Read-only internal linking assistant for [WorkToolsLab.com](https://worktoolslab.com).**
 
-LinkOps v1.6.1 fetches published WordPress posts and pages, analyzes existing internal links, generates human-reviewable internal link suggestions, scores **local Google Search Console CSV exports** for SEO opportunities, produces **read-only content optimization reports**, and generates **paste-ready SEO patches** for manual WordPress edits. **It never modifies WordPress content** — no publish, update, delete, or draft operations.
+LinkOps v1.6.2 fetches published WordPress posts and pages, analyzes existing internal links, generates human-reviewable internal link suggestions, scores **local Google Search Console CSV exports** for SEO opportunities, produces **read-only content optimization reports**, and generates **paste-ready SEO patches** for manual WordPress edits. **It never modifies WordPress content** — no publish, update, delete, or draft operations.
 
 ## Safety (v1)
 
@@ -385,6 +385,8 @@ v1.6 adds `next-actions`: GSC opportunities grouped by target page, optional `co
 
 v1.6.1 fixes worklog URL matching: worklog keys and next-actions target URLs are normalized with `normalize_internal_url` so trailing slashes and http/https variants match correctly.
 
+v1.6.2 adds paste-ready patch relevance guardrails: concept vs software comparisons, review-specific templates (no video-meeting FAQ on Trello reviews), productivity vs project-management wording, and manual-review routing for misaligned branded queries such as Teamwork vs Asana on the wrong comparison URL.
+
 ## Project layout
 
 ```
@@ -402,6 +404,7 @@ linkops/           Core package
   content_optimization_report_writer.py  Optimization Markdown/CSV
   seo_patch_generator.py  Paste-ready SEO patch from optimize
   seo_patch_report_writer.py  Patch Markdown/CSV
+  patch_relevance_guardrails.py  Patch template relevance and filtering
 exports/           Place GSC CSV exports here (not committed)
 config/            Optional query_target_overrides.json (local manual)
 data/              Content cache (gitignored)
