@@ -2,7 +2,7 @@
 
 **Read-only internal linking assistant for [WorkToolsLab.com](https://worktoolslab.com).**
 
-LinkOps v1.7.0 fetches published WordPress posts and pages, analyzes existing internal links, generates human-reviewable internal link suggestions, scores **local Google Search Console CSV exports** for SEO opportunities, produces **read-only content optimization reports**, and generates **paste-ready SEO patches** for manual WordPress edits. **It never modifies WordPress content** — no publish, update, delete, or draft operations.
+LinkOps v1.7.6 fetches published WordPress posts and pages, analyzes existing internal links, generates human-reviewable internal link suggestions, scores **local Google Search Console CSV exports** for SEO opportunities, produces **read-only content optimization reports**, and generates **paste-ready SEO patches** for manual WordPress edits. **It never modifies WordPress content** — no publish, update, delete, or draft operations.
 
 ## Safety (v1)
 
@@ -403,6 +403,18 @@ v1.6.1 fixes worklog URL matching: worklog keys and next-actions target URLs are
 v1.6.2 adds paste-ready patch relevance guardrails: concept vs software comparisons, review-specific templates (no video-meeting FAQ on Trello reviews), productivity vs project-management wording, and manual-review routing for misaligned branded queries such as Teamwork vs Asana on the wrong comparison URL.
 
 v1.7.0 adds `roadmap`: a new-article opportunities report from GSC queries (no-target, misaligned, branded comparison gaps, review/roundup/guide gaps) with priority scoring, content calendar, internal link plan, and Markdown/CSV output under `reports/new_article_roadmap_<timestamp>.*`.
+
+v1.7.6 aligns branded roadmap gap reasons with the final brand-guard selected page (no stale Webex/content-match text on Microsoft Teams candidates).
+
+v1.7.5 adds hard brand-mismatch protection for roadmap existing-page routing (e.g. Microsoft Teams queries cannot route to Webex/Slack/Zoom review pages).
+
+v1.7.4 aligns executive-summary top items with displayed roadmap buckets, routes branded product queries (e.g. Microsoft Teams) to existing review updates or manual review instead of bad guide titles, and filters `existing_related_pages` with the same quality rules as link-from suggestions.
+
+v1.7.3 tightens roadmap internal link source filtering: excludes core/policy pages and unrelated product review pages (e.g. Trello Review for Freelancers) from `update_existing_page` link-from suggestions; returns an empty list when no high-quality topical sources remain.
+
+v1.7.2 improves roadmap cannibalization handling: same-intent roundups (meeting apps vs video meeting, collaboration audience variants) route to **update existing page** or **manual review** instead of confident new articles; fixes vague manual-review titles, consistent executive summary counts, and filters weak internal link sources (Blog, About, unrelated reviews).
+
+v1.7.1 improves roadmap consolidation: merges near-duplicate queries (e.g. team productivity tools vs software), detects when to **update an existing page** instead of creating a new article, adds `action_type` and update metadata in CSV/Markdown, and prefers `patch`/`optimize` commands for update opportunities.
 
 ## Project layout
 

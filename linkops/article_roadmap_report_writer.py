@@ -7,7 +7,13 @@ from pathlib import Path
 
 import pandas as pd
 
-from linkops.article_roadmap_model import ArticleCandidate, ArticleRoadmapReport, PRIORITY_MANUAL
+from linkops.article_roadmap_model import (
+    ACTION_CREATE_NEW_ARTICLE,
+    ACTION_UPDATE_EXISTING_PAGE,
+    ArticleCandidate,
+    ArticleRoadmapReport,
+    ConsolidatedQueryGroup,
+)
 from linkops.config import REPORTS_DIR
 
 
@@ -19,6 +25,7 @@ def _candidate_block(candidate: ArticleCandidate, rank: int) -> list[str]:
     lines = [
         f"### {rank}. {candidate.suggested_title}",
         "",
+        f"- **Action type:** {candidate.action_type}",
         f"- **Suggested slug:** `{candidate.suggested_slug}`",
         f"- **Article type:** {candidate.article_type}",
         f"- **Primary keyword:** {candidate.primary_keyword}",
@@ -32,6 +39,21 @@ def _candidate_block(candidate: ArticleCandidate, rank: int) -> list[str]:
         f"- **Cannibalization risk:** {candidate.cannibalization_risk}",
         f"- **Recommended next step:** {candidate.recommended_next_step}",
     ]
+    if candidate.query_group_label:
+        lines.append(f"- **Query group:** {candidate.query_group_label}")
+    if candidate.merged_queries:
+        lines.append(
+            f"- **Merged queries:** {', '.join(candidate.merged_queries[:8])}"
+            + (" …" if len(candidate.merged_queries) > 8 else "")
+        )
+    if candidate.recommended_existing_url:
+        lines.append(f"- **Update existing URL:** {candidate.recommended_existing_url}")
+    if candidate.recommended_existing_title:
+        lines.append(f"- **Existing page:** {candidate.recommended_existing_title}")
+    if candidate.update_reason:
+        lines.append(f"- **Update reason:** {candidate.update_reason}")
+    if candidate.content_gap_to_add:
+        lines.append(f"- **Content gap to add:** {candidate.content_gap_to_add}")
     if candidate.secondary_queries:
         lines.append(
             f"- **Secondary queries:** {', '.join(candidate.secondary_queries[:6])}"
@@ -66,6 +88,26 @@ def _priority_section(title: str, candidates: list[ArticleCandidate], start_rank
     return lines
 
 
+def _consolidated_groups_section(groups: list[ConsolidatedQueryGroup]) -> list[str]:
+    lines = ["## Consolidated / Merged Query Groups", ""]
+    if not groups:
+        lines.append("_(none)_")
+        lines.append("")
+        return lines
+    for i, g in enumerate(groups, 1):
+        lines.append(f"### {i}. {g.query_group_label}")
+        lines.append("")
+        lines.append(f"- **Action type:** {g.action_type}")
+        lines.append(f"- **Suggested title:** {g.suggested_title}")
+        lines.append(f"- **Primary keyword:** {g.primary_keyword}")
+        lines.append(f"- **Merged queries:** {', '.join(g.merged_queries)}")
+        lines.append(f"- **Total impressions:** {g.total_impressions}")
+        if g.recommended_existing_url:
+            lines.append(f"- **Existing page:** {g.recommended_existing_url}")
+        lines.append("")
+    return lines
+
+
 def write_article_roadmap_reports(
     report: ArticleRoadmapReport,
     ts: str | None = None,
@@ -75,9 +117,16 @@ def write_article_roadmap_reports(
     md_path = REPORTS_DIR / f"new_article_roadmap_{ts}.md"
     csv_path = REPORTS_DIR / f"new_article_roadmap_{ts}.csv"
 
-    high_n = len(report.high_priority)
-    med_n = len(report.medium_priority)
-    low_n = len(report.low_priority)
+    create_n = (
+        len(report.create_new_high)
+        + len(report.create_new_medium)
+        + len(report.create_new_low)
+    )
+    update_n = (
+        len(report.update_existing_high)
+        + len(report.update_existing_medium)
+        + len(report.update_existing_low)
+    )
     manual_n = len(report.manual_review)
 
     md: list[str] = [
@@ -93,11 +142,11 @@ def write_article_roadmap_reports(
         "",
         report.executive_summary,
         "",
-        f"- **Total candidates:** {len(report.all_candidates)}",
-        f"- **High priority:** {high_n}",
-        f"- **Medium priority:** {med_n}",
-        f"- **Low priority / monitor:** {low_n}",
+        f"- **Total roadmap items:** {report.displayed_roadmap_counts.get('total', len(report.all_candidates))}",
+        f"- **Create new article:** {create_n}",
+        f"- **Update existing page:** {update_n}",
         f"- **Manual review:** {manual_n}",
+        f"- **Consolidated groups:** {len(report.consolidated_groups)}",
         f"- **Excluded queries:** {len(report.excluded_queries)}",
         "",
         "### Top 5 Candidates",
@@ -106,7 +155,7 @@ def write_article_roadmap_reports(
     if report.top_candidates:
         for i, c in enumerate(report.top_candidates, 1):
             md.append(
-                f"{i}. **{c.suggested_title}** — {c.priority} "
+                f"{i}. **{c.suggested_title}** — {c.action_type}, {c.priority} "
                 f"(score {c.priority_score:.0f}, {c.primary_keyword})"
             )
     else:
@@ -114,13 +163,21 @@ def write_article_roadmap_reports(
     md.append("")
 
     rank = 1
-    md.extend(_priority_section("High-Priority New Article Opportunities", report.high_priority, rank))
-    rank += high_n
-    md.extend(_priority_section("Medium-Priority Opportunities", report.medium_priority, rank))
-    rank += med_n
-    md.extend(_priority_section("Low-Priority / Monitor", report.low_priority, rank))
-    rank += low_n
+    create_new = report.create_new_high + report.create_new_medium + report.create_new_low
+    md.extend(_priority_section("Create New Article Opportunities", create_new, rank))
+    rank += len(create_new)
+
+    update_existing = (
+        report.update_existing_high + report.update_existing_medium + report.update_existing_low
+    )
+    md.extend(_priority_section("Existing Page Update Opportunities", update_existing, rank))
+    rank += len(update_existing)
+
+    md.extend(_consolidated_groups_section(report.consolidated_groups))
     md.extend(_priority_section("Manual Review Queries", report.manual_review, rank))
+    rank += manual_n
+    low = report.low_priority
+    md.extend(_priority_section("Low-Priority / Monitor", low, rank))
 
     md.extend(
         [
@@ -147,7 +204,9 @@ def write_article_roadmap_reports(
     md.append("")
 
     md.extend(["## Internal Link Plan for New Articles", ""])
-    for c in report.high_priority + report.medium_priority:
+    for c in report.create_new_high + report.create_new_medium:
+        if c.action_type != ACTION_CREATE_NEW_ARTICLE:
+            continue
         md.append(f"### {c.suggested_title}")
         md.append("")
         if c.suggested_internal_links_from:
@@ -162,7 +221,16 @@ def write_article_roadmap_reports(
             md.append("- _(No strong related pages in cache)_")
         md.append("")
 
-    md.extend(["## Excluded / Rejected Queries", ""])
+    for c in report.update_existing_high + report.update_existing_medium:
+        md.append(f"### {c.suggested_title}")
+        md.append("")
+        md.append(f"- **Patch/optimize target:** {c.recommended_existing_url}")
+        md.append(f"- **Primary keyword:** {c.primary_keyword}")
+        if c.content_gap_to_add:
+            md.append(f"- **Gap to add:** {c.content_gap_to_add}")
+        md.append("")
+
+    md.extend(["## Excluded / Already Covered Queries", ""])
     if report.excluded_queries:
         by_cat: dict[str, list] = {}
         for ex in report.excluded_queries:
@@ -205,6 +273,13 @@ def write_article_roadmap_reports(
                 "topic",
                 "priority",
                 "priority_score",
+                "action_type",
+                "recommended_existing_url",
+                "recommended_existing_title",
+                "update_reason",
+                "content_gap_to_add",
+                "query_group_label",
+                "merged_queries",
                 "total_impressions",
                 "total_clicks",
                 "weighted_avg_position",

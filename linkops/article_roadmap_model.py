@@ -18,6 +18,13 @@ ARTICLE_GUIDE = "guide"
 ARTICLE_GLOSSARY = "glossary"
 ARTICLE_LANDING = "landing"
 
+ACTION_CREATE_NEW_ARTICLE = "create_new_article"
+ACTION_UPDATE_EXISTING_PAGE = "update_existing_page"
+ACTION_EXPAND_EXISTING_SECTION = "expand_existing_section"
+ACTION_MONITOR_ONLY = "monitor_only"
+ACTION_MANUAL_REVIEW = "manual_review"
+ACTION_SKIP_ALREADY_COVERED = "skip_already_covered"
+
 
 @dataclass
 class ArticleCandidate:
@@ -40,6 +47,13 @@ class ArticleCandidate:
     suggested_internal_links_to: list[str]
     editorial_notes: list[str]
     recommended_next_step: str
+    action_type: str = ACTION_CREATE_NEW_ARTICLE
+    recommended_existing_url: str = ""
+    recommended_existing_title: str = ""
+    update_reason: str = ""
+    content_gap_to_add: str = ""
+    query_group_label: str = ""
+    merged_queries: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -62,7 +76,25 @@ class ArticleCandidate:
             "suggested_internal_links_to": "; ".join(self.suggested_internal_links_to),
             "editorial_notes": "; ".join(self.editorial_notes),
             "recommended_next_step": self.recommended_next_step,
+            "action_type": self.action_type,
+            "recommended_existing_url": self.recommended_existing_url,
+            "recommended_existing_title": self.recommended_existing_title,
+            "update_reason": self.update_reason,
+            "content_gap_to_add": self.content_gap_to_add,
+            "query_group_label": self.query_group_label,
+            "merged_queries": "; ".join(self.merged_queries),
         }
+
+
+@dataclass
+class ConsolidatedQueryGroup:
+    query_group_label: str
+    merged_queries: list[str]
+    action_type: str
+    primary_keyword: str
+    suggested_title: str
+    recommended_existing_url: str = ""
+    total_impressions: int = 0
 
 
 @dataclass
@@ -83,30 +115,34 @@ class ArticleRoadmapReport:
     filters: dict[str, Any]
     total_queries_analyzed: int
     executive_summary: str
-    high_priority: list[ArticleCandidate] = field(default_factory=list)
-    medium_priority: list[ArticleCandidate] = field(default_factory=list)
-    low_priority: list[ArticleCandidate] = field(default_factory=list)
+    displayed_roadmap_counts: dict[str, int] = field(default_factory=dict)
+    create_new_high: list[ArticleCandidate] = field(default_factory=list)
+    create_new_medium: list[ArticleCandidate] = field(default_factory=list)
+    create_new_low: list[ArticleCandidate] = field(default_factory=list)
+    update_existing_high: list[ArticleCandidate] = field(default_factory=list)
+    update_existing_medium: list[ArticleCandidate] = field(default_factory=list)
+    update_existing_low: list[ArticleCandidate] = field(default_factory=list)
     manual_review: list[ArticleCandidate] = field(default_factory=list)
+    consolidated_groups: list[ConsolidatedQueryGroup] = field(default_factory=list)
     excluded_queries: list[ExcludedQuery] = field(default_factory=list)
     calendar_week1: list[str] = field(default_factory=list)
     calendar_week2: list[str] = field(default_factory=list)
     calendar_later: list[str] = field(default_factory=list)
     suggested_commands: list[str] = field(default_factory=list)
+    # Legacy buckets for tests expecting high_priority / all_candidates
+    high_priority: list[ArticleCandidate] = field(default_factory=list)
+    medium_priority: list[ArticleCandidate] = field(default_factory=list)
+    low_priority: list[ArticleCandidate] = field(default_factory=list)
+    top_candidates: list[ArticleCandidate] = field(default_factory=list)
 
     @property
     def all_candidates(self) -> list[ArticleCandidate]:
         return [
-            *self.high_priority,
-            *self.medium_priority,
-            *self.low_priority,
+            *self.create_new_high,
+            *self.create_new_medium,
+            *self.create_new_low,
+            *self.update_existing_high,
+            *self.update_existing_medium,
+            *self.update_existing_low,
             *self.manual_review,
         ]
-
-    @property
-    def top_candidates(self) -> list[ArticleCandidate]:
-        ranked = sorted(
-            [c for c in self.all_candidates if c.priority != PRIORITY_MANUAL],
-            key=lambda c: (-c.priority_score, -c.total_impressions),
-        )
-        manual = sorted(self.manual_review, key=lambda c: -c.total_impressions)
-        return (ranked + manual)[:5]
