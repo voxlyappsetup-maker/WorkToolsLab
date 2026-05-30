@@ -1,0 +1,112 @@
+# WorkToolsLab — Operations Handoff
+
+**Site:** [worktoolslab.com](https://worktoolslab.com)  
+**Local project:** `C:\dev\worktoolslab_linkops` (LinkOps — read-only WordPress + GSC assistant)  
+**LinkOps version:** 1.7.6 (see `linkops/__init__.py`)
+
+## What this repo does
+
+LinkOps **does not** publish, update, or delete WordPress content. It:
+
+- Caches published posts/pages (`fetch`)
+- Analyzes internal links (`analyze`, `suggest`)
+- Imports **local** GSC CSV exports (`gsc-import`)
+- Reports opportunities, next actions, article roadmap, optimization audits, SEO patches
+
+Credentials live in `.env` (never commit). Reports go to `reports/` (gitignored).
+
+## Documentation map
+
+| File | Purpose |
+|------|---------|
+| [MEMORY_OFFLOAD_POLICY.md](MEMORY_OFFLOAD_POLICY.md) | What lives locally vs in chat |
+| [CONTENT_OPERATIONS_STATE.md](CONTENT_OPERATIONS_STATE.md) | **Living** snapshot — update each session |
+| [ARTICLE_WORKFLOW_RULES.md](ARTICLE_WORKFLOW_RULES.md) | Draft → publish → post-publish |
+| [INTERNAL_LINKING_POLICY.md](INTERNAL_LINKING_POLICY.md) | Link quality and exclusions |
+| [NEXT_CHAT_PROMPT.md](NEXT_CHAT_PROMPT.md) | Paste into a **new** ChatGPT thread |
+| [../README.md](../README.md) | LinkOps CLI reference |
+
+## Core site pages
+
+| Page | Typical slug |
+|------|----------------|
+| Home | `/` |
+| Start Here | `/start-here/` |
+| Tools | `/tools/` |
+| Blog | `/blog/` |
+| About | `/about/` |
+| Contact | `/contact/` |
+
+Editorial content is mostly **roundups**, **reviews**, **comparisons**, and **guides** under `/best-*`, `/*-review-*`, `/*-vs-*`, `/how-to-*`.
+
+## Standard command sequence
+
+```powershell
+cd C:\dev\worktoolslab_linkops
+.\.venv\Scripts\Activate.ps1
+
+# Refresh site + GSC (adjust CSV paths)
+python -m linkops.cli fetch
+python -m linkops.cli gsc-import --queries-csv "exports\gsc_queries.csv" --pages-csv "exports\gsc_pages.csv"
+
+# Sitewide priorities
+python -m linkops.cli next-actions --exclude-done --min-impressions 20 --max-position 90
+python -m linkops.cli roadmap --min-impressions 10 --max-position 90 --max-candidates 20
+```
+
+Per page:
+
+```powershell
+python -m linkops.cli optimize --target-url "https://worktoolslab.com/<slug>/" --target-keyword "<keyword>"
+python -m linkops.cli patch --target-url "https://worktoolslab.com/<slug>/" --target-keyword "<keyword>"
+python -m linkops.cli suggest --target-url "https://worktoolslab.com/<slug>/" --target-keyword "<keyword>" --max-suggestions 8
+```
+
+## Config files
+
+| File | Purpose |
+|------|---------|
+| `config/worklog.json` | Page status: `done`, `monitor_only`, `request_indexing_done`, `skip`, `needs_review` |
+| `config/worklog.example.json` | Template |
+| `config/query_target_overrides.json` | Optional manual GSC query → URL map |
+| `data/worktoolslab_content_cache.json` | WordPress cache (from `fetch`) |
+| `data/gsc_cache.json` | GSC cache (from `gsc-import`) |
+
+**Worklog:** Present locally (~11 pages tracked as of 2026-05-29). Open `config/worklog.json` on your machine for URLs and notes — not duplicated here.
+
+## Report artifacts (latest wins)
+
+Use the **newest timestamp** in `reports/`:
+
+| Pattern | Use |
+|---------|-----|
+| `next_actions_*.md` | What to work on next (grouped by URL) |
+| `new_article_roadmap_*.md` | Create vs update vs manual review |
+| `content_optimization_<slug>_*.md` | Coverage / intent audit |
+| `seo_patch_<slug>_*.md` | Paste-ready title/meta/intro/FAQ |
+| `internal_link_suggestions_<slug>_*.md` | Sentence-level link ideas |
+| `gsc_opportunities_*.md` | Raw query-level opportunities |
+
+Example recent runs (replace after your next session):
+
+- `reports/next_actions_20260529_151036.md`
+- `reports/new_article_roadmap_20260529_151104.md`
+
+## Git (repo state)
+
+Recent commits include article roadmap and SEO patch guardrails. Uncommitted work may include v1.7.x roadmap changes — run `git status` before committing.
+
+**Do not commit:** `data/`, `reports/`, `exports/`, `config/worklog.json`, `.env`
+
+## Content style (summary)
+
+- Plain text deliverables; SEO block with Meta Description **< 160 chars**
+- Natural internal links; avoid Blog/Trello/random reviews as filler sources
+- See [ARTICLE_WORKFLOW_RULES.md](ARTICLE_WORKFLOW_RULES.md)
+
+## Handoff checklist (end of session)
+
+1. [ ] Update `config/worklog.json` for completed URLs
+2. [ ] Update `docs/CONTENT_OPERATIONS_STATE.md`
+3. [ ] Regenerate `reports/` if GSC or site changed
+4. [ ] Next chat: paste `docs/NEXT_CHAT_PROMPT.md`
