@@ -3,98 +3,111 @@
 > **Living document.** Update at the end of each working session.  
 > Do not rely on ChatGPT memory for this file — edit locally.
 
-**Last updated:** 2026-05-29 (documentation bootstrap)
+**Last updated:** 2026-06-01 (Traffic Diagnosis / Strategy Reset)
+
+## Phase
+
+| Field | Value |
+|-------|--------|
+| **Latest diagnosis phase** | Traffic Diagnosis / Strategy Reset |
+| **Canonical docs** | `docs/TRAFFIC_DIAGNOSIS_2026_06.md`, `docs/CONTENT_STRATEGY_RESET_2026_06.md` |
 
 ## Active focus
 
 | Field | Value |
 |-------|--------|
-| **Current article / URL** | _Set before each session — e.g. Microsoft Teams review update_ |
-| **Focus keyword** | _e.g. microsoft teams for small business_ |
-| **Stage** | _idea / draft / SEO / links / pre-publish / published / monitor_ |
-| **Next action** | _e.g. apply patch report, request indexing, draft new roundup_ |
+| **Current article / URL** | _None — strategy reset; no new drafts until priorities chosen_ |
+| **Focus keyword** | _Pending fresh GSC + 3-page cornerstone selection_ |
+| **Stage** | diagnose / plan |
+| **Next action** | Review `TRAFFIC_DIAGNOSIS_2026_06.md` and `CONTENT_STRATEGY_RESET_2026_06.md` before writing more articles |
 
 ## LinkOps snapshot
 
 | Item | Value |
 |------|--------|
 | LinkOps version | 1.7.6 |
-| Content cache | `data/worktoolslab_content_cache.json` — refresh with `fetch` |
-| GSC cache imported | 2026-05-29 (see latest report header for exact timestamp) |
-| Worklog | `config/worklog.json` loaded (~11 pages tracked) |
+| Content cache | `data/worktoolslab_content_cache.json` — refresh with `fetch` after publishes |
+| GSC cache imported | **2026-05-29** — **stale; refresh exports before final prioritization** |
+| Worklog | `config/worklog.json` — **11 pages** (9 `done`, 2 `monitor_only`) |
 
-### Latest reports (replace filenames after each run)
+### Latest reports (verify filenames after next `gsc-import`)
 
-| Report | File (example) |
-|--------|----------------|
+| Report | File |
+|--------|------|
 | Next actions | `reports/next_actions_20260529_151036.md` |
 | Article roadmap | `reports/new_article_roadmap_20260529_151104.md` |
-| Last per-page optimize | `reports/content_optimization_microsoft-teams-review-for-small-businesses_20260529_145528.md` |
-| Last per-page patch | `reports/seo_patch_microsoft-teams-review-for-small-businesses_20260529_145532.md` |
 
-### Roadmap summary (from last roadmap run — verify in MD file)
+### Key signals (from latest reports — not full dumps)
 
-- Displayed items: **8** (updates + manual review; **0** create-new high/medium)
-- Notable **update_existing_page**: productivity, communication (remote), PM freelancers, task management
-- Notable **manual_review**: job management software, other ambiguous queries (see report)
-- **Excluded:** 27 queries (already covered, low impressions, etc.)
-
-### Next-actions summary (from last next-actions run)
-
-- **0** unresolved clusters (with `--exclude-done` and filters)
-- **8** clusters in worklog as handled/monitor-only
-- Filters used: min impressions 20, max clicks 0, max position 90
+| Signal | Value |
+|--------|-------|
+| Unresolved next-action clusters | **0** (with `--exclude-done`, min impressions 20) |
+| Handled / monitor-only clusters | **8** |
+| Roadmap `create_new` | **0** |
+| Roadmap `update_existing` | 4 |
+| Roadmap `manual_review` | 4 |
+| GSC clicks on priority pages | **0** (at time of 2026-05-29 export) |
 
 ## Worklog (status only)
 
-Statuses in `config/worklog.json`: `done`, `monitor_only`, `request_indexing_done`, `skip`, `needs_review`.
+| Status | Count |
+|--------|------:|
+| `done` | 9 |
+| `monitor_only` | 2 |
 
-**Do not paste full worklog here** — open `config/worklog.json` locally for URLs and notes.
+Open `config/worklog.json` locally for URLs and notes.
 
-After completing work on a URL:
+## Queue (editorial — strategy reset)
 
-```json
-"https://worktoolslab.com/your-page-slug/": {
-  "status": "done",
-  "note": "YYYY-MM-DD: brief note"
-}
-```
+### Before any new article
 
-## Queue (editorial — you maintain)
+- [ ] Export fresh GSC CSVs → `gsc-import`
+- [ ] Read `docs/TRAFFIC_DIAGNOSIS_2026_06.md`
+- [ ] Read `docs/CONTENT_STRATEGY_RESET_2026_06.md`
+- [ ] Select **3 cornerstone pages** for deep upgrade (Week 1)
 
-### High priority updates
+### Deep upgrade candidates (human picks 3)
 
-- [ ] _Copy from top of latest `new_article_roadmap_*.md` or `next_actions_*.md`_
-- [ ] Best Productivity Tools for Small Teams — team productivity tools (if not marked done in worklog)
-- [ ] Best Communication Tools for Remote Teams — remote work communication tools
+- [ ] Best Task Management Tools for Small Teams
+- [ ] Best Project Management Tools for Small Teams (`monitor_only`)
+- [ ] Best Productivity Tools for Small Teams
+- [ ] Best Communication Tools for Small Businesses
+- [ ] Best Communication Tools for Remote Teams
 
-### Manual review decisions needed
+### Manual review (hold until intent decided)
 
-- [ ] job management software for small teams (field-service vs PM — decide before drafting)
-- [ ] _Other `manual_review` rows from roadmap_
+- [ ] job management software for small teams
+- [ ] business communication tools
+- [ ] work management tool buyers guide
+- [ ] small business teams
 
-### New articles (when roadmap shows create_new)
+### New articles
 
-- [ ] _None in last roadmap run — recheck after `roadmap` command_
+- **None recommended** — roadmap `create_new = 0`. Prefer narrow long-tail support pieces after cornerstone upgrade.
 
 ### Recently completed (log briefly)
 
-- _Move items here when worklog status = done; include date_
+| Date | Item |
+|------|------|
+| 2026-05-29 | Multiple roundup/review patches marked `done` in worklog |
+| 2026-06-01 | Traffic diagnosis + content strategy reset docs created |
 
 ## GSC / data hygiene
 
-- [ ] Export fresh GSC CSVs to `exports/` when data is stale
+- [ ] **Priority:** Export fresh GSC CSVs (June) — last import 2026-05-29
 - [ ] `gsc-import` after new exports
+- [ ] Regenerate `next-actions` and `roadmap`
 - [ ] `fetch` after WordPress publishes
 
-## Session log (optional, one line per session)
+## Session log
 
 | Date | What changed |
 |------|----------------|
-| 2026-05-29 | Memory offload docs created; LinkOps v1.7.6 brand gap-reason fix in working tree |
+| 2026-05-29 | Memory offload docs; LinkOps v1.7.6 roadmap/report fixes |
+| 2026-06-01 | `TRAFFIC_DIAGNOSIS_2026_06.md`, `CONTENT_STRATEGY_RESET_2026_06.md`; ops state + next-chat prompt updated |
 
 ## Notes
 
-- Affiliate and policy pages: do not strip disclosures when editing.
-- Branded queries must target the **same brand** review URL (LinkOps brand guard).
-- Productivity updates: do not use Blog or unrelated review pages as “related” sources in reports.
+- Low traffic is **not** primarily an indexing failure — impressions exist; clicks and rankings are the gap.
+- Pause generic roundup expansion; deep upgrades + narrow angles + distribution.
+- Do not commit `config/worklog.json`, `reports/`, `exports/`, `data/`.
