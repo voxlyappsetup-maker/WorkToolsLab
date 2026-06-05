@@ -3,14 +3,15 @@
 > **Living document.** Update at the end of each working session.
 > Do not rely on ChatGPT memory for this file — edit locally.
 
-**Last updated:** 2026-06-05 (Next Actions cleanup / on-page optimization cycle)
+**Last updated:** 2026-06-05 (Distribution / Authority planning started)
 
 ## Phase
 
 | Field | Value |
 |-------|--------|
-| **Latest phase** | Next Actions cleanup / on-page optimization cycle — **complete** |
-| **Prior strategy phase** | Traffic Diagnosis / Strategy Reset (`docs/TRAFFIC_DIAGNOSIS_2026_06.md`, `docs/CONTENT_STRATEGY_RESET_2026_06.md`) |
+| **Latest phase** | Distribution / Authority planning — **started** |
+| **Prior phase** | Next Actions cleanup / on-page optimization cycle — **complete** |
+| **Strategy docs** | `docs/TRAFFIC_DIAGNOSIS_2026_06.md`, `docs/CONTENT_STRATEGY_RESET_2026_06.md`, `docs/DISTRIBUTION_AUTHORITY_PLAN_2026_06.md` |
 
 ## Active focus
 
@@ -18,8 +19,8 @@
 |-------|--------|
 | **Current article / URL** | _None — on-page cycle complete; wait for GSC lag_ |
 | **Focus keyword** | _N/A until fresh GSC import_ |
-| **Stage** | monitor / strategic pause |
-| **Next action** | Do **not** re-run optimize/patch on the same GSC export. Export fresh GSC after indexing lag, then reassess. |
+| **Stage** | distribution / authority |
+| **Next action** | Execute `docs/DISTRIBUTION_AUTHORITY_PLAN_2026_06.md` — start with 3 Tier A pages. Do **not** re-patch same GSC export. |
 
 ## LinkOps snapshot
 
@@ -73,7 +74,7 @@
 1. **Stop** optimize/patch passes against the **2026-06-05 GSC export** — worklog covers current clusters.
 2. **Wait** for Google to process indexing, then **import fresh GSC** before the next prioritization pass.
 3. **Next strategic item (optional):** Manually review roadmap `create_new` — **Best Tool to Manage Freelance Teams for Small Teams** — before drafting (check cannibalization vs freelancers deep upgrade).
-4. **Also consider** distribution/backlink work — traffic gap is not only on-page (`docs/CONTENT_STRATEGY_RESET_2026_06.md`).
+4. **Distribution / Authority plan created** — `docs/DISTRIBUTION_AUTHORITY_PLAN_2026_06.md` (2026-06-05). Start with 3 pages: Free PM for Freelancers, Teamwork vs Asana, How to Manage Tasks.
 
 ## Worklog (status only)
 
@@ -104,10 +105,12 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 
 - [ ] **Best Tool to Manage Freelance Teams for Small Teams** — roadmap score 73; confirm distinct intent vs Best Free PM Tools for Freelancers
 
-### Distribution / authority (parallel track)
+### Distribution / authority (active — see plan doc)
 
-- [ ] LinkedIn or community posts from deep-upgrade frameworks
-- [ ] Lightweight backlink/resource outreach per strategy reset
+- [ ] Read `docs/DISTRIBUTION_AUTHORITY_PLAN_2026_06.md`
+- [ ] Create `docs/distribution_log_2026_06.md` from tracking template
+- [ ] Week 1: 3 LinkedIn posts + 3–5 useful community engagements
+- [ ] First 3 pages: Free PM Freelancers, Teamwork vs Asana, How to Manage Tasks
 
 ### Deep upgrade backlog (if fresh GSC still shows 0 clicks)
 
@@ -126,7 +129,7 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 |------|----------------|
 | 2026-05-29 | Memory offload docs; LinkOps v1.7.6 roadmap/report fixes |
 | 2026-06-01 | Traffic diagnosis + content strategy reset docs |
-| 2026-06-05 | On-page optimization cycle complete; 0 unresolved clusters; 7 manual updates + Teamwork vs Asana new article |
+| 2026-06-05 | On-page cycle complete; Distribution / Authority plan (`DISTRIBUTION_AUTHORITY_PLAN_2026_06.md`) created |
 
 ## Notes
 
