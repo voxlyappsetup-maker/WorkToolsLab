@@ -27,12 +27,14 @@
 
 ---
 
+
 ## Tracking log
 
-| Date | Channel | URL promoted | Post/comment/outreach target | Action type | Status | Notes | Result @ 7 days | Result @ 30 days |
-|------|---------|--------------|------------------------------|-------------|--------|-------|-----------------|------------------|
-| 2026-06-__ | LinkedIn | https://worktoolslab.com/best-free-project-management-tools-for-freelancers/ | Personal feed | personal post | planned | Weekly review angle for freelancers; use snippet from plan Section 7 | | |
-| | | | | | | | | |
+| Date       | Channel  | URL promoted                                                                 | Post/comment/outreach target | Action type   | Status    | Notes                                                                                                                               | Result @ 7 days | Result @ 30 days |
+| ---------- | -------- | ---------------------------------------------------------------------------- | ---------------------------- | ------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------- | --------------- | ---------------- |
+| 2026-06-05 | LinkedIn | https://worktoolslab.com/best-free-project-management-tools-for-freelancers/ | Personal feed                | personal post | Done      | Published manually on LinkedIn using the freelancer weekly-review/client-work angle. LinkedIn post URL: https://www.linkedin.com/posts/hayssam-dennaoui_best-free-project-management-tools-for-freelancers-share-7468637934695632896-6D_T/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAADTTrwBNBINKNO_JvDz4zQdpX8UCuUyEhE | Pending         | Pending          |
+|            |          |                                                                              |                              |               |           |                                                                                                                                     |                 |                  |
+
 
 **Action types:** Post, personal post, Comment, Answer, Outreach, HARO pitch, Repurpose  
 **Status:** planned, done, skipped, removed by mod, replied
