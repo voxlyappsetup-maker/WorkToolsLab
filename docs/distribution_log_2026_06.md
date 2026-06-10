@@ -33,7 +33,7 @@
 |------|---------|--------------|------------------------------|-------------|--------|-------|-----------------|------------------|
 | 2026-06-05 | LinkedIn | https://worktoolslab.com/best-free-project-management-tools-for-freelancers/ | Personal feed | personal post | done | Published manually on LinkedIn using the freelancer weekly-review/client-work angle. LinkedIn post URL: https://www.linkedin.com/posts/hayssam-dennaoui_best-free-project-management-tools-for-freelancers-share-7468637934695632896-6D_T/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAADTTrwBNBINKNO_JvDz4zQdpX8UCuUyEhE | Pending | Pending |
 | 2026-06-08 | LinkedIn | https://worktoolslab.com/teamwork-vs-asana-for-small-teams/ | Personal feed | personal post | done | Published manually on LinkedIn using the internal work vs client delivery angle. LinkedIn post URL: https://www.linkedin.com/posts/hayssam-dennaoui_many-small-teams-compare-project-management-share-7469305433086873600-Yf3t/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAADTTrwBNBINKNO_JvDz4zQdpX8UCuUyEhE | Pending | Pending |
-| 2026-06-10 | LinkedIn | https://worktoolslab.com/how-to-manage-tasks-in-a-small-team/ | Personal feed | personal post | planned | Planned LinkedIn post using the small-team task ownership/status visibility angle. LinkedIn post URL: Pending publication. | Pending | Pending |
+| 2026-06-10 | LinkedIn | https://worktoolslab.com/how-to-manage-tasks-in-a-small-team/ | Personal feed | personal post | done | Published manually on LinkedIn using the small-team task ownership/status visibility angle. LinkedIn post URL: https://www.linkedin.com/posts/hayssam-dennaoui_small-teams-rarely-fail-at-task-management-share-7470529598020128768-pXga/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAADTTrwBNBINKNO_JvDz4zQdpX8UCuUyEhE | Pending | Pending |
 | | | | | | | | | |
 
 **Action types:** Post, personal post, Comment, Answer, Outreach, HARO pitch, Repurpose  
@@ -45,7 +45,7 @@
 
 | Metric | June target | Actual |
 |--------|-------------|--------|
-| LinkedIn posts | 3 (Week 1) | 2 |
+| LinkedIn posts | 3 (Week 1) | 3 |
 | Useful community answers | 5 (Week 2) | |
 | Vendor outreach (editorial) | 3–5 (Week 2) | |
 | Referral sessions (GA) | Any signal | |
