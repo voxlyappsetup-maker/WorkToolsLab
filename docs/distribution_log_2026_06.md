@@ -1,4 +1,4 @@
-﻿# Distribution Log — June 2026
+# Distribution Log — June 2026
 
 **Site:** [worktoolslab.com](https://worktoolslab.com)  
 **Purpose:** Track manual, non-spam distribution actions for WorkToolsLab.com (posts, comments, answers, outreach).  
@@ -33,6 +33,7 @@
 |------|---------|--------------|------------------------------|-------------|--------|-------|-----------------|------------------|
 | 2026-06-05 | LinkedIn | https://worktoolslab.com/best-free-project-management-tools-for-freelancers/ | Personal feed | personal post | done | Published manually on LinkedIn using the freelancer weekly-review/client-work angle. LinkedIn post URL: https://www.linkedin.com/posts/hayssam-dennaoui_best-free-project-management-tools-for-freelancers-share-7468637934695632896-6D_T/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAADTTrwBNBINKNO_JvDz4zQdpX8UCuUyEhE | Pending | Pending |
 | 2026-06-08 | LinkedIn | https://worktoolslab.com/teamwork-vs-asana-for-small-teams/ | Personal feed | personal post | done | Published manually on LinkedIn using the internal work vs client delivery angle. LinkedIn post URL: https://www.linkedin.com/posts/hayssam-dennaoui_many-small-teams-compare-project-management-share-7469305433086873600-Yf3t/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAADTTrwBNBINKNO_JvDz4zQdpX8UCuUyEhE | Pending | Pending |
+| 2026-06-10 | LinkedIn | https://worktoolslab.com/how-to-manage-tasks-in-a-small-team/ | Personal feed | personal post | planned | Planned LinkedIn post using the small-team task ownership/status visibility angle. LinkedIn post URL: Pending publication. | Pending | Pending |
 | | | | | | | | | |
 
 **Action types:** Post, personal post, Comment, Answer, Outreach, HARO pitch, Repurpose  
