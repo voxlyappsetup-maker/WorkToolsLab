@@ -36,6 +36,7 @@
 | 2026-06-10 | LinkedIn | https://worktoolslab.com/how-to-manage-tasks-in-a-small-team/ | Personal feed | personal post | done | Published manually on LinkedIn using the small-team task ownership/status visibility angle. LinkedIn post URL: https://www.linkedin.com/posts/hayssam-dennaoui_small-teams-rarely-fail-at-task-management-share-7470529598020128768-pXga/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAADTTrwBNBINKNO_JvDz4zQdpX8UCuUyEhE | 7-day LinkedIn signal: 122 impressions, 66 members reached, 3 social engagements, 3 reactions, 1 profile viewer, 0 link engagements, 0 comments, 0 reposts, 0 saves, 0 followers gained. Awareness-only signal; no confirmed link engagement; keep in 30-day review. | Pending |
 | 2026-06-23 | LinkedIn | https://worktoolslab.com/task-management-vs-project-management/ | Personal feed | personal post | done | Published manually on LinkedIn using the task management vs project management distinction angle. LinkedIn post URL: https://www.linkedin.com/posts/hayssam-dennaoui_many-small-teams-try-to-solve-every-work-share-7475186411005173760-Rqln/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAADTTrwBNBINKNO_JvDz4zQdpX8UCuUyEhE | Pending | Pending |
 | 2026-06-26 | LinkedIn | https://worktoolslab.com/notion-vs-trello-vs-clickup-which-one-is-best-for-your-workflow/ | Personal feed | personal post | done | Published manually on LinkedIn using the workflow-fit angle for Notion vs Trello vs ClickUp. LinkedIn post URL: https://www.linkedin.com/posts/hayssam-dennaoui_a-lot-of-people-compare-productivity-tools-share-7476276502741934080-5G3Z/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAADTTrwBNBINKNO_JvDz4zQdpX8UCuUyEhE | Pending | Pending |
+| 2026-06-29 | LinkedIn | https://worktoolslab.com/monday-com-vs-clickup-for-small-teams/ | Personal feed | personal post | done | Published manually on LinkedIn using the clarity/structure vs flexibility/customization angle. LinkedIn post URL: https://www.linkedin.com/posts/hayssam-dennaoui_many-small-teams-do-not-struggle-because-share-7477349380061261824-0h00/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAADTTrwBNBINKNO_JvDz4zQdpX8UCuUyEhE | Pending | Pending |
 | | | | | | | | | |
 
 **Action types:** Post, personal post, Comment, Answer, Outreach, HARO pitch, Repurpose  
@@ -47,7 +48,7 @@
 
 | Metric | June target | Actual |
 |--------|-------------|--------|
-| LinkedIn posts | 3 (Week 1) | 5 |
+| LinkedIn posts | 3 (Week 1) | 6 |
 | Useful community answers | 5 (Week 2) | |
 | Vendor outreach (editorial) | 3–5 (Week 2) | |
 | Referral sessions (GA) | Any signal | |
