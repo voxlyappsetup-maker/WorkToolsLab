@@ -192,3 +192,41 @@ python -m linkops.cli roadmap --min-impressions 10 --max-position 90 --max-candi
 - Workflow: `docs/ARTICLE_WORKFLOW_RULES.md`  
 - Internal links: `docs/INTERNAL_LINKING_POLICY.md`  
 - Living state: `docs/CONTENT_OPERATIONS_STATE.md`
+
+---
+
+## July 2026 addendum — Site Focus & Authority Audit (does not replace June conclusions)
+
+**Date:** 2026-07-05
+**Full audit:** `docs/SITE_FOCUS_AUTHORITY_AUDIT_2026_07.md`
+**Implementation roadmap:** `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md`
+
+### What June strategy got right (confirmed)
+
+- Low traffic is not only an on-page patch problem — **still true** (684 + 681 impressions, ~0 clicks on top URLs).
+- Deep upgrades beat generic new roundups — **confirmed** by Free PM deep upgrade + LinkedIn link engagement.
+- Distribution supports differentiated pages — **confirmed** (freelancer pain + task vs PM distinction).
+
+### What the July audit adds
+
+| Topic | July conclusion |
+|-------|-----------------|
+| **Primary focus** | Adopt editorial focus: *work management tools for freelancers and small teams* — without deleting existing content |
+| **Deprioritize new content** | Video meetings, generic communication, remote-tool breadth |
+| **Evidence gap** | Priority pages remain LEVEL 0–2 — no first-hand testing artifacts yet |
+| **Trust gap** | Author profile + methodology page required before more articles |
+| **Hub architecture** | Home / Tools / Start Here overlap — differentiate roles |
+| **Cannibalization** | Paid vs free freelancer PM guides need snippet + intent separation |
+| **Legacy URL** | `best-project-management-tools-for-freelancers-2/` still in GSC — fix redirect |
+
+### Distribution learnings fed into focus hypothesis
+
+| Signal | Implication |
+|--------|-------------|
+| Free PM Freelancers — 3 LinkedIn link engagements @ 30d | Prioritize evidence upgrade (LEVEL 3) on this URL |
+| Task vs PM — 2 link engagements @ 7d | Keep as concept hub; add methodology links, not fake tests |
+| Multi-tool comparison posts (Notion/Trello/ClickUp, Monday/ClickUp) | Awareness only — deprioritize similar new comparisons until evidence framework applied |
+
+### Next phase (after audit)
+
+Implement **P0** authority items (author, methodology, evidence on A, technical URL fix, hub pass) — see roadmap. **Pause** new article creation until P0-1 through P0-3 are underway.

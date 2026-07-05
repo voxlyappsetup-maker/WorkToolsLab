@@ -3,24 +3,26 @@
 > **Living document.** Update at the end of each working session.
 > Do not rely on ChatGPT memory for this file — edit locally.
 
-**Last updated:** 2026-06-05 (Distribution / Authority planning started)
+**Last updated:** 2026-07-05 (Site Focus & Authority Upgrade Audit — complete)
 
 ## Phase
 
 | Field | Value |
 |-------|--------|
-| **Latest phase** | Distribution / Authority planning — **started** |
-| **Prior phase** | Next Actions cleanup / on-page optimization cycle — **complete** |
-| **Strategy docs** | `docs/TRAFFIC_DIAGNOSIS_2026_06.md`, `docs/CONTENT_STRATEGY_RESET_2026_06.md`, `docs/DISTRIBUTION_AUTHORITY_PLAN_2026_06.md` |
+| **Latest phase** | Site Focus & Authority Upgrade Audit — **complete** (docs only; no WP changes) |
+| **Prior phase** | Distribution / LinkedIn experiment — **logged** (`distribution_log_2026_06.md`) |
+| **Earlier phase** | Next Actions cleanup / on-page optimization cycle — **complete** |
+| **Strategy docs** | `docs/SITE_FOCUS_AUTHORITY_AUDIT_2026_07.md`, `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md`, `docs/ARTICLE_EVIDENCE_FRAMEWORK.md`, `docs/AUTHOR_PROFILE_AND_REVIEW_METHODOLOGY_PLAN.md` |
+| **June docs (historical)** | `docs/TRAFFIC_DIAGNOSIS_2026_06.md`, `docs/CONTENT_STRATEGY_RESET_2026_06.md`, `docs/DISTRIBUTION_AUTHORITY_PLAN_2026_06.md` |
 
 ## Active focus
 
 | Field | Value |
 |-------|--------|
-| **Current article / URL** | _None — on-page cycle complete; wait for GSC lag_ |
-| **Focus keyword** | _N/A until fresh GSC import_ |
-| **Stage** | distribution / authority |
-| **Next action** | Execute `docs/DISTRIBUTION_AUTHORITY_PLAN_2026_06.md` — start with 3 Tier A pages. Do **not** re-patch same GSC export. |
+| **Current article / URL** | _None — audit/planning phase; implementation not started_ |
+| **Focus keyword** | _N/A until P0 implementation_ |
+| **Stage** | authority implementation planning |
+| **Next action** | Implement **P0** in `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md` — author profile, methodology page, Free PM evidence upgrade (A), freelancers-2 redirect fix. Do **not** re-patch June 5 GSC export. |
 
 ## LinkOps snapshot
 
@@ -105,12 +107,22 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 
 - [ ] **Best Tool to Manage Freelance Teams for Small Teams** — roadmap score 73; confirm distinct intent vs Best Free PM Tools for Freelancers
 
-### Distribution / authority (active — see plan doc)
+### Distribution / authority (June experiment — logged)
 
-- [ ] Read `docs/DISTRIBUTION_AUTHORITY_PLAN_2026_06.md`
-- [ ] Create `docs/distribution_log_2026_06.md` from tracking template
-- [ ] Week 1: 3 LinkedIn posts + 3–5 useful community engagements
-- [ ] First 3 pages: Free PM Freelancers, Teamwork vs Asana, How to Manage Tasks
+- [x] `docs/DISTRIBUTION_AUTHORITY_PLAN_2026_06.md`
+- [x] `docs/distribution_log_2026_06.md` — 6 LinkedIn posts logged
+- [x] Strongest direct-link signals: **Free PM Freelancers** (3 link engagements @ 30d), **Task vs PM** (2 @ 7d)
+- [ ] Continue distribution only after P0 evidence upgrades — do not promote thin comparisons
+
+### Authority implementation (active — see July roadmap)
+
+- [ ] P0-1 Author profile page
+- [ ] P0-2 Methodology page (`/how-we-review-tools/`)
+- [ ] P0-3 Evidence upgrade — Free PM for Freelancers → LEVEL 3
+- [ ] P0-4 Resolve `best-project-management-tools-for-freelancers-2/` redirect + GSC
+- [ ] P0-5 Home / Tools / Start Here differentiation (first pass)
+- [ ] P0-6 Meta/intro CTR test — Best PM for Freelancers (canonical)
+- [ ] P0-7 Article + Person schema
 
 ### Deep upgrade backlog (if fresh GSC still shows 0 clicks)
 
@@ -130,6 +142,8 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 | 2026-05-29 | Memory offload docs; LinkOps v1.7.6 roadmap/report fixes |
 | 2026-06-01 | Traffic diagnosis + content strategy reset docs |
 | 2026-06-05 | On-page cycle complete; Distribution / Authority plan (`DISTRIBUTION_AUTHORITY_PLAN_2026_06.md`) created |
+| 2026-06-08–29 | LinkedIn distribution logged — see `distribution_log_2026_06.md` |
+| 2026-07-05 | Site Focus & Authority Upgrade Audit — 4 new docs; roadmap P0/P1/P2; **no WordPress changes** |
 
 ## Notes
 

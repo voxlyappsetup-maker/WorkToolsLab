@@ -24,6 +24,14 @@ Credentials live in `.env` (never commit). Reports go to `reports/` (gitignored)
 | [ARTICLE_WORKFLOW_RULES.md](ARTICLE_WORKFLOW_RULES.md) | Draft → publish → post-publish |
 | [INTERNAL_LINKING_POLICY.md](INTERNAL_LINKING_POLICY.md) | Link quality and exclusions |
 | [NEXT_CHAT_PROMPT.md](NEXT_CHAT_PROMPT.md) | Paste into a **new** ChatGPT thread |
+| [SITE_FOCUS_AUTHORITY_AUDIT_2026_07.md](SITE_FOCUS_AUTHORITY_AUDIT_2026_07.md) | July 2026 focus/authority audit |
+| [SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md](SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md) | P0/P1/P2 implementation roadmap |
+| [ARTICLE_EVIDENCE_FRAMEWORK.md](ARTICLE_EVIDENCE_FRAMEWORK.md) | Evidence levels + testing honesty rules |
+| [AUTHOR_PROFILE_AND_REVIEW_METHODOLOGY_PLAN.md](AUTHOR_PROFILE_AND_REVIEW_METHODOLOGY_PLAN.md) | Author page + methodology page design |
+| [TRAFFIC_DIAGNOSIS_2026_06.md](TRAFFIC_DIAGNOSIS_2026_06.md) | June traffic diagnosis (historical) |
+| [CONTENT_STRATEGY_RESET_2026_06.md](CONTENT_STRATEGY_RESET_2026_06.md) | June strategy reset + July addendum |
+| [DISTRIBUTION_AUTHORITY_PLAN_2026_06.md](DISTRIBUTION_AUTHORITY_PLAN_2026_06.md) | Distribution plan |
+| [distribution_log_2026_06.md](distribution_log_2026_06.md) | LinkedIn distribution results |
 | [../README.md](../README.md) | LinkOps CLI reference |
 
 ## Core site pages

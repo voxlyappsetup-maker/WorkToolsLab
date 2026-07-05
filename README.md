@@ -252,6 +252,16 @@ Writes:
 
 Patch types include `monitor_only`, `faq_patch`, `title_meta_patch`, `intro_patch`, `heading_patch`, `internal_link_patch`, `combined_light_patch`, and `manual_review`. Reports include a **Do Not Change** checklist and **Paste-Ready Changes** (title, meta, intro, headings, FAQ, internal link command).
 
+## Current editorial phase (2026-07)
+
+**Audit complete:** Site focus and authority upgrade documented in `docs/SITE_FOCUS_AUTHORITY_AUDIT_2026_07.md`.
+
+**Next:** Implement P0 items in `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md` (author profile, methodology page, evidence upgrades, hub differentiation, technical URL fixes). LinkOps remains read-only for WordPress.
+
+**Editorial focus:** Work management tools for freelancers and small teams. Pause new broad communication/video/remote roundups.
+
+See `docs/CONTENT_OPERATIONS_STATE.md` for living queue.
+
 ## Workflow
 
 1. Run `fetch` after publishing new content (or on a schedule).
