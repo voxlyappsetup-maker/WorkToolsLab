@@ -3,28 +3,28 @@
 > **Living document.** Update at the end of each working session.
 > Do not rely on ChatGPT memory for this file — edit locally.
 
-**Last updated:** 2026-07-05 (P0-A Authority Foundation — prepared; not published live)
+**Last updated:** 2026-07-06 (P0-A live implementation recorded; SEO prefix audit complete)
 
 ## Phase
 
 | Field | Value |
 |-------|--------|
-| **Latest phase** | P0-A Authority Implementation Foundation — **prepared** (publish-ready content + WP checklists; **not live**) |
-| **Prior phase** | Site Focus & Authority Upgrade Audit — **complete** (`dc4e2c4`) |
+| **Latest phase** | P0-A Authority Live Implementation — **live** (SEO prefix fix pending on 1 URL) |
+| **Prior phase** | P0-A repository foundation — **complete** (`e613f50`) |
 | **Prior phase** | Distribution / LinkedIn experiment — **logged** (`distribution_log_2026_06.md`) |
 | **Earlier phase** | Next Actions cleanup / on-page optimization cycle — **complete** |
-| **Strategy docs** | `docs/SITE_FOCUS_AUTHORITY_AUDIT_2026_07.md`, `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md`, `docs/AUTHOR_BYLINE_SCHEMA_IMPLEMENTATION_2026_07.md`, `docs/P0_A_WORDPRESS_IMPLEMENTATION_CHECKLIST.md`, `docs/LEGACY_FREELANCERS_URL_REMEDIATION_2026_07.md` |
-| **Publish-ready content** | `content/authority/hayssam-dennaoui-author-profile.md`, `content/authority/how-we-review-tools.md` |
+| **Strategy docs** | `docs/P0_A_AUTHORITY_LIVE_IMPLEMENTATION_RECORD_2026_07.md`, `docs/SEO_METADATA_PREFIX_AUDIT_2026_07.md`, `docs/WORDPRESS_MU_PLUGIN_DEPLOYMENT_STATE_2026_07.md`, `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md` |
+| **MU plugin mirrors** | `wordpress/mu-plugins/worktoolslab-author-box.php`, `wordpress/mu-plugins/worktoolslab-author-links.php` |
 | **June docs (historical)** | `docs/TRAFFIC_DIAGNOSIS_2026_06.md`, `docs/CONTENT_STRATEGY_RESET_2026_06.md`, `docs/DISTRIBUTION_AUTHORITY_PLAN_2026_06.md` |
 
 ## Active focus
 
 | Field | Value |
 |-------|--------|
-| **Current article / URL** | _None — awaiting owner WordPress publish of P0-A pages_ |
-| **Focus keyword** | _N/A until pages live_ |
-| **Stage** | P0-A foundation prepared → owner WordPress implementation |
-| **Next action** | Execute `docs/P0_A_WORDPRESS_IMPLEMENTATION_CHECKLIST.md` — publish author profile + methodology, update bylines/schema, complete legacy `-2` verification. **Then** Free PM LEVEL 3 evidence upgrade. Do **not** re-patch June 5 GSC export. |
+| **Current article / URL** | _None — fix Notion SEO prefix, then P0-3 evidence upgrade_ |
+| **Focus keyword** | _N/A until next implementation phase_ |
+| **Stage** | P0-A live; **not fully closed** until SEO prefix corrected |
+| **Next action** | Owner: fix Rank Math prefix on `/notion-vs-trello-vs-clickup-which-one-is-best-for-your-workflow/` per `docs/SEO_METADATA_PREFIX_AUDIT_2026_07.md`. Then **P0-3** Free PM LEVEL 3 evidence upgrade. Run `fetch` after prefix fix. Do **not** re-patch June 5 GSC export. |
 
 ## LinkOps snapshot
 
@@ -116,25 +116,33 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 - [x] Strongest direct-link signals: **Free PM Freelancers** (3 link engagements @ 30d), **Task vs PM** (2 @ 7d)
 - [ ] Continue distribution only after P0 evidence upgrades — do not promote thin comparisons
 
-### P0-A foundation (prepared in repo — not live)
+### P0-A foundation (prepared in repo — complete)
 
 - [x] Publish-ready author profile content (`content/authority/hayssam-dennaoui-author-profile.md`)
 - [x] Publish-ready methodology content (`content/authority/how-we-review-tools.md`)
 - [x] Byline/schema strategy (`docs/AUTHOR_BYLINE_SCHEMA_IMPLEMENTATION_2026_07.md`)
 - [x] Legacy `-2` remediation doc + partial curl verification (301 → **free guide**)
 - [x] Owner WP checklist (`docs/P0_A_WORDPRESS_IMPLEMENTATION_CHECKLIST.md`)
-- [ ] **Owner:** Publish author profile at `/about/hayssam-dennaoui/`
-- [ ] **Owner:** Publish methodology at `/how-we-review-tools/`
-- [ ] **Owner:** Update bylines + Rank Math author.url → profile
-- [ ] **Owner:** Complete legacy `-2` browser/GSC checklist
 
-### Authority implementation (after P0-A publish)
+### P0-A live implementation (owner completed — 2026-07-06)
 
-- [ ] P0-3 Evidence upgrade — Free PM for Freelancers → LEVEL 3
-- [ ] P0-4 Legacy `-2` decision signed off (keep → free guide vs change → paid canonical)
-- [ ] P0-5 Home / Tools / Start Here differentiation (first pass)
-- [ ] P0-6 Meta/intro CTR test — Best PM for Freelancers (canonical)
-- [ ] P0-7 Article + Person schema validated in Rich Results Test
+- [x] Author profile live — `/about/hayssam-dennaoui/`
+- [x] Methodology live — `/how-we-review-tools/`
+- [x] About page updated
+- [x] User bio + Website URL → profile
+- [x] Kadence author box disabled; custom MU plugins live
+- [x] Byline + schema → profile URL (owner-verified)
+- [x] MU plugins mirrored in repo (`wordpress/mu-plugins/`)
+- [x] SEO metadata prefix audit — `docs/SEO_METADATA_PREFIX_AUDIT_2026_07.md`
+- [ ] **Fix Rank Math title prefix** — Notion vs Trello vs ClickUp (1 confirmed live error)
+- [ ] Spot-check meta descriptions on June-updated posts for label prefixes
+- [ ] Optional: Rank Math Knowledge Graph publisher entity review (Person+Organization)
+- [ ] Optional: legacy `-2` browser/GSC checklist
+- [ ] `python -m linkops.cli fetch` after prefix fix
+
+### Authority implementation (next)
+
+- [ ] P0-3 Evidence upgrade — Free PM for Freelancers → LEVEL 3 (**after** prefix fix)
 
 ### Deep upgrade backlog (if fresh GSC still shows 0 clicks)
 
@@ -157,6 +165,7 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 | 2026-06-08–29 | LinkedIn distribution logged — see `distribution_log_2026_06.md` |
 | 2026-07-05 | Site Focus & Authority Upgrade Audit — 4 new docs; roadmap P0/P1/P2; **no WordPress changes** |
 | 2026-07-05 | P0-A foundation — publish-ready author + methodology content; byline/schema + legacy URL docs; **not published live** |
+| 2026-07-06 | P0-A live implementation recorded; MU plugins mirrored; SEO prefix audit; **1 live title prefix remains** |
 
 ## Notes
 

@@ -254,11 +254,11 @@ Patch types include `monitor_only`, `faq_patch`, `title_meta_patch`, `intro_patc
 
 ## Current editorial phase (2026-07)
 
-**Audit complete:** Site focus and authority upgrade documented in `docs/SITE_FOCUS_AUTHORITY_AUDIT_2026_07.md`.
+**P0-A authority pages are live** (author profile, methodology, About, MU plugins). See `docs/P0_A_AUTHORITY_LIVE_IMPLEMENTATION_RECORD_2026_07.md`.
 
-**P0-A foundation prepared:** Publish-ready author profile and methodology content in `content/authority/`. Owner executes `docs/P0_A_WORDPRESS_IMPLEMENTATION_CHECKLIST.md` before Free PM LEVEL 3 evidence work.
+**Open before P0-3:** Fix Rank Math `SEO Title:` prefix on Notion vs Trello vs ClickUp — `docs/SEO_METADATA_PREFIX_AUDIT_2026_07.md`.
 
-**Next:** Owner WordPress publish + validation → Free PM evidence upgrade (LEVEL 3).
+**Next:** Free PM for Freelancers LEVEL 3 evidence upgrade after prefix fix.
 
 **Editorial focus:** Work management tools for freelancers and small teams. Pause new broad communication/video/remote roundups.
 

@@ -30,7 +30,10 @@ Credentials live in `.env` (never commit). Reports go to `reports/` (gitignored)
 | [P0_A_WORDPRESS_IMPLEMENTATION_CHECKLIST.md](P0_A_WORDPRESS_IMPLEMENTATION_CHECKLIST.md) | Owner-executable P0-A publish sequence |
 | [AUTHOR_BYLINE_SCHEMA_IMPLEMENTATION_2026_07.md](AUTHOR_BYLINE_SCHEMA_IMPLEMENTATION_2026_07.md) | Byline + Rank Math schema strategy |
 | [LEGACY_FREELANCERS_URL_REMEDIATION_2026_07.md](LEGACY_FREELANCERS_URL_REMEDIATION_2026_07.md) | `-2` URL verification + decision branches |
-| [../content/authority/](../content/authority/) | Publish-ready author + methodology page copy |
+| [P0_A_AUTHORITY_LIVE_IMPLEMENTATION_RECORD_2026_07.md](P0_A_AUTHORITY_LIVE_IMPLEMENTATION_RECORD_2026_07.md) | Live P0-A authority rollout record |
+| [SEO_METADATA_PREFIX_AUDIT_2026_07.md](SEO_METADATA_PREFIX_AUDIT_2026_07.md) | Rank Math prefix error audit + correction queue |
+| [WORDPRESS_MU_PLUGIN_DEPLOYMENT_STATE_2026_07.md](WORDPRESS_MU_PLUGIN_DEPLOYMENT_STATE_2026_07.md) | MU plugin mirror + deployment notes |
+| [../wordpress/mu-plugins/](../wordpress/mu-plugins/) | Repository mirrors of live MU plugins |
 | [TRAFFIC_DIAGNOSIS_2026_06.md](TRAFFIC_DIAGNOSIS_2026_06.md) | June traffic diagnosis (historical) |
 | [CONTENT_STRATEGY_RESET_2026_06.md](CONTENT_STRATEGY_RESET_2026_06.md) | June strategy reset + July addendum |
 | [DISTRIBUTION_AUTHORITY_PLAN_2026_06.md](DISTRIBUTION_AUTHORITY_PLAN_2026_06.md) | Distribution plan |

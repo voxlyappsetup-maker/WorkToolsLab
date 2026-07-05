@@ -150,19 +150,43 @@ Quick reference — **current live curl finding:**
 
 | Check | Pass? |
 |-------|-------|
-| Profile URL 200 | [ ] |
-| Methodology URL 200 | [ ] |
-| Page title in browser tab (Rank Math) | [ ] |
-| H1 visible on page | [ ] |
-| Meta description in view-source or Rank Math front-end | [ ] |
-| Indexable (no accidental noindex) | [ ] |
-| Byline links to profile | [ ] |
-| Article JSON-LD author.url → profile | [ ] |
-| Mobile layout readable | [ ] |
-| About page links to profile + methodology | [ ] |
-| Internal links on profile/methodology resolve 200 | [ ] |
-| Sitemap includes new pages (after cache refresh) | [ ] |
-| GSC URL Inspection submitted for new pages | [ ] |
+| Profile URL 200 | [x] |
+| Methodology URL 200 | [x] |
+| Page title in browser tab (Rank Math) | [x] |
+| H1 visible on page | [x] |
+| Meta description in view-source or Rank Math front-end | [ ] spot-check |
+| Indexable (no accidental noindex) | [ ] GSC optional |
+| Byline links to profile | [x] |
+| Article JSON-LD author.@id → profile | [x] owner-verified |
+| Mobile layout readable | [ ] optional |
+| About page links to profile + methodology | [x] |
+| Internal links on profile/methodology resolve 200 | [x] |
+| Sitemap includes new pages (after cache refresh) | [ ] manual |
+| GSC URL Inspection submitted for new pages | [ ] manual |
+
+---
+
+## Part 8 — SEO metadata prefix cleanup
+
+See `docs/SEO_METADATA_PREFIX_AUDIT_2026_07.md`.
+
+- [x] ClickUp vs Trello — prefix removed (owner fixed)
+- [ ] **Notion vs Trello vs ClickUp** — remove `SEO Title:` prefix from Rank Math SEO Title
+- [ ] Same URL — verify Meta Description field has no `Meta Description:` prefix
+- [ ] Spot-check June-updated posts in Rank Math sidebar
+
+---
+
+## Part 9 — Publisher Knowledge Graph review
+
+See `docs/P0_A_AUTHORITY_LIVE_IMPLEMENTATION_RECORD_2026_07.md` (Publisher section).
+
+- [ ] Rank Math → General Settings → Edit Entity / Knowledge Graph
+- [ ] Confirm site entity type (prefer **Organization** for WorkToolsLab brand, not dual Person+Organization unless intentional)
+- [ ] Re-check JSON-LD `#person` / publisher node on homepage or sample article
+- [ ] Optional: Rich Results Test
+
+**Do not** modify MU plugins for publisher identity in this step unless live file intentionally manages publisher (current mirrors do not).
 
 ### After WordPress changes
 
