@@ -3,26 +3,28 @@
 > **Living document.** Update at the end of each working session.
 > Do not rely on ChatGPT memory for this file — edit locally.
 
-**Last updated:** 2026-07-05 (Site Focus & Authority Upgrade Audit — complete)
+**Last updated:** 2026-07-05 (P0-A Authority Foundation — prepared; not published live)
 
 ## Phase
 
 | Field | Value |
 |-------|--------|
-| **Latest phase** | Site Focus & Authority Upgrade Audit — **complete** (docs only; no WP changes) |
+| **Latest phase** | P0-A Authority Implementation Foundation — **prepared** (publish-ready content + WP checklists; **not live**) |
+| **Prior phase** | Site Focus & Authority Upgrade Audit — **complete** (`dc4e2c4`) |
 | **Prior phase** | Distribution / LinkedIn experiment — **logged** (`distribution_log_2026_06.md`) |
 | **Earlier phase** | Next Actions cleanup / on-page optimization cycle — **complete** |
-| **Strategy docs** | `docs/SITE_FOCUS_AUTHORITY_AUDIT_2026_07.md`, `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md`, `docs/ARTICLE_EVIDENCE_FRAMEWORK.md`, `docs/AUTHOR_PROFILE_AND_REVIEW_METHODOLOGY_PLAN.md` |
+| **Strategy docs** | `docs/SITE_FOCUS_AUTHORITY_AUDIT_2026_07.md`, `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md`, `docs/AUTHOR_BYLINE_SCHEMA_IMPLEMENTATION_2026_07.md`, `docs/P0_A_WORDPRESS_IMPLEMENTATION_CHECKLIST.md`, `docs/LEGACY_FREELANCERS_URL_REMEDIATION_2026_07.md` |
+| **Publish-ready content** | `content/authority/hayssam-dennaoui-author-profile.md`, `content/authority/how-we-review-tools.md` |
 | **June docs (historical)** | `docs/TRAFFIC_DIAGNOSIS_2026_06.md`, `docs/CONTENT_STRATEGY_RESET_2026_06.md`, `docs/DISTRIBUTION_AUTHORITY_PLAN_2026_06.md` |
 
 ## Active focus
 
 | Field | Value |
 |-------|--------|
-| **Current article / URL** | _None — audit/planning phase; implementation not started_ |
-| **Focus keyword** | _N/A until P0 implementation_ |
-| **Stage** | authority implementation planning |
-| **Next action** | Implement **P0** in `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md` — author profile, methodology page, Free PM evidence upgrade (A), freelancers-2 redirect fix. Do **not** re-patch June 5 GSC export. |
+| **Current article / URL** | _None — awaiting owner WordPress publish of P0-A pages_ |
+| **Focus keyword** | _N/A until pages live_ |
+| **Stage** | P0-A foundation prepared → owner WordPress implementation |
+| **Next action** | Execute `docs/P0_A_WORDPRESS_IMPLEMENTATION_CHECKLIST.md` — publish author profile + methodology, update bylines/schema, complete legacy `-2` verification. **Then** Free PM LEVEL 3 evidence upgrade. Do **not** re-patch June 5 GSC export. |
 
 ## LinkOps snapshot
 
@@ -114,15 +116,25 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 - [x] Strongest direct-link signals: **Free PM Freelancers** (3 link engagements @ 30d), **Task vs PM** (2 @ 7d)
 - [ ] Continue distribution only after P0 evidence upgrades — do not promote thin comparisons
 
-### Authority implementation (active — see July roadmap)
+### P0-A foundation (prepared in repo — not live)
 
-- [ ] P0-1 Author profile page
-- [ ] P0-2 Methodology page (`/how-we-review-tools/`)
+- [x] Publish-ready author profile content (`content/authority/hayssam-dennaoui-author-profile.md`)
+- [x] Publish-ready methodology content (`content/authority/how-we-review-tools.md`)
+- [x] Byline/schema strategy (`docs/AUTHOR_BYLINE_SCHEMA_IMPLEMENTATION_2026_07.md`)
+- [x] Legacy `-2` remediation doc + partial curl verification (301 → **free guide**)
+- [x] Owner WP checklist (`docs/P0_A_WORDPRESS_IMPLEMENTATION_CHECKLIST.md`)
+- [ ] **Owner:** Publish author profile at `/about/hayssam-dennaoui/`
+- [ ] **Owner:** Publish methodology at `/how-we-review-tools/`
+- [ ] **Owner:** Update bylines + Rank Math author.url → profile
+- [ ] **Owner:** Complete legacy `-2` browser/GSC checklist
+
+### Authority implementation (after P0-A publish)
+
 - [ ] P0-3 Evidence upgrade — Free PM for Freelancers → LEVEL 3
-- [ ] P0-4 Resolve `best-project-management-tools-for-freelancers-2/` redirect + GSC
+- [ ] P0-4 Legacy `-2` decision signed off (keep → free guide vs change → paid canonical)
 - [ ] P0-5 Home / Tools / Start Here differentiation (first pass)
 - [ ] P0-6 Meta/intro CTR test — Best PM for Freelancers (canonical)
-- [ ] P0-7 Article + Person schema
+- [ ] P0-7 Article + Person schema validated in Rich Results Test
 
 ### Deep upgrade backlog (if fresh GSC still shows 0 clicks)
 
@@ -144,6 +156,7 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 | 2026-06-05 | On-page cycle complete; Distribution / Authority plan (`DISTRIBUTION_AUTHORITY_PLAN_2026_06.md`) created |
 | 2026-06-08–29 | LinkedIn distribution logged — see `distribution_log_2026_06.md` |
 | 2026-07-05 | Site Focus & Authority Upgrade Audit — 4 new docs; roadmap P0/P1/P2; **no WordPress changes** |
+| 2026-07-05 | P0-A foundation — publish-ready author + methodology content; byline/schema + legacy URL docs; **not published live** |
 
 ## Notes
 

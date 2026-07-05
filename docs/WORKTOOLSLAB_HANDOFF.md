@@ -27,7 +27,10 @@ Credentials live in `.env` (never commit). Reports go to `reports/` (gitignored)
 | [SITE_FOCUS_AUTHORITY_AUDIT_2026_07.md](SITE_FOCUS_AUTHORITY_AUDIT_2026_07.md) | July 2026 focus/authority audit |
 | [SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md](SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md) | P0/P1/P2 implementation roadmap |
 | [ARTICLE_EVIDENCE_FRAMEWORK.md](ARTICLE_EVIDENCE_FRAMEWORK.md) | Evidence levels + testing honesty rules |
-| [AUTHOR_PROFILE_AND_REVIEW_METHODOLOGY_PLAN.md](AUTHOR_PROFILE_AND_REVIEW_METHODOLOGY_PLAN.md) | Author page + methodology page design |
+| [P0_A_WORDPRESS_IMPLEMENTATION_CHECKLIST.md](P0_A_WORDPRESS_IMPLEMENTATION_CHECKLIST.md) | Owner-executable P0-A publish sequence |
+| [AUTHOR_BYLINE_SCHEMA_IMPLEMENTATION_2026_07.md](AUTHOR_BYLINE_SCHEMA_IMPLEMENTATION_2026_07.md) | Byline + Rank Math schema strategy |
+| [LEGACY_FREELANCERS_URL_REMEDIATION_2026_07.md](LEGACY_FREELANCERS_URL_REMEDIATION_2026_07.md) | `-2` URL verification + decision branches |
+| [../content/authority/](../content/authority/) | Publish-ready author + methodology page copy |
 | [TRAFFIC_DIAGNOSIS_2026_06.md](TRAFFIC_DIAGNOSIS_2026_06.md) | June traffic diagnosis (historical) |
 | [CONTENT_STRATEGY_RESET_2026_06.md](CONTENT_STRATEGY_RESET_2026_06.md) | June strategy reset + July addendum |
 | [DISTRIBUTION_AUTHORITY_PLAN_2026_06.md](DISTRIBUTION_AUTHORITY_PLAN_2026_06.md) | Distribution plan |

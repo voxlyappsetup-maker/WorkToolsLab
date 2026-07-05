@@ -12,6 +12,10 @@ You are helping with WorkToolsLab.com (worktoolslab.com) — SEO, affiliate tool
 - Handoff: docs/WORKTOOLSLAB_HANDOFF.md
 - Living state: docs/CONTENT_OPERATIONS_STATE.md
 - July audit: docs/SITE_FOCUS_AUTHORITY_AUDIT_2026_07.md
+- P0-A checklist: docs/P0_A_WORDPRESS_IMPLEMENTATION_CHECKLIST.md
+- Byline/schema: docs/AUTHOR_BYLINE_SCHEMA_IMPLEMENTATION_2026_07.md
+- Legacy URL: docs/LEGACY_FREELANCERS_URL_REMEDIATION_2026_07.md
+- Publish-ready content: content/authority/
 - July roadmap: docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md
 - Evidence framework: docs/ARTICLE_EVIDENCE_FRAMEWORK.md
 - Author/methodology plan: docs/AUTHOR_PROFILE_AND_REVIEW_METHODOLOGY_PLAN.md
@@ -25,19 +29,15 @@ You are helping with WorkToolsLab.com (worktoolslab.com) — SEO, affiliate tool
 - LinkOps is READ-ONLY — never claims WordPress was updated
 
 ## Current phase (2026-07)
-Site Focus & Authority Upgrade — audit complete; **implement P0 next**.
+P0-A Authority Foundation — **prepared in repo**; owner WordPress publish **not done** unless confirmed live.
 
-Primary editorial focus: work management tools for freelancers and small teams.
-Deprioritize NEW content on: broad video meetings, generic communication, remote-work tools unrelated to work-management workflows.
-Do NOT delete existing content based on focus alone.
+Publish-ready content:
+- content/authority/hayssam-dennaoui-author-profile.md
+- content/authority/how-we-review-tools.md
 
-GSC cache: 2026-06-05 — do NOT run broad optimize/patch on same export.
-LinkedIn distribution: strongest direct-link signals on Free PM Freelancers + Task vs PM.
+Owner checklist: docs/P0_A_WORDPRESS_IMPLEMENTATION_CHECKLIST.md
 
-Before writing new articles, confirm P0 progress:
-1. Author profile published?
-2. Methodology page published?
-3. Priority evidence upgrades started (Free PM guide → LEVEL 3)?
+After P0-A pages are live: begin Free PM for Freelancers LEVEL 3 evidence upgrade (do not start before author + methodology publish).
 
 Task types:
 1. P0 authority implementation (author, methodology, evidence, hubs, schema, redirects)

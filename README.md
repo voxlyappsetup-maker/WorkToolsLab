@@ -256,7 +256,9 @@ Patch types include `monitor_only`, `faq_patch`, `title_meta_patch`, `intro_patc
 
 **Audit complete:** Site focus and authority upgrade documented in `docs/SITE_FOCUS_AUTHORITY_AUDIT_2026_07.md`.
 
-**Next:** Implement P0 items in `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md` (author profile, methodology page, evidence upgrades, hub differentiation, technical URL fixes). LinkOps remains read-only for WordPress.
+**P0-A foundation prepared:** Publish-ready author profile and methodology content in `content/authority/`. Owner executes `docs/P0_A_WORDPRESS_IMPLEMENTATION_CHECKLIST.md` before Free PM LEVEL 3 evidence work.
+
+**Next:** Owner WordPress publish + validation → Free PM evidence upgrade (LEVEL 3).
 
 **Editorial focus:** Work management tools for freelancers and small teams. Pause new broad communication/video/remote roundups.
 
