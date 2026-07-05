@@ -3,17 +3,18 @@
 > **Living document.** Update at the end of each working session.
 > Do not rely on ChatGPT memory for this file — edit locally.
 
-**Last updated:** 2026-07-06 (P0-A live implementation recorded; SEO prefix audit complete)
+**Last updated:** 2026-07-06 (P0-A fully closed; P0-3 evidence planning complete)
 
 ## Phase
 
 | Field | Value |
 |-------|--------|
-| **Latest phase** | P0-A Authority Live Implementation — **live** (SEO prefix fix pending on 1 URL) |
+| **Latest phase** | **P0-3** Free PM for Freelancers LEVEL 3 — **READY FOR OWNER TESTING** |
+| **Prior phase** | P0-A Authority Live Implementation — **PASS / FULLY CLOSED** |
 | **Prior phase** | P0-A repository foundation — **complete** (`e613f50`) |
 | **Prior phase** | Distribution / LinkedIn experiment — **logged** (`distribution_log_2026_06.md`) |
 | **Earlier phase** | Next Actions cleanup / on-page optimization cycle — **complete** |
-| **Strategy docs** | `docs/P0_A_AUTHORITY_LIVE_IMPLEMENTATION_RECORD_2026_07.md`, `docs/SEO_METADATA_PREFIX_AUDIT_2026_07.md`, `docs/WORDPRESS_MU_PLUGIN_DEPLOYMENT_STATE_2026_07.md`, `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md` |
+| **Strategy docs** | `docs/P0_3_*_2026_07.md`, `docs/P0_A_AUTHORITY_LIVE_IMPLEMENTATION_RECORD_2026_07.md`, `docs/SEO_METADATA_PREFIX_AUDIT_2026_07.md`, `docs/WORDPRESS_MU_PLUGIN_DEPLOYMENT_STATE_2026_07.md`, `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md` |
 | **MU plugin mirrors** | `wordpress/mu-plugins/worktoolslab-author-box.php`, `wordpress/mu-plugins/worktoolslab-author-links.php` |
 | **June docs (historical)** | `docs/TRAFFIC_DIAGNOSIS_2026_06.md`, `docs/CONTENT_STRATEGY_RESET_2026_06.md`, `docs/DISTRIBUTION_AUTHORITY_PLAN_2026_06.md` |
 
@@ -21,17 +22,17 @@
 
 | Field | Value |
 |-------|--------|
-| **Current article / URL** | _None — fix Notion SEO prefix, then P0-3 evidence upgrade_ |
-| **Focus keyword** | _N/A until next implementation phase_ |
-| **Stage** | P0-A live; **not fully closed** until SEO prefix corrected |
-| **Next action** | Owner: fix Rank Math prefix on `/notion-vs-trello-vs-clickup-which-one-is-best-for-your-workflow/` per `docs/SEO_METADATA_PREFIX_AUDIT_2026_07.md`. Then **P0-3** Free PM LEVEL 3 evidence upgrade. Run `fetch` after prefix fix. Do **not** re-patch June 5 GSC export. |
+| **Current article / URL** | `/best-free-project-management-tools-for-freelancers/` — LEVEL 2 → LEVEL 3 upgrade |
+| **Focus keyword** | free project management tools for freelancers |
+| **Stage** | Planning complete; **owner real testing + screenshots** |
+| **Next action** | Owner: execute `docs/P0_3_OWNER_TESTING_EXECUTION_QUEUE_2026_07.md` (start with ClickUp auth + screenshots). Do **not** re-patch June 5 GSC export. Do **not** run repeated `fetch` while SiteGround sgcaptcha blocks REST locally. |
 
 ## LinkOps snapshot
 
 | Item | Value |
 |------|--------|
 | LinkOps version | 1.7.6 |
-| Content cache | `data/worktoolslab_content_cache.json` — refresh with `fetch` after publishes |
+| Content cache | `data/worktoolslab_content_cache.json` — refresh with `fetch` when REST access works (sgcaptcha may block locally) |
 | GSC cache imported | **2026-06-05** (`2026-06-05T10:03:47Z`) — **current cycle complete; do not re-patch against this export** |
 | Worklog | `config/worklog.json` — open locally for URLs/notes (not edited this session) |
 
@@ -133,16 +134,26 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 - [x] Kadence author box disabled; custom MU plugins live
 - [x] Byline + schema → profile URL (owner-verified)
 - [x] MU plugins mirrored in repo (`wordpress/mu-plugins/`)
-- [x] SEO metadata prefix audit — `docs/SEO_METADATA_PREFIX_AUDIT_2026_07.md`
-- [ ] **Fix Rank Math title prefix** — Notion vs Trello vs ClickUp (1 confirmed live error)
-- [ ] Spot-check meta descriptions on June-updated posts for label prefixes
+- [x] SEO metadata prefix audit — `docs/SEO_METADATA_PREFIX_AUDIT_2026_07.md` — **0 confirmed errors remaining**
+- [x] **Fix Rank Math title prefix** — Notion vs Trello vs ClickUp (owner fixed 2026-07-06)
+- [ ] Spot-check meta descriptions on June-updated posts for label prefixes (optional P1)
 - [ ] Optional: Rank Math Knowledge Graph publisher entity review (Person+Organization)
 - [ ] Optional: legacy `-2` browser/GSC checklist
-- [ ] `python -m linkops.cli fetch` after prefix fix
+- [ ] `python -m linkops.cli fetch` when REST access works (optional — sgcaptcha blocker locally)
 
-### Authority implementation (next)
+### P0-3 Evidence upgrade — Free PM for Freelancers (in progress)
 
-- [ ] P0-3 Evidence upgrade — Free PM for Freelancers → LEVEL 3 (**after** prefix fix)
+- [x] Evidence audit — `docs/P0_3_FREE_PM_FREELANCERS_EVIDENCE_AUDIT_2026_07.md`
+- [x] Real testing matrix — `docs/P0_3_FREE_PM_REAL_TESTING_MATRIX_2026_07.md`
+- [x] Screenshot capture plan — `docs/P0_3_FREE_PM_SCREENSHOT_CAPTURE_PLAN_2026_07.md`
+- [x] Owner execution queue — `docs/P0_3_OWNER_TESTING_EXECUTION_QUEUE_2026_07.md`
+- [x] Article blueprint — `docs/P0_3_FREE_PM_LEVEL3_ARTICLE_BLUEPRINT_2026_07.md`
+- [ ] Owner real testing (5 tools) + valid screenshots
+- [ ] Article rewrite using supported evidence only
+- [ ] WordPress publish + live validation
+- [ ] Self-audit → LEVEL 3 on page
+
+### Authority implementation (next after P0-3 testing)
 
 ### Deep upgrade backlog (if fresh GSC still shows 0 clicks)
 
@@ -165,7 +176,7 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 | 2026-06-08–29 | LinkedIn distribution logged — see `distribution_log_2026_06.md` |
 | 2026-07-05 | Site Focus & Authority Upgrade Audit — 4 new docs; roadmap P0/P1/P2; **no WordPress changes** |
 | 2026-07-05 | P0-A foundation — publish-ready author + methodology content; byline/schema + legacy URL docs; **not published live** |
-| 2026-07-06 | P0-A live implementation recorded; MU plugins mirrored; SEO prefix audit; **1 live title prefix remains** |
+| 2026-07-06 | P0-A **PASS** — Notion SEO prefix fixed; P0-3 planning docs created; **READY FOR OWNER TESTING** |
 
 ## Notes
 

@@ -171,9 +171,8 @@ Quick reference — **current live curl finding:**
 See `docs/SEO_METADATA_PREFIX_AUDIT_2026_07.md`.
 
 - [x] ClickUp vs Trello — prefix removed (owner fixed)
-- [ ] **Notion vs Trello vs ClickUp** — remove `SEO Title:` prefix from Rank Math SEO Title
-- [ ] Same URL — verify Meta Description field has no `Meta Description:` prefix
-- [ ] Spot-check June-updated posts in Rank Math sidebar
+- [x] **Notion vs Trello vs ClickUp** — prefix removed (owner fixed 2026-07-06; View Source verified)
+- [ ] Spot-check June-updated posts in Rank Math sidebar (optional P1)
 
 ---
 
@@ -196,14 +195,16 @@ cd C:\dev\worktoolslab_linkops
 python -m linkops.cli fetch
 ```
 
-- [ ] Run `fetch` to refresh cache
-- [ ] Update `docs/CONTENT_OPERATIONS_STATE.md` — mark pages **published** with date
+**Note (2026-07-06):** Local `fetch` may be blocked by SiteGround `sgcaptcha` (HTTP 202). P0-A closeout does not depend on fetch. Retry when REST access works; do not bypass CAPTCHA.
+
+- [ ] Run `fetch` when REST access works (optional — currently blocked locally)
+- [x] Update `docs/CONTENT_OPERATIONS_STATE.md` — P0-A closed; P0-3 planning complete
 
 ---
 
 ## Part 8 — Explicitly out of scope for P0-A
 
-- [ ] Free PM for Freelancers LEVEL 3 evidence upgrade — **next phase**
+- [ ] Free PM for Freelancers LEVEL 3 evidence upgrade — **P0-3 in progress (owner testing queue)**
 - [ ] Home / Tools / Start Here hub restructure — P0-5 later
 - [ ] Paid freelancer roundup meta/intro CTR — P0-6 later
 - [ ] Broad title/meta rewrites across site
@@ -212,8 +213,8 @@ python -m linkops.cli fetch
 
 ## Recommended next phase after this checklist
 
-1. **P0-A validation complete** (this checklist)
-2. **P0-3:** Free PM for Freelancers evidence upgrade (LEVEL 3) using `docs/ARTICLE_EVIDENCE_FRAMEWORK.md`
+1. **P0-A validation complete** — **PASS** (2026-07-06)
+2. **P0-3:** Free PM for Freelancers evidence upgrade (LEVEL 3) — **READY FOR OWNER TESTING** — see `docs/P0_3_OWNER_TESTING_EXECUTION_QUEUE_2026_07.md`
 3. **P0-6:** Canonical paid freelancer roundup snippet differentiation
 4. **Fresh GSC import** after 2–3 weeks
 

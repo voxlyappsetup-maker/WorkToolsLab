@@ -254,11 +254,11 @@ Patch types include `monitor_only`, `faq_patch`, `title_meta_patch`, `intro_patc
 
 ## Current editorial phase (2026-07)
 
-**P0-A authority pages are live** (author profile, methodology, About, MU plugins). See `docs/P0_A_AUTHORITY_LIVE_IMPLEMENTATION_RECORD_2026_07.md`.
+**P0-A authority pages are live** and **fully closed (PASS)**. See `docs/P0_A_AUTHORITY_LIVE_IMPLEMENTATION_RECORD_2026_07.md`.
 
-**Open before P0-3:** Fix Rank Math `SEO Title:` prefix on Notion vs Trello vs ClickUp — `docs/SEO_METADATA_PREFIX_AUDIT_2026_07.md`.
+**P0-3 in progress:** Free PM for Freelancers LEVEL 3 evidence upgrade — **READY FOR OWNER TESTING**. Planning docs in `docs/P0_3_*_2026_07.md`. Article is **not** LEVEL 3 yet.
 
-**Next:** Free PM for Freelancers LEVEL 3 evidence upgrade after prefix fix.
+**Operational:** Local `python -m linkops.cli fetch` may be blocked by SiteGround `sgcaptcha` — do not bypass CAPTCHA.
 
 **Editorial focus:** Work management tools for freelancers and small teams. Pause new broad communication/video/remote roundups.
 

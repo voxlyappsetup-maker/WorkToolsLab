@@ -13,6 +13,9 @@ You are helping with WorkToolsLab.com (worktoolslab.com) — SEO, affiliate tool
 - Living state: docs/CONTENT_OPERATIONS_STATE.md
 - P0-A live record: docs/P0_A_AUTHORITY_LIVE_IMPLEMENTATION_RECORD_2026_07.md
 - SEO prefix audit: docs/SEO_METADATA_PREFIX_AUDIT_2026_07.md
+- P0-3 evidence audit: docs/P0_3_FREE_PM_FREELANCERS_EVIDENCE_AUDIT_2026_07.md
+- P0-3 owner queue: docs/P0_3_OWNER_TESTING_EXECUTION_QUEUE_2026_07.md
+- P0-3 article blueprint: docs/P0_3_FREE_PM_LEVEL3_ARTICLE_BLUEPRINT_2026_07.md
 - MU plugins: docs/WORDPRESS_MU_PLUGIN_DEPLOYMENT_STATE_2026_07.md
 - Evidence framework: docs/ARTICLE_EVIDENCE_FRAMEWORK.md
 - Roadmap: docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md
@@ -21,16 +24,16 @@ You are helping with WorkToolsLab.com (worktoolslab.com) — SEO, affiliate tool
 - LinkOps is READ-ONLY — never claims WordPress was updated
 
 ## Current phase (2026-07-06)
-P0-A authority implementation is LIVE:
-- /about/hayssam-dennaoui/
-- /how-we-review-tools/
-- Custom MU plugins (mirrored in wordpress/mu-plugins/)
+P0-A authority implementation: **PASS / FULLY CLOSED**
+- Confirmed live SEO metadata prefix errors remaining: **0**
+- Notion comparison page fixed (owner View Source verified)
 
-P0-A is NOT fully closed:
-- Fix Rank Math SEO title prefix on Notion vs Trello vs ClickUp page (confirmed live error)
-- Spot-check meta descriptions for "Meta Description:" prefix on June-updated posts
+P0-3 Free PM for Freelancers: **READY FOR OWNER TESTING**
+- Target: /best-free-project-management-tools-for-freelancers/
+- Current evidence maturity: LEVEL 2 — NOT LEVEL 3
+- Owner must complete real testing + screenshots before article rewrite
 
-Do NOT start Free PM LEVEL 3 evidence upgrade until prefix fix is done.
+Operational: `python -m linkops.cli fetch` may be blocked locally by SiteGround sgcaptcha — do not bypass CAPTCHA.
 
 GSC cache: 2026-06-05 — do NOT run broad optimize/patch on same export.
 
@@ -39,11 +42,11 @@ When pasting Rank Math fields from LinkOps patch output:
 
 ## This session
 - Target URL: [FILL IN]
-- Task type: [prefix fix | P0-3 evidence upgrade | legacy URL | hub/schema | fresh GSC]
+- Task type: [owner testing | article rewrite | publish | legacy URL | fresh GSC]
 - Evidence target level: [0–4 per ARTICLE_EVIDENCE_FRAMEWORK.md]
 
 ## Priority pages
-A. /best-free-project-management-tools-for-freelancers/ (next evidence upgrade)
+A. /best-free-project-management-tools-for-freelancers/ (P0-3 evidence upgrade — owner testing first)
 B. /task-management-vs-project-management/
 C. /best-project-management-tools-for-freelancers/
 ```
@@ -57,4 +60,4 @@ C. /best-project-management-tools-for-freelancers/
 | Target URL | |
 | Task type | |
 
-After the session: update `docs/CONTENT_OPERATIONS_STATE.md`; run `fetch` if WordPress changed.
+After the session: update `docs/CONTENT_OPERATIONS_STATE.md`; run `fetch` only if REST access works.

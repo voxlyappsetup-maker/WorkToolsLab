@@ -28,11 +28,13 @@
 
 | Classification | Count |
 |----------------|------:|
-| **A — Confirmed live metadata error** | **1** |
-| **B — Suspected live metadata error** | **1** |
-| **D — Fixed** | **1** |
+| **A — Confirmed live metadata error** | **0** |
+| **B — Suspected live metadata error** | **0** |
+| **D — Fixed** | **2** |
 | **C — Repository/documentation only** | Multiple checklist lines (not live) |
-| **Clean (no title prefix in live WebFetch title)** | **33** |
+| **Clean (no title prefix in live document title)** | **35** |
+
+**P0-A SEO prefix audit result:** **PASS** — confirmed live prefix errors remaining = **0** (2026-07-06 owner closeout).
 
 ---
 
@@ -49,26 +51,21 @@
 
 ## Confirmed and suspected pages
 
-### 1. Notion vs Trello vs ClickUp — **A (title)** / **B (meta)**
+### 1. Notion vs Trello vs ClickUp — **D (fixed)**
 
 | Field | Value |
 |-------|--------|
 | **URL** | https://worktoolslab.com/notion-vs-trello-vs-clickup-which-one-is-best-for-your-workflow/ |
-| **Classification** | **A — Confirmed live SEO title error** |
-| **Live title evidence (WebFetch)** | `SEO Title: Notion vs Trello vs ClickUp: Best Workflow Tool?` |
-| **Offending prefix** | `SEO Title:` |
-| **Proposed corrected SEO title** | `Notion vs Trello vs ClickUp: Best Workflow Tool?` |
-| **Meta description evidence** | Not readable via WebFetch; **B — suspected** — owner should open Rank Math sidebar |
-| **Proposed corrected meta description** | Remove `Meta Description:` prefix only if present; keep existing description body unchanged |
-| **Owner action required?** | **Yes** |
-| **Rank Math fields** | SEO Title; Meta Description |
-| **Validation after change** | View page source `<title>`; Rank Math preview; optional GSC URL Inspection |
+| **Classification** | **D — Fixed** |
+| **Prior error** | Live title included `SEO Title:` prefix (WebFetch, July 2026) |
+| **Owner correction** | Rank Math SEO Title + meta manually fixed in WordPress (2026-07-06) |
+| **Owner View Source — `<title>`** | `Notion vs Trello vs ClickUp: Best Workflow Tool?` |
+| **Owner View Source — `og:title`** | `Notion vs Trello vs ClickUp: Best Workflow Tool?` |
+| **Owner View Source — meta description** | Begins with `Compare Notion vs Trello vs ClickUp for workflows…` — **no** `Meta Description:` prefix |
+| **Owner action required?** | **No** |
+| **Validation** | View page source after edit; optional GSC URL Inspection — do **not** claim recrawl/reindex |
 
-**Note:** Public search results reported by owner may still show old prefixed title until recrawl.
-
----
-
-### 2. ClickUp vs Trello for Small Teams — **D (fixed)**
+**Note:** Public search results may still show old snippets until Google recrawls.
 
 | Field | Value |
 |-------|--------|
@@ -129,12 +126,14 @@ These contain `SEO Title:` as **field labels**, not live Rank Math values:
 
 ## Exact owner correction queue
 
-| Priority | URL | Action |
-|----------|-----|--------|
-| **P0** | `/notion-vs-trello-vs-clickup-which-one-is-best-for-your-workflow/` | Remove `SEO Title:` prefix from Rank Math SEO Title |
-| **P0** | Same URL | Open Meta Description field — remove `Meta Description:` prefix if present |
-| **P1** | All posts edited from LinkOps `patch` / paste-ready blocks (June cycle) | Rank Math sidebar spot-check for label prefixes |
-| **P2** | Sitewide | Search Rank Math posts list is not available in repo — manual WP search not performed |
+| Priority | URL | Action | Status |
+|----------|-----|--------|--------|
+| ~~**P0**~~ | `/notion-vs-trello-vs-clickup-which-one-is-best-for-your-workflow/` | Remove `SEO Title:` / `Meta Description:` prefixes if present | **Done** (2026-07-06) |
+| ~~**P0**~~ | `/clickup-vs-trello-for-small-teams/` | Prefix cleanup | **Done** (prior session) |
+| **P1** | All posts edited from LinkOps `patch` / paste-ready blocks (June cycle) | Rank Math sidebar spot-check for label prefixes | Optional |
+| **P2** | Sitewide | Manual WP search not performed in repo | Optional |
+
+**Confirmed live prefix errors remaining:** **0**
 
 ---
 
