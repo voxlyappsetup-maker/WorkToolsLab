@@ -15,8 +15,8 @@
 | **Current evidence maturity** | **LEVEL 2** — transparent criteria, editorial best/poor fit, pricing caveats |
 | **Target maturity** | **LEVEL 3** — dated direct testing, real screenshots, honest limitations |
 | **First-person testing language in live article** | **None found** (`I tested`, `How I tested`, `screenshot`, `real use` absent) |
-| **Repository direct-testing artifacts for this article** | **None** (no screenshots, logs, or QA notes in LinkOps repo) |
-| **P0-3 execution status** | **READY FOR OWNER TESTING** — planning complete; evidence capture not started |
+| **Repository direct-testing artifacts for this article** | **ClickUp** — owner-confirmed session recorded (`docs/P0_3_CLICKUP_DIRECT_TESTING_EVIDENCE_2026_07.md`); screenshots external |
+| **P0-3 execution status** | **READY FOR OWNER TESTING** — ClickUp confirmed for tested scope; **Trello next** |
 
 **Do not claim LEVEL 3 until owner testing, screenshots, article rewrite, WordPress publish, and live validation are complete.**
 
@@ -87,7 +87,7 @@ These remain valid **LEVEL 2 editorial scaffolding**. LEVEL 3 adds per-tool evid
 |----------|-----------------|-----------------|
 | All tool sections | “Setup difficulty: Low/Medium…” | **D** — editorial inference unless measured in a timed test |
 | Trello | “Most freelancers can be productive the same day” | **E** — soften or support with dated test notes |
-| ClickUp | “Plan one hour for a clean structure” | **E** — soften or record actual setup time |
+| ClickUp | “Plan one hour for a clean structure” | **E** — not supported; setup not measured; seed infrastructure used |
 | Notion | “Budget time to design templates…” | **D** — acceptable as editorial if not framed as tested |
 | Todoist | “Add projects and tasks, then refine later” | **D** |
 | Persona section | “Start with: Todoist or Trello” | **D** — recommendation, not test claim |
@@ -161,18 +161,29 @@ These remain valid **LEVEL 2 editorial scaffolding**. LEVEL 3 adds per-tool evid
 
 ### ClickUp
 
+**Direct testing status:** **A — confirmed for tested scope** (2026-07) — see `docs/P0_3_CLICKUP_DIRECT_TESTING_EVIDENCE_2026_07.md`  
+**Not “fully tested”** — many article claims remain B/C/D gates below.
+
 | Claim / topic | Class | Action |
 |---------------|-------|--------|
-| Lists, boards, docs, calendars in one workspace | **B** + **C** | Test views on actual free plan; verify doc/calendar availability |
-| Space → Folder → List structure for clients | **B** | Must configure in test workspace to claim |
-| “More powerful than Trello… requires discipline” | **D** | Keep editorial; optional test note |
-| Free tier generous but limits on storage/views | **C** | Verify current ClickUp free limits |
-| Setup ~1 hour | **B** + **E** | Record actual setup time or soften |
-| Recurring tasks mention (persona section) | **B** + **C** | Test recurrence UI if claimed in upgrade |
-| Seeded tasks in separate `clickup-screenshots` project | **B** | Infrastructure exists; **not evidence until authenticated UI confirmed** |
+| List view with status groups and due dates | **A** | Supported — List screenshot + session record |
+| Board/Kanban grouped by To Do / In Progress / Complete | **A** | Supported — Board screenshot + session record |
+| Six canonical tasks visible in List and Board | **A** | Supported |
+| Switching List ↔ Board in same Content Calendar context | **A** | Supported |
+| Due-date visibility on tasks/cards | **A** | Supported |
+| Free Forever Plan (exact name) | **A** (plan UI) | Owner Plans screen — internal verification; cite “Free Forever Plan” with last checked 2026-07 |
+| Board easier to scan workflow states; List denser for names/dates | **A** | Owner direct observations — use in evidence block only |
+| Home / Recents shows all six tasks | **A** (internal) | **INTERNAL EVIDENCE ONLY** — not Dashboard |
+| Lists, boards, docs, calendars in one workspace | **A** (partial) + **C** | List + Board tested; docs/calendar **not** tested this session |
+| Space → Folder → List structure for clients | **D** + **C** | Editorial mental model; structure existed via seed — do not claim manual client setup |
+| “More powerful than Trello… requires discipline” | **D** | Keep editorial |
+| Free tier storage (0/100 MB shown) | **A** (plan UI) + **C** | Owner Plans screen snapshot; verify limits in docs for article |
+| Setup ~1 hour / setup difficulty Medium | **E** | **Not directly tested** — seed used; do not use first-person setup claims |
+| Recurring tasks, automation, time tracking | **B** + **C** | Not tested |
+| Dashboards / reporting dashboards | **NOT DIRECTLY TESTED** | Do not claim; `clickup-dashboard.png` is Home/Recents |
+| Collaboration, guest access, mobile, multi-project overview | **B** + **C** | Not tested |
 
-**Direct testing status:** **B — required**  
-**Existing assets:** `C:\dev\clickup-screenshots` — API seed config + screenshot automation; current PNGs are **login pages (unsuitable)** — see evidence asset audit in execution queue doc.
+**External assets:** `C:\dev\clickup-screenshots\screenshots\` — board + list **VALID EVIDENCE** after redaction; home capture **internal only**.
 
 ---
 
@@ -225,13 +236,13 @@ These remain valid **LEVEL 2 editorial scaffolding**. LEVEL 3 adds per-tool evid
 
 | Tool | Supported today? | Reason |
 |------|------------------|--------|
-| Trello | **No** | No repository or owner-confirmed test artifacts |
-| ClickUp | **No** | Screenshot files exist but show **login page**, not product UI |
+| Trello | **No** | No owner-confirmed session yet |
+| ClickUp | **Yes — tested scope only** | Session + external screenshots recorded 2026-07; not fully tested |
 | Notion | **No** | No artifacts |
 | Todoist | **No** | No artifacts |
 | Asana | **No** | No artifacts |
 
-**Category A count for this article: 0**
+**Category A (direct testing):** ClickUp — **partial** (List, Board, due dates, workflow states, plan name; not setup/dashboard/automation/etc.)
 
 ---
 
@@ -254,17 +265,18 @@ These do not require first-person testing blocks:
 
 | LEVEL 3 requirement | Current state |
 |---------------------|---------------|
-| Dated testing notes per tool | Missing |
-| Real product screenshots | Missing in repo; ClickUp PNGs unsuitable |
-| Testing environment documented | Not recorded for this article |
-| What was tested / noticed / limitations | Not recorded |
-| Honest best fit / poor fit from use | Editorial only today |
-| Distinction: tested vs docs vs editorial | Methodology page exists site-wide; **not applied per tool in this article** |
+| Dated testing notes per tool | **ClickUp** recorded (2026-07); others missing |
+| Real product screenshots | **ClickUp** external (board + list valid after redaction); others missing |
+| Testing environment documented | **ClickUp** yes; others no |
+| What was tested / noticed / limitations | **ClickUp** yes; others no |
+| Honest best fit / poor fit from use | ClickUp observations recorded; others editorial only |
+| Distinction: tested vs docs vs editorial | **ClickUp** evidence doc; article not yet upgraded |
 
 ---
 
 ## Related docs
 
+- `docs/P0_3_CLICKUP_DIRECT_TESTING_EVIDENCE_2026_07.md`
 - `docs/P0_3_FREE_PM_REAL_TESTING_MATRIX_2026_07.md`
 - `docs/P0_3_FREE_PM_SCREENSHOT_CAPTURE_PLAN_2026_07.md`
 - `docs/P0_3_OWNER_TESTING_EXECUTION_QUEUE_2026_07.md`

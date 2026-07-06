@@ -256,7 +256,7 @@ Patch types include `monitor_only`, `faq_patch`, `title_meta_patch`, `intro_patc
 
 **P0-A authority pages are live** and **fully closed (PASS)**. See `docs/P0_A_AUTHORITY_LIVE_IMPLEMENTATION_RECORD_2026_07.md`.
 
-**P0-3 in progress:** Free PM for Freelancers LEVEL 3 evidence upgrade — **READY FOR OWNER TESTING**. Planning docs in `docs/P0_3_*_2026_07.md`. Article is **not** LEVEL 3 yet.
+**P0-3 in progress:** Free PM for Freelancers LEVEL 3 evidence upgrade — **READY FOR OWNER TESTING**. **ClickUp** direct-testing confirmed for tested scope (`docs/P0_3_CLICKUP_DIRECT_TESTING_EVIDENCE_2026_07.md`). **Next owner tool: Trello.** Article is **not** LEVEL 3 yet.
 
 **Operational:** Local `python -m linkops.cli fetch` may be blocked by SiteGround `sgcaptcha` — do not bypass CAPTCHA.
 

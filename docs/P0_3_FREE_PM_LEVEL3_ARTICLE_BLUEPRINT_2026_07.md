@@ -64,7 +64,7 @@ Pricing and limits (verified from official documentation, checked YYYY-MM): …
 | What Freelancers Should Look For (5 criteria) | Optional footnote linking methodology | — | **D** | No |
 | Quick Comparison table | Add “Last checked” row footnote for pricing | — | **C** + **D** | Doc dates only |
 | **§1 Trello** | Add evidence block **if tested**; else doc-verified pricing sub-block | Board + card detail | **B** → A after test | **Yes** for first-person |
-| **§2 ClickUp** | Same | List + board (+ task detail) | **B** — blocked on auth screenshots | **Yes** |
+| **§2 ClickUp** | Evidence block (supported scope only) | Board primary + List secondary | **A** (partial) | **No** — ready for rewrite phase after redaction |
 | **§3 Notion** | Same | Database + client page | **B** | **Yes** |
 | **§4 Todoist** | Same | Project list + Upcoming | **B** | **Yes** |
 | **§5 Asana** | Same | Sections + board/detail | **B** | **Yes** |
@@ -94,10 +94,14 @@ Pricing and limits (verified from official documentation, checked YYYY-MM): …
 
 | Element | Action |
 |---------|--------|
-| Keep | Space/folder/list mental model; discipline warning |
-| Add after test | Evidence block referencing **Marketing Team / Content Calendar** or equivalent |
-| Screenshot placement | After “Example client workflow” paragraph |
-| Do not claim yet | That seeded workspace was used until UI confirmed |
+| Keep | Space/folder/list mental model; discipline warning (editorial) |
+| Add in rewrite | Concise **How I Tested ClickUp** block — **Free Forever Plan**, web app, 2026-07, six tasks across To Do / In Progress / Complete |
+| Permitted first-person substance | “In my test workspace, I used ClickUp’s Free Forever Plan in the web app with six sample work items divided across To Do, In Progress, and Complete. The Board view made the workflow state easy to scan, while the List view gave me a denser view of task names, status groups, and due dates.” |
+| Screenshot placement | **Primary:** Board (`clickup-board-view.png`) — **Secondary:** List (`clickup-list-view.png`) — both **after redaction/crop** |
+| Do not use in article | `clickup-dashboard.png` (Home/Recents — internal only); Plans screen; unredacted sidebar/workspace identity |
+| Do not claim | Setup time/difficulty; dashboards; automation; recurring tasks; collaboration; “I configured from scratch” |
+| Qualification in block | Note tasks/workspace prepared via seed infrastructure if transparency needed — **no setup-friction claims** |
+| Doc verify (separate labels) | Guest limits, automation, advanced views — official docs with last-checked date |
 | Internal link | Keep → ClickUp Review for Growing Teams |
 
 ### 3. Notion
@@ -169,13 +173,15 @@ Pricing and limits (verified from official documentation, checked YYYY-MM): …
 | Field | Value |
 |-------|--------|
 | **Article rewrite drafted** | **No** |
+| **ClickUp evidence** | Recorded — section unblocked for future rewrite |
 | **LEVEL 3 complete** | **No** |
-| **Blocked on** | Owner testing queue (`docs/P0_3_OWNER_TESTING_EXECUTION_QUEUE_2026_07.md`) |
+| **Blocked on** | Trello + remaining tools testing; article rewrite; redaction; publish |
 
 ---
 
 ## Related docs
 
+- `docs/P0_3_CLICKUP_DIRECT_TESTING_EVIDENCE_2026_07.md`
 - `docs/P0_3_FREE_PM_FREELANCERS_EVIDENCE_AUDIT_2026_07.md`
 - `docs/P0_3_FREE_PM_SCREENSHOT_CAPTURE_PLAN_2026_07.md`
 - `docs/ARTICLE_EVIDENCE_FRAMEWORK.md`

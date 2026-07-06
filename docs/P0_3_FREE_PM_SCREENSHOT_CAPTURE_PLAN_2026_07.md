@@ -37,23 +37,21 @@ Every accepted screenshot record must include:
 
 ---
 
-## ClickUp (4 captures planned — 3 automated + 1 manual task detail)
+## ClickUp (updated 2026-07-07)
 
-| # | Filename | View | Section supported | Proposed caption | Status |
-|---|----------|------|-------------------|------------------|--------|
-| 1 | `clickup-list-view.png` | List with six canonical tasks | §2 ClickUp — list workflow | ClickUp list view showing freelancer sample tasks in To Do, In Progress, and Complete statuses. | **captured-invalid** — login page |
-| 2 | `clickup-board-view.png` | Board/Kanban | §2 ClickUp — visual stages | ClickUp board view of the same sample tasks grouped by status. | **captured-invalid** — login page (identical file size to #1) |
-| 3 | `clickup-dashboard.png` | Home / workspace overview | §2 ClickUp — multi-client visibility | ClickUp home view showing active lists and upcoming work. | **captured-invalid** — login page |
-| 4 | `clickup-task-detail.png` | Single task drawer/modal | §2 ClickUp — task context | ClickUp task detail with description and due date for a sample client deliverable. | **planned** — manual after auth |
+**Source path (external):** `C:\dev\clickup-screenshots\screenshots\` — not stored in LinkOps repo.
 
-**Inspection (2026-07-06):**
+| # | Filename | View | Classification | Proposed caption | Publication |
+|---|----------|------|----------------|------------------|-------------|
+| 1 | `clickup-board-view.png` | Board/Kanban, grouped by Status | **VALID EVIDENCE** | “ClickUp Board view showing a six-task freelancer workflow grouped into To Do, In Progress, and Complete.” | **After redaction/crop** — identity in sidebar/workspace |
+| 2 | `clickup-list-view.png` | List, status groups, due dates | **VALID EVIDENCE** | “ClickUp List view showing tasks grouped by status with due dates visible in the same workspace.” | **After redaction/crop** — identity in sidebar/workspace |
+| 3 | `clickup-dashboard.png` | Home / Recents / My Work / Assigned to me | **INTERNAL TESTING EVIDENCE** | N/A — **not Dashboard evidence** | **Do not publish as-is** |
+| — | Owner-supplied Plans screen | Free Forever Plan verification | **PLAN VERIFICATION EVIDENCE** | Internal only | **Do not publish** — confirms Free Forever Plan; 0/100 MB shown |
+| 4 | `clickup-task-detail.png` | Task detail | **planned** | Optional future capture | Not required for current tested scope |
 
-- Path: `C:\dev\clickup-screenshots\screenshots\`  
-- All three existing PNGs: **264,507 bytes each**, **byte-identical**, visual content = **ClickUp login page**  
-- Auth storage file exists (`auth/clickup.storage.json`, updated 2026-07-05 21:13) but **does not validate** prior captures  
-- Captures timestamp **18:10–18:11** precedes auth file update **21:13** — re-capture required after `npm run auth:clickup`
+**Prior invalid captures (2026-07-06):** login-page PNGs — superseded by 2026-07 authenticated captures.
 
-**Redaction:** Workspace name, user email, notifications, sidebar team IDs if sensitive.
+**Redaction:** Required on board + list before WordPress upload.
 
 ---
 

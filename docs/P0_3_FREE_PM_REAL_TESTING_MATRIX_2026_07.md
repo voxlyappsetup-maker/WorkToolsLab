@@ -71,7 +71,7 @@ Record native terminology per tool at test time. Do not claim configuration unti
 | Tool | To Do (native) | In Progress (native) | Complete (native) | Configured? |
 |------|----------------|----------------------|-------------------|-------------|
 | Trello | _record at test_ | _record at test_ | _record at test_ | **No** |
-| ClickUp | to do (expected) | in progress (expected) | complete (expected) | **Seed planned** — not verified in UI |
+| ClickUp | to do | in progress | complete | **Yes** — UI confirmed 2026-07 |
 | Notion | _record at test_ | _record at test_ | _record at test_ | **No** |
 | Todoist | _record at test_ | _record at test_ | _record at test_ | **No** |
 | Asana | _record at test_ | _record at test_ | _record at test_ | **No** |
@@ -99,19 +99,29 @@ Record native terminology per tool at test time. Do not claim configuration unti
 
 ## ClickUp
 
+| Field | Value |
+|-------|--------|
+| **Matrix status** | **Tested scope complete** — not “fully tested” |
+| **Plan recorded** | **Free Forever Plan** (owner Plans screen, 2026-07) |
+| **Environment** | Web app / desktop browser |
+| **Test month** | **2026-07** |
+| **Setup time** | **Not measured** (seed/API infrastructure — no setup-friction evidence) |
+| **List view** | **Tested** |
+| **Board view** | **Tested** |
+| **Due dates** | **Observed** |
+| **Home / Recents** | **Observed** (internal evidence — not Dashboard) |
+| **Dashboard / reporting dashboards** | **Not tested** |
+| **Manual setup friction** | **Not tested** |
+| **Screenshots (external)** | `C:\dev\clickup-screenshots\screenshots\` — board + list valid after redaction |
+| **Evidence record** | `docs/P0_3_CLICKUP_DIRECT_TESTING_EVIDENCE_2026_07.md` |
+
 | Field | Requirement |
 |-------|-------------|
-| **Required account state** | Free workspace; authenticated browser session |
-| **Plan to record** | ClickUp Free (confirm in Settings → Plan) |
-| **Browser/platform** | Desktop Chrome; 1600×1000 matches screenshot project |
-| **Structure** | Reuse seeded List **Content Calendar** in Space **Marketing Team** if visible; else create equivalent |
-| **Screenshots required** | List view; board view; home/dashboard (see capture plan) |
-| **Redaction** | Workspace name, user email, sidebar team names, notification content |
-| **Minimum for “directly tested”** | Authenticated UI screenshots (not login page); six seeded tasks visible; status mapping confirmed |
-| **Doc verification separate** | Storage limits, view limits, guest seats, doc features on free tier |
-| **Existing automation** | `C:\dev\clickup-screenshots` — `npm run auth:clickup` → `npm run screenshots` |
-
-**Current matrix status:** **Not tested** — existing PNGs are login screens (see capture plan).
+| **Required account state** | Free Forever Plan workspace; authenticated browser session |
+| **Browser/platform** | Desktop browser (screenshot project uses 1600×1000) |
+| **Structure** | Content Calendar list, Marketing Team space (seeded) |
+| **Redaction** | Workspace name, user email, sidebar identity before article use |
+| **Doc verification separate** | Guest limits, automation, recurring tasks, advanced views on free tier |
 
 ---
 

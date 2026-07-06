@@ -1,9 +1,21 @@
 # P0-3 Owner Testing Execution Queue — Free PM for Freelancers
 
-**Date:** 2026-07-06  
+**Date:** 2026-07-07 (ClickUp confirmed; Trello next)  
 **Environment:** Windows + PowerShell  
 **Phase result target:** Complete real testing + valid screenshots before article rewrite  
 **Do not** add credentials to the WorkToolsLab repository.
+
+---
+
+## Current status
+
+| Tool | Status |
+|------|--------|
+| **ClickUp** | **CONFIRMED FOR TESTED SCOPE** — see `docs/P0_3_CLICKUP_DIRECT_TESTING_EVIDENCE_2026_07.md` |
+| **Trello** | **NEXT — owner action required** |
+| Todoist | Pending |
+| Asana | Pending |
+| Notion | Pending |
 
 ---
 
@@ -20,121 +32,87 @@
 
 ## Session order (recommended)
 
-| Order | Tool | Why |
-|------:|------|-----|
-| 1 | **ClickUp** | Existing seed + screenshot automation |
-| 2 | **Trello** | Fast visual setup; pairs with freelancer angle |
-| 3 | **Todoist** | Quick task-first baseline |
-| 4 | **Asana** | Structured sections / retainers |
-| 5 | **Notion** | Longest setup — do when fresh |
+| Order | Tool | Status |
+|------:|------|--------|
+| 1 | **ClickUp** | **Done** — confirmed for tested scope (2026-07) |
+| 2 | **Trello** | **NEXT** |
+| 3 | **Todoist** | Pending |
+| 4 | **Asana** | Pending |
+| 5 | **Notion** | Pending |
 
 ---
 
-## Tool 1 — ClickUp (automated screenshots + manual verification)
+## Tool 1 — ClickUp — CONFIRMED FOR TESTED SCOPE
 
-### Prerequisites
+**Recorded:** `docs/P0_3_CLICKUP_DIRECT_TESTING_EVIDENCE_2026_07.md`  
+**Plan:** Free Forever Plan | **Month:** 2026-07 | **Setup time:** Not measured  
 
-- Node 18+ installed  
-- Project: `C:\dev\clickup-screenshots`  
-- `.env` contains `CLICKUP_API_TOKEN` (already configured locally — do not paste into chat/repo)  
-- Optional env: `CLICKUP_TEAM_ID=90182839060`, `CLICKUP_LIST_ID=901819251529`
+**Valid publication candidates (external, after redaction):**
 
-### Step A — Authenticate (required; prior captures failed)
+- `C:\dev\clickup-screenshots\screenshots\clickup-board-view.png`
+- `C:\dev\clickup-screenshots\screenshots\clickup-list-view.png`
 
-```powershell
-cd C:\dev\clickup-screenshots
-npm run auth:clickup
-```
+**Internal only:** `clickup-dashboard.png` (Home/Recents — not Dashboard evidence)
 
-**Manual in browser:**
-
-1. Log into ClickUp (complete 2FA if prompted).  
-2. Navigate until you see the **real workspace** — not the login form.  
-3. Confirm List **Content Calendar** under Space **Marketing Team** is visible (or note if missing).  
-4. Return to terminal and **press Enter**.
-
-### Step B — Optional re-seed (if tasks missing)
-
-```powershell
-cd C:\dev\clickup-screenshots
-npm run seed
-```
-
-Creates/skips six tasks: Design homepage mockup; Update pricing page; Write Q3 blog post; Review client feedback; Prepare investor deck; QA test new feature.
-
-### Step C — Capture screenshots
-
-```powershell
-cd C:\dev\clickup-screenshots
-npm run screenshots
-```
-
-Expected outputs:
-
-- `screenshots\clickup-list-view.png`  
-- `screenshots\clickup-board-view.png`  
-- `screenshots\clickup-dashboard.png`
-
-### Step D — Inspect locally (PowerShell)
-
-```powershell
-cd C:\dev\clickup-screenshots
-Get-ChildItem .\screenshots\*.png | Format-Table Name, Length, LastWriteTime -AutoSize
-$files = Get-ChildItem .\screenshots\clickup-*.png
-($files | Select-Object -ExpandProperty Length | Sort-Object -Unique).Count
-```
-
-**Pass criteria:**
-
-- Three PNGs with **different file sizes** (not all identical).  
-- Opening files shows **authenticated ClickUp UI**, not login page.  
-- List view shows **six sample tasks** with status columns.
-
-**Manual add:** Capture `clickup-task-detail.png` (open one task → screenshot) for article evidence.
-
-### Step E — Record for handoff
-
-Report:
-
-- ClickUp plan name (Settings)  
-- Test date (`YYYY-MM`)  
-- Auth success: yes/no  
-- Screenshot valid: yes/no  
-- Setup time (minutes)  
-- Limitations noticed  
-
-**ClickUp direct testing complete:** **NO** until Step D passes.
+No further ClickUp action unless article rewrite requires redacted exports.
 
 ---
 
-## Tool 2 — Trello (manual browser session)
+## Tool 2 — Trello — **NEXT OWNER SESSION**
 
 ### Sign-in
 
-1. Open https://trello.com and sign in (manual — no repo credentials).  
-2. Confirm you are on **Free** plan (record exact label).
+1. Open https://trello.com and sign in manually (no repo credentials).  
+2. Record **exact plan name** from Trello account/billing UI (do not assume “Free” label).
 
-### Build canonical scenario
+### Build canonical scenario (one session)
 
-1. Create board: `Freelance Clients — Test` (or similar).  
-2. Create three lists mapped to **To Do**, **In Progress**, **Complete** (or use native Done list).  
-3. Add six cards with exact canonical task names.  
-4. Add due dates to at least two cards; labels/checklist on one card.
+1. Create one board for freelancer/client work (e.g. `Freelance Clients — Test`).  
+2. Create three lists mapped to **To Do**, **In Progress**, **Complete** (or native equivalent + record mapping).  
+3. Add six cards with **exact** canonical names:
+   - Design homepage mockup  
+   - Update pricing page  
+   - Write Q3 blog post  
+   - Review client feedback  
+   - Prepare investor deck  
+   - QA test new feature  
+4. Add due dates to at least two cards.  
+5. Open one card — add checklist or labels if useful for card-detail screenshot.
 
-### Capture (manual screenshot tool — Win+Shift+S)
+### Inspect (only what you actually open)
 
-- `trello-board-client-pipeline.png` — full board  
-- `trello-card-detail.png` — one card open  
-- `trello-multi-board.png` — optional second client board
+| Item | Required? |
+|------|-----------|
+| Board view (full pipeline) | **Yes** — screenshot |
+| One card detail | **Yes** — screenshot |
+| Multi-board / workspace overview | **Only if** you use a second board for client separation |
+| Calendar view | **Only if** on your plan and you open it |
+| Recurring tasks | **Only if** used in UI; else verify via official docs separately |
 
-### Verify free-tier claims (docs)
+### Capture (Win+Shift+S or preferred tool)
 
-- Open Trello/Atlassian pricing/help — note board limits, automation, Power-Ups on free plan.  
-- Do **not** claim features not verified.
+Save locally with stable names:
 
-### Report back
+- `trello-board-client-pipeline.png` — full board with three lists + six cards  
+- `trello-card-detail.png` — one card open (due date, checklist/labels if added)  
+- `trello-multi-board.png` — **optional** — only if second board adds evidence value
 
-Plan, date, setup minutes, screenshot filenames, doc URLs checked, limitations, best/poor fit from session.
+### Report back (required fields)
+
+```text
+Tool: Trello
+Plan: [exact from account UI]
+Test month: 2026-07
+Setup time: [minutes] or Not measured
+Screenshot filenames:
+Valid/invalid per file:
+What felt easy in actual use:
+What felt limiting in actual use:
+Feature expected but unavailable on actual plan:
+Official docs checked (if any):
+```
+
+Do **not** store Trello credentials in the repository.
 
 ---
 
