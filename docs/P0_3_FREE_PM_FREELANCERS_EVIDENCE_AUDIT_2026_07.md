@@ -16,7 +16,7 @@
 | **Target maturity** | **LEVEL 3** — dated direct testing, real screenshots, honest limitations |
 | **First-person testing language in live article** | **None found** (`I tested`, `How I tested`, `screenshot`, `real use` absent) |
 | **Repository direct-testing artifacts for this article** | **ClickUp** — owner-confirmed session recorded (`docs/P0_3_CLICKUP_DIRECT_TESTING_EVIDENCE_2026_07.md`); screenshots external |
-| **P0-3 execution status** | **READY FOR OWNER TESTING** — ClickUp confirmed for tested scope; **Trello next** |
+| **P0-3 execution status** | **Draft complete — publication pending** (all five tools evidenced for defined scope) |
 
 **Do not claim LEVEL 3 until owner testing, screenshots, article rewrite, WordPress publish, and live validation are complete.**
 
@@ -155,7 +155,14 @@ These remain valid **LEVEL 2 editorial scaffolding**. LEVEL 3 adds per-tool evid
 | Need Gantt/dependencies/reporting → upgrade | **C** | Verify which features are paid |
 | Who should choose / avoid | **D** | Keep; refine after testing |
 
-**Direct testing status:** **B — required** (no WorkToolsLab artifacts; no confirmed owner session for this article)
+**Direct testing status:** **A — confirmed for tested scope** (2026-07-08, Premium trial; Free claims via official docs)
+
+| Claim / topic | Class | Action |
+|---------------|-------|--------|
+| Board, lists, cards, due dates, checklists, descriptions | **A** (trial) + **C** (Free) | Session on Premium trial; Free availability via Trello pricing |
+| Setup time 3:23 | **A** | One timed test — not universal |
+| Visual clarity / comfort | **A** (subjective) | Owner observation with “in my test” |
+| Calendar, Planner, Automation, Power-Ups | **NOT DIRECTLY TESTED** | — |
 
 ---
 
@@ -189,46 +196,43 @@ These remain valid **LEVEL 2 editorial scaffolding**. LEVEL 3 adds per-tool evid
 
 ### Notion
 
+**Direct testing status:** **A — confirmed for tested scope** (2026-07-08, Free plan)
+
 | Claim / topic | Class | Action |
 |---------------|-------|--------|
-| Client pages, databases, notes, templates | **B** + **C** | Build freelancer scenario in free workspace; verify guest/block limits |
-| “Less ideal if you want PM views out of the box” | **D** | Keep editorial |
-| Database for deliverables with status/due date | **B** | Must build and screenshot if cited as tested |
-| Free tier works for solo freelancers | **C** | Verify Notion free plan limits |
-| Setup medium to higher — template design time | **D** + **B** | Editorial OK; optional timed setup note |
-| Traditional PM views without maintaining databases | **D** | Keep |
-
-**Direct testing status:** **B — required**
+| Database Board, Status groups, six items, Date property | **A** | Session record + screenshots |
+| Date in item/page detail | **A** | Latest detail screenshot |
+| Dates on Board card faces | **Not observed** | Do not overstate |
+| Setup 5:14 | **A** | One timed test |
+| AI visibility, flexibility vs simpler tools | **A** (subjective) | Owner observation |
+| Calendar, Timeline, automations, AI execution | **NOT DIRECTLY TESTED** | — |
 
 ---
 
 ### Todoist
 
+**Direct testing status:** **A — confirmed for tested scope** (2026-07-08, Beginner plan)
+
 | Claim / topic | Class | Action |
 |---------------|-------|--------|
-| Task-first execution, priorities, due dates | **B** | Test project + 6 canonical tasks |
-| Project per client; recurring tasks | **B** + **C** | Test recurrence if kept; verify free-plan filters/reminders |
-| “Not a full PM system like ClickUp or Asana” | **D** | Keep editorial comparison |
-| Free tier for lightweight use | **C** | Verify Todoist free limits |
-| Setup difficulty: Low | **B** | Confirm in test session |
-| Lacks boards/client portals for multi-stage creative work | **D** + **C** | Editorial; verify whether boards exist on free plan |
-
-**Direct testing status:** **B — required**
+| Board layout, Sections, six tasks, due dates | **A** | Session + screenshots |
+| Task detail, sub-tasks, description | **A** | Latest detail screenshot |
+| Setup 3:19 | **A** | One timed test |
+| Functional clarity vs visual comfort | **A** (subjective) | Owner observation — use “for me” |
+| Filters, reminders, reporting, calendar | **NOT DIRECTLY TESTED** | — |
 
 ---
 
 ### Asana
 
+**Direct testing status:** **A — confirmed for tested scope** (2026-07-08, Advanced trial; Personal claims via official docs)
+
 | Claim / topic | Class | Action |
 |---------------|-------|--------|
-| Sections, timelines, milestones, project structure | **B** + **C** | Test list/board/timeline on free plan; verify timeline availability |
-| Project per retainer month; sections Planned → Complete | **B** | Configure canonical scenario |
-| Recurring deliverables / retainers fit | **D** + **B** | Editorial; test template/recurrence if claimed |
-| Free tier supports structured solo workflows | **C** | Verify Asana free collaborator/project limits |
-| Setup difficulty: Medium | **B** | Confirm in test session |
-| More formal than Trello; less lightweight than Todoist | **D** | Keep editorial |
-
-**Direct testing status:** **B — required**
+| Board, Sections, six tasks, due dates, subtasks | **A** (trial) + **C** (Personal) | Session on trial; Free/Personal via Asana pricing |
+| Setup 2:39 | **A** | Fastest in one timed test — qualify as single test |
+| Structured/practical feel | **A** (subjective) | Owner comparison |
+| Timeline, Dashboard, automation | **NOT DIRECTLY TESTED** | — |
 
 ---
 
@@ -236,13 +240,13 @@ These remain valid **LEVEL 2 editorial scaffolding**. LEVEL 3 adds per-tool evid
 
 | Tool | Supported today? | Reason |
 |------|------------------|--------|
-| Trello | **No** | No owner-confirmed session yet |
-| ClickUp | **Yes — tested scope only** | Session + external screenshots recorded 2026-07; not fully tested |
-| Notion | **No** | No artifacts |
-| Todoist | **No** | No artifacts |
-| Asana | **No** | No artifacts |
+| Trello | **Yes — tested scope** | Premium trial session; Free claims via official docs |
+| ClickUp | **Yes — tested scope** | Free Forever; seed qualification applies |
+| Notion | **Yes — tested scope** | Free plan session |
+| Todoist | **Yes — tested scope** | Beginner plan session |
+| Asana | **Yes — tested scope** | Advanced trial session; Personal claims via official docs |
 
-**Category A (direct testing):** ClickUp — **partial** (List, Board, due dates, workflow states, plan name; not setup/dashboard/automation/etc.)
+**Category A:** All five tools — **partial** (defined scope only; see per-tool evidence records)
 
 ---
 
@@ -265,12 +269,11 @@ These do not require first-person testing blocks:
 
 | LEVEL 3 requirement | Current state |
 |---------------------|---------------|
-| Dated testing notes per tool | **ClickUp** recorded (2026-07); others missing |
-| Real product screenshots | **ClickUp** external (board + list valid after redaction); others missing |
-| Testing environment documented | **ClickUp** yes; others no |
-| What was tested / noticed / limitations | **ClickUp** yes; others no |
-| Honest best fit / poor fit from use | ClickUp observations recorded; others editorial only |
-| Distinction: tested vs docs vs editorial | **ClickUp** evidence doc; article not yet upgraded |
+| Dated testing notes per tool | **All five recorded** (2026-07) |
+| Real product screenshots | **External** — publication pending redaction |
+| Testing environment documented | **Yes** |
+| Article draft | **Created** — not live |
+| Live LEVEL 3 | **No** |
 
 ---
 

@@ -7,43 +7,32 @@ Copy everything in the **fenced block** into a fresh ChatGPT conversation before
 ```
 You are helping with WorkToolsLab.com (worktoolslab.com) — SEO, affiliate tool content, and WordPress publishing for freelancers and small teams.
 
-## Source of truth (read these; do not rely on chat memory)
+## Source of truth
 - Local project: C:\dev\worktoolslab_linkops
-- Handoff: docs/WORKTOOLSLAB_HANDOFF.md
 - Living state: docs/CONTENT_OPERATIONS_STATE.md
-- ClickUp evidence: docs/P0_3_CLICKUP_DIRECT_TESTING_EVIDENCE_2026_07.md
-- P0-3 evidence audit: docs/P0_3_FREE_PM_FREELANCERS_EVIDENCE_AUDIT_2026_07.md
-- P0-3 owner queue: docs/P0_3_OWNER_TESTING_EXECUTION_QUEUE_2026_07.md
-- P0-3 article blueprint: docs/P0_3_FREE_PM_LEVEL3_ARTICLE_BLUEPRINT_2026_07.md
+- Article draft: content/drafts/best-free-project-management-tools-for-freelancers-level3-2026-07.md
+- Evidence records: docs/P0_3_*_DIRECT_TESTING_EVIDENCE_2026_07.md
+- Plan verification: docs/P0_3_OFFICIAL_PLAN_VERIFICATION_2026_07.md
 - Evidence framework: docs/ARTICLE_EVIDENCE_FRAMEWORK.md
-- Worklog: config/worklog.json
-- LinkOps is READ-ONLY — never claims WordPress was updated
 
-## Current phase (2026-07-07)
+## Current phase (2026-07-08)
 P0-A: PASS / FULLY CLOSED
-P0-3: READY FOR OWNER TESTING — article still LEVEL 2
+P0-3: Five-tool evidence complete; LEVEL 3 **draft** created — **NOT live**
 
-ClickUp direct testing: CONFIRMED FOR TESTED SCOPE
-- Plan: Free Forever Plan (owner Plans screen)
-- Valid screenshots (external): clickup-board-view.png, clickup-list-view.png — redaction required before publish
-- clickup-dashboard.png = Home/Recents INTERNAL ONLY — not Dashboard evidence
-- Do NOT claim setup friction, dashboards, automation, recurring tasks, or collaboration from ClickUp session
+Live article is still LEVEL 2 until WordPress publish + validation.
 
-Next owner tool: Trello (manual browser session)
+Trial qualifications:
+- Trello tested on Premium trial — Free claims from official docs only
+- Asana tested on Advanced trial — Personal plan claims from official docs only
+- ClickUp setup not measured (seed infrastructure)
 
-Operational: python -m linkops.cli fetch blocked locally by SiteGround sgcaptcha — do not bypass.
+Next owner action: review draft, redact screenshots, publish to WordPress.
 
-GSC cache: 2026-06-05 — do NOT run broad optimize/patch on same export.
+Do not run linkops fetch (sgcaptcha blocker). Do not claim Google recrawl.
 
 ## This session
 - Target URL: [FILL IN]
-- Task type: [Trello testing | record evidence | article rewrite | publish]
-- Evidence target level: [0–4 per ARTICLE_EVIDENCE_FRAMEWORK.md]
-
-## Priority pages
-A. /best-free-project-management-tools-for-freelancers/ (P0-3 — ClickUp done; Trello next)
-B. /task-management-vs-project-management/
-C. /best-project-management-tools-for-freelancers/
+- Task type: [draft review | publish | screenshot prep | fresh GSC]
 ```
 
 ---
@@ -54,5 +43,3 @@ C. /best-project-management-tools-for-freelancers/
 |-------|------------|
 | Target URL | |
 | Task type | |
-
-After the session: update `docs/CONTENT_OPERATIONS_STATE.md`; run `fetch` only if REST access works.

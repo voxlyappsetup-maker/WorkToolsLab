@@ -55,50 +55,41 @@ Every accepted screenshot record must include:
 
 ---
 
-## Trello (3 captures)
+## Trello (updated 2026-07-08)
 
-| # | Filename | View | Section supported | Proposed caption | Status |
-|---|----------|------|-------------------|------------------|--------|
-| 1 | `trello-board-client-pipeline.png` | Board with lists as stages | §1 Trello | Trello board with client pipeline lists and sample deliverable cards. | **planned** |
-| 2 | `trello-card-detail.png` | Card modal (checklist, due date, labels) | §1 Trello — revision tracking | Trello card showing due date, checklist, and labels for one deliverable. | **planned** |
-| 3 | `trello-multi-board.png` | Workspace/board switcher (two boards) | §1 Trello — client separation | Two client boards visible in Trello for separating freelance work. | **planned** |
-
-**Redaction:** Account email, real client names, private workspace URLs if needed.
+| File | Status | Caption |
+|------|--------|---------|
+| Board workflow | **VALID EVIDENCE** | “Trello Board showing six freelancer work items across To Do, In Progress, and Complete with due dates visible.” |
+| Card detail | **VALID EVIDENCE** (redact name) | “Trello card detail showing a due date, task description, and a three-step checklist for a client feedback workflow.” |
 
 ---
 
-## Notion (3 captures)
+## Todoist (updated 2026-07-08)
 
-| # | Filename | View | Section supported | Proposed caption | Status |
-|---|----------|------|-------------------|------------------|--------|
-| 1 | `notion-deliverables-database.png` | Table/board with six items | §3 Notion | Notion database tracking freelance deliverables with status and due dates. | **planned** |
-| 2 | `notion-client-page.png` | Client hub page | §3 Notion — context | Notion client page linking brief, notes, and deliverables. | **planned** |
-| 3 | `notion-status-view.png` | Filtered “In Progress” view | §3 Notion — weekly review | Notion filtered view of in-progress client work. | **planned** |
-
-**Redaction:** Workspace icon/name, personal email, connected accounts.
+| File | Status | Caption |
+|------|--------|---------|
+| Board workflow | **VALID EVIDENCE** | “Todoist Board view showing six freelancer work items organized across To Do, In Progress, and Complete with due dates visible.” |
+| Latest task detail | **VALID EVIDENCE** | Description, due date, three Sub-tasks |
+| Earlier task detail | **SUPERSEDED** | Do not use |
 
 ---
 
-## Todoist (2 captures)
+## Asana (updated 2026-07-08)
 
-| # | Filename | View | Section supported | Proposed caption | Status |
-|---|----------|------|-------------------|------------------|--------|
-| 1 | `todoist-project-task-list.png` | Project with six tasks | §4 Todoist | Todoist project listing freelance tasks with due dates and priorities. | **planned** |
-| 2 | `todoist-upcoming-week.png` | Upcoming/Today | §4 Todoist — weekly review | Todoist Upcoming view showing deliverables due this week. | **planned** |
-
-**Redaction:** Email, calendar event titles from integrations.
+| File | Status | Caption |
+|------|--------|---------|
+| Board workflow | **VALID EVIDENCE** | “Asana Board view showing six freelancer work items organized across To do, In Progress, and Complete with due dates visible.” |
+| Task detail | **VALID EVIDENCE** | “Asana task detail showing a client-feedback task with a due date, description, and three subtasks inside the same Board workflow.” |
 
 ---
 
-## Asana (3 captures)
+## Notion (updated 2026-07-08)
 
-| # | Filename | View | Section supported | Proposed caption | Status |
-|---|----------|------|-------------------|------------------|--------|
-| 1 | `asana-project-sections.png` | List with sections | §5 Asana | Asana project with sections for planned, active, and completed client work. | **planned** |
-| 2 | `asana-board-view.png` | Board (if on plan tested) | §5 Asana — client stages | Asana board view of sample client deliverables by stage. | **planned** |
-| 3 | `asana-task-detail.png` | Task pane | §5 Asana — deliverable context | Asana task with due date and description for a sample deliverable. | **planned** |
-
-**Redaction:** Workspace name, assignee emails, portfolio names.
+| File | Status | Caption |
+|------|--------|---------|
+| Board workflow | **VALID EVIDENCE** | “Notion database Board showing six freelancer work items grouped by status across To Do, In progress, and Complete.” — dates not on card faces in capture |
+| Latest item detail | **VALID EVIDENCE** | Status, Date, context, three To-dos — supersedes earlier detail |
+| Earlier detail | **SUPERSEDED** | Do not use |
 
 ---
 

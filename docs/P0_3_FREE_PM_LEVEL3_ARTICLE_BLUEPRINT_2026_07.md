@@ -172,10 +172,10 @@ Pricing and limits (verified from official documentation, checked YYYY-MM): …
 
 | Field | Value |
 |-------|--------|
-| **Article rewrite drafted** | **No** |
-| **ClickUp evidence** | Recorded — section unblocked for future rewrite |
-| **LEVEL 3 complete** | **No** |
-| **Blocked on** | Trello + remaining tools testing; article rewrite; redaction; publish |
+| **Article rewrite drafted** | **Yes** — `content/drafts/best-free-project-management-tools-for-freelancers-level3-2026-07.md` |
+| **ClickUp evidence** | Recorded — all five tools |
+| **LEVEL 3 complete (live)** | **No** — draft only |
+| **Blocked on** | Owner draft review; screenshot redaction; WordPress publish; live validation |
 
 ---
 

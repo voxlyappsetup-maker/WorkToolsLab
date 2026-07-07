@@ -70,30 +70,23 @@ Record native terminology per tool at test time. Do not claim configuration unti
 
 | Tool | To Do (native) | In Progress (native) | Complete (native) | Configured? |
 |------|----------------|----------------------|-------------------|-------------|
-| Trello | _record at test_ | _record at test_ | _record at test_ | **No** |
-| ClickUp | to do | in progress | complete | **Yes** — UI confirmed 2026-07 |
-| Notion | _record at test_ | _record at test_ | _record at test_ | **No** |
-| Todoist | _record at test_ | _record at test_ | _record at test_ | **No** |
-| Asana | _record at test_ | _record at test_ | _record at test_ | **No** |
+| Trello | To Do list | In Progress list | Complete list | **Yes** — 2026-07 |
+| ClickUp | to do | in progress | complete | **Yes** — 2026-07 |
+| Notion | To Do | In progress | Complete | **Yes** — 2026-07 |
+| Todoist | To Do section | In Progress section | Complete section | **Yes** — 2026-07 |
+| Asana | To do section | In Progress section | Complete section | **Yes** — 2026-07 |
 
-**ClickUp seed reference (separate project, not confirmed in UI):** Team `90182839060`, List `901819251529`, Space **Marketing Team**, List **Content Calendar**.
+**ClickUp seed reference:** Team `90182839060`, List `901819251529`, Space **Marketing Team**, List **Content Calendar**.
 
 ---
 
 ## Trello
 
-| Field | Requirement |
-|-------|-------------|
-| **Required account state** | Free account; solo workspace |
-| **Plan to record** | Exact Trello/Atlassian plan name at test time |
-| **Browser/platform** | Desktop Chrome (Edge acceptable); record version |
-| **Structure** | One board (e.g. “Freelance Clients — Test”) with three lists mapped to canonical states **or** one list per client with labels — record choice |
-| **Screenshots required** | Board overview; one card detail; optional second board for client separation |
-| **Redaction** | Email, workspace name, member avatars, private board titles if not test data |
-| **Minimum for “directly tested”** | All six tasks visible; three states demonstrated; dated notes; ≥2 real UI screenshots |
-| **Doc verification separate** | Free board limit, Power-Ups, automation, member limits, attachment size |
-
-**Native mapping (typical — verify at test):** Lists = stages; “Complete” may be a **Done** list or archived card.
+| Field | Value |
+|-------|--------|
+| **Matrix status** | **Tested scope complete** — Premium trial session |
+| **Setup time** | **3:23** |
+| **Evidence** | `docs/P0_3_TRELLO_DIRECT_TESTING_EVIDENCE_2026_07.md` |
 
 ---
 
@@ -127,52 +120,31 @@ Record native terminology per tool at test time. Do not claim configuration unti
 
 ## Notion
 
-| Field | Requirement |
-|-------|-------------|
-| **Required account state** | Free Plus / free personal workspace (record exact plan label) |
-| **Plan to record** | Notion plan name at test time |
-| **Browser/platform** | Desktop browser |
-| **Structure** | Client page + deliverables database **or** single database with Status property |
-| **Screenshots required** | Database/table view with six items; one client page; optional board/kanban view if enabled |
-| **Redaction** | Workspace name, email, connected integrations |
-| **Minimum for “directly tested”** | Six items with status + due date properties; dated setup time; ≥2 screenshots |
-| **Doc verification separate** | Block limits, guest limits, synced blocks, AI features on free plan |
-
-**Native mapping (typical):** Status select property → map to To Do / In Progress / Complete.
+| Field | Value |
+|-------|--------|
+| **Matrix status** | **Tested scope complete** — Free plan |
+| **Setup time** | **5:14** |
+| **Evidence** | `docs/P0_3_NOTION_DIRECT_TESTING_EVIDENCE_2026_07.md` |
 
 ---
 
 ## Todoist
 
-| Field | Requirement |
-|-------|-------------|
-| **Required account state** | Free account |
-| **Plan to record** | Todoist Beginner/Pro label at test time |
-| **Browser/platform** | Desktop web app |
-| **Structure** | Project “Freelance Clients — Test”; six tasks; sections or labels for state if used |
-| **Screenshots required** | Project task list; Today/Upcoming if used for weekly review; one task detail |
-| **Redaction** | Email, integration names, real client names |
-| **Minimum for “directly tested”** | Six tasks with due dates; state representation explained; ≥2 screenshots |
-| **Doc verification separate** | Project limits, reminders, filters, labels on free plan |
-
-**Native mapping (typical):** May use sections, labels, or completion checkbox only — record honestly if “In Progress” is label-based.
+| Field | Value |
+|-------|--------|
+| **Matrix status** | **Tested scope complete** — Beginner plan |
+| **Setup time** | **3:19** |
+| **Evidence** | `docs/P0_3_TODOIST_DIRECT_TESTING_EVIDENCE_2026_07.md` |
 
 ---
 
 ## Asana
 
-| Field | Requirement |
-|-------|-------------|
-| **Required account state** | Free (Personal) workspace |
-| **Plan to record** | Asana plan at test time |
-| **Browser/platform** | Desktop browser |
-| **Structure** | Project with sections: Planned / In Progress / Client Review / Complete **or** map three canonical states to sections |
-| **Screenshots required** | List view with sections; board view if available; timeline only if on plan tested |
-| **Redaction** | Workspace name, email, assignee photos |
-| **Minimum for “directly tested”** | Six tasks across states; due dates; ≥2 screenshots |
-| **Doc verification separate** | Collaborator limit, timeline availability, milestones on free plan |
-
-**Native mapping (typical):** Sections or custom fields; Complete = completed tasks section.
+| Field | Value |
+|-------|--------|
+| **Matrix status** | **Tested scope complete** — Advanced trial session |
+| **Setup time** | **2:39** |
+| **Evidence** | `docs/P0_3_ASANA_DIRECT_TESTING_EVIDENCE_2026_07.md` |
 
 ---
 
