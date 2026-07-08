@@ -3,19 +3,19 @@
 > **Living document.** Update at the end of each working session.
 > Do not rely on ChatGPT memory for this file — edit locally.
 
-**Last updated:** 2026-07-09 (P0-3 LEVEL 3 live closeout)
+**Last updated:** 2026-07-09 (P0-4 legacy freelancers-2 redirect closeout)
 
 ## Phase
 
 | Field | Value |
 |-------|--------|
-| **Latest phase** | **P0-3** Free PM for Freelancers — **PASS / CLOSED** |
-| **Article maturity (live)** | **LEVEL 3 LIVE** |
+| **Latest phase** | **P0-4** Legacy freelancers-2 redirect + GSC cleanup — **PASS / CLOSED** |
+| **Prior phase** | **P0-3** Free PM for Freelancers — **PASS / CLOSED** — **LEVEL 3 LIVE** |
 | **Prior phase** | P0-A Authority Live Implementation — **PASS / FULLY CLOSED** |
 | **Prior phase** | P0-A repository foundation — **complete** (`e613f50`) |
 | **Prior phase** | Distribution / LinkedIn experiment — **logged** (`distribution_log_2026_06.md`) |
 | **Earlier phase** | Next Actions cleanup / on-page optimization cycle — **complete** |
-| **Strategy docs** | `docs/P0_3_FREE_PM_LEVEL3_LIVE_CLOSEOUT_2026_07.md`, `docs/P0_3_*_2026_07.md`, `docs/P0_A_AUTHORITY_LIVE_IMPLEMENTATION_RECORD_2026_07.md`, `docs/SEO_METADATA_PREFIX_AUDIT_2026_07.md`, `docs/WORDPRESS_MU_PLUGIN_DEPLOYMENT_STATE_2026_07.md`, `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md` |
+| **Strategy docs** | `docs/P0_4_LEGACY_FREELANCERS_URL_GSC_CLOSEOUT_2026_07.md`, `docs/P0_3_FREE_PM_LEVEL3_LIVE_CLOSEOUT_2026_07.md`, `docs/LEGACY_FREELANCERS_URL_REMEDIATION_2026_07.md`, `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md` |
 | **MU plugin mirrors** | `wordpress/mu-plugins/worktoolslab-author-box.php`, `wordpress/mu-plugins/worktoolslab-author-links.php` |
 | **June docs (historical)** | `docs/TRAFFIC_DIAGNOSIS_2026_06.md`, `docs/CONTENT_STRATEGY_RESET_2026_06.md`, `docs/DISTRIBUTION_AUTHORITY_PLAN_2026_06.md` |
 
@@ -24,9 +24,10 @@
 | Field | Value |
 |-------|--------|
 | **Current article / URL** | `/best-free-project-management-tools-for-freelancers/` — **LEVEL 3 LIVE** |
+| **Legacy URL** | `/best-project-management-tools-for-freelancers-2/` — **301 → free guide; GSC validated; not indexed** |
 | **Focus keyword** | free project management tools for freelancers |
-| **Stage** | **Closed** — evidence upgrade published and validated |
-| **Next action** | **P0-4** — Resolve freelancers-2 URL + GSC cleanup (see roadmap). Publisher Knowledge Graph entity remains separate site-level follow-up. Do **not** claim Google recrawl/reindex. Do **not** run repeated `linkops fetch` (sgcaptcha blocker). |
+| **Stage** | P0-4 closed — redirect/canonical state passes GSC validation |
+| **Next action** | **P0-5** — Hub differentiation: Home audience routing (first pass). Publisher Knowledge Graph remains separate site-level follow-up. Do **not** claim LEVEL 3 content recrawl complete. Do **not** run repeated `linkops fetch` (sgcaptcha blocker). |
 
 ## LinkOps snapshot
 
@@ -138,8 +139,8 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 - [x] SEO metadata prefix audit — `docs/SEO_METADATA_PREFIX_AUDIT_2026_07.md` — **0 confirmed errors remaining**
 - [x] **Fix Rank Math title prefix** — Notion vs Trello vs ClickUp (owner fixed 2026-07-06)
 - [ ] Spot-check meta descriptions on June-updated posts for label prefixes (optional P1)
-- [ ] **Publisher Knowledge Graph entity review** — separate site-level follow-up (`#person` Person+Organization); not P0-3 blocker
-- [ ] Optional: legacy `-2` browser/GSC checklist → **P0-4**
+- [ ] **Publisher Knowledge Graph entity review** — separate site-level follow-up (`#person` Person+Organization)
+- [x] Legacy `-2` GSC + Rank Math inspection — **P0-4 PASS** (`docs/P0_4_LEGACY_FREELANCERS_URL_GSC_CLOSEOUT_2026_07.md`)
 - [ ] `python -m linkops.cli fetch` when REST access works (optional — sgcaptcha blocker locally)
 
 ### P0-3 Evidence upgrade — Free PM for Freelancers (closed)
@@ -157,9 +158,18 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 - [x] Self-audit → **LEVEL 3 LIVE**
 - [x] Closeout record — `docs/P0_3_FREE_PM_LEVEL3_LIVE_CLOSEOUT_2026_07.md`
 
+### P0-4 Legacy freelancers-2 redirect + GSC cleanup (closed)
+
+- [x] Rank Math Redirections inventory — **0 rules**
+- [x] GSC URL Inspection — legacy URL (not indexed; Page with redirect; crawl Jul 8 2026)
+- [x] GSC URL Inspection — free guide destination (**indexed**)
+- [x] Canonical agreement — user-declared = Google-selected
+- [x] Decision — **keep current redirect**; no WordPress/GSC mutation
+- [x] Closeout record — `docs/P0_4_LEGACY_FREELANCERS_URL_GSC_CLOSEOUT_2026_07.md`
+
 ### Authority implementation (next)
 
-- [ ] **P0-4** — Resolve freelancers-2 URL + GSC cleanup
+- [ ] **P0-5** — Hub differentiation: Home audience routing (first pass)
 
 ### Deep upgrade backlog (if fresh GSC still shows 0 clicks)
 
@@ -184,12 +194,13 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 | 2026-07-05 | P0-A foundation — publish-ready author + methodology content; byline/schema + legacy URL docs; **not published live** |
 | 2026-07-06 | P0-A **PASS** — Notion SEO prefix fixed; P0-3 planning docs created; **READY FOR OWNER TESTING** |
 | 2026-07-08 | Five-tool evidence consolidated; official plan verification; LEVEL 3 draft created |
-| 2026-07-09 | P0-3 **PASS** — LEVEL 3 live publication validated; closeout recorded |
+| 2026-07-09 | P0-3 **PASS** — LEVEL 3 live publication validated |
+| 2026-07-09 | P0-4 **PASS** — legacy freelancers-2 redirect/GSC validated; keep current redirect |
 
 ## Notes
 
 - Low traffic is **not** only an on-page problem — impressions exist; clicks and authority remain gaps.
 - On-page queue for current GSC export is **cleared** — further patch loops on stale data add little value.
 - Do not commit `config/worklog.json`, `reports/`, `exports/`, `data/`.
-- **Google recrawl/reindex not claimed** for Free PM LEVEL 3 publish.
+- **LEVEL 3 content recrawl on free guide not claimed** — URL indexed; freshness/performance is future evidence.
 - **Publisher Knowledge Graph** (`#person` Person+Organization) is a **separate** site-level follow-up — not reopened by P0-3.

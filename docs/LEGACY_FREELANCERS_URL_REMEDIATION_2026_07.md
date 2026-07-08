@@ -1,14 +1,39 @@
 # Legacy Freelancers URL Remediation — WorkToolsLab
 
-**Date:** 2026-07-05  
-**Phase:** P0-A Authority Implementation Foundation  
-**Old URL:** `https://worktoolslab.com/best-project-management-tools-for-freelancers-2/`  
-**Audit-assumed canonical:** `https://worktoolslab.com/best-project-management-tools-for-freelancers/`  
-**Status:** Partial live verification complete — **owner browser + GSC steps still required**
+**Date:** 2026-07-05 (foundation) · **P0-4 closeout:** 2026-07-09
+**Phase:** P0-A Authority Implementation Foundation → **P0-4 PASS / CLOSED**
+**Old URL:** `https://worktoolslab.com/best-project-management-tools-for-freelancers-2/`
+**Live redirect destination:** `https://worktoolslab.com/best-free-project-management-tools-for-freelancers/`
+**Status:** **PASS / CLOSED** — keep current redirect; no remediation mutation required
 
 ---
 
-## 1. Repository and cache truth
+## P0-4 closeout summary (2026-07-09)
+
+| Item | Result | Classification |
+|------|--------|----------------|
+| Rank Math Redirections rules | **0** (All / Active / Inactive / Trash) | **VERIFIED** |
+| Redirect Rank Math-managed | **NO** | **VERIFIED** |
+| Exact redirect mechanism | **Not proven** | **UNPROVEN** |
+| Plausible mechanism | WordPress old-slug / `_wp_old_slug` | **INFERRED** — not verified via DB |
+| GSC legacy URL | Not indexed; **Page with redirect** | **VERIFIED** |
+| GSC legacy last crawl | **Jul 8, 2026, 9:05:51 AM** | **VERIFIED** |
+| User-declared canonical (legacy inspection) | Free guide URL | **VERIFIED** |
+| Google-selected canonical | **Same as user-declared** | **VERIFIED** |
+| GSC destination URL | **Indexed** | **VERIFIED** |
+| Remediation decision | **Keep current redirect** | **VERIFIED DECISION** |
+| WordPress mutation required | **NO** | **NOT REQUIRED** |
+| Rank Math redirect creation | **NO** | **NOT REQUIRED** |
+| GSC Removals | **NO** | **NOT REQUIRED** |
+| Legacy URL indexing request | **NO** | **NOT REQUIRED** |
+
+**Closeout record:** `docs/P0_4_LEGACY_FREELANCERS_URL_GSC_CLOSEOUT_2026_07.md`
+
+**Do not claim:** Google has fully reprocessed the July 8 LEVEL 3 content update on the destination URL.
+
+---
+
+## 1. Repository and cache truth (historical — 2026-07-05)
 
 | Source | Finding |
 |--------|---------|
@@ -23,7 +48,7 @@
 
 ---
 
-## 2. Live HTTP verification (2026-07-05)
+## 2. Live HTTP verification (2026-07-05 — historical)
 
 ### Automated results
 
@@ -35,7 +60,7 @@
 | Redirect agent | `X-Redirect-By: WordPress` |
 | Final response (follow redirect) | **200 OK** on **free guide** |
 
-### Important finding
+### Important finding (historical)
 
 The live **301 target is the FREE guide**, not the paid canonical roundup assumed in the July audit.
 
@@ -45,139 +70,105 @@ The live **301 target is the FREE guide**, not the paid canonical roundup assume
 | **Current 301 target** | `/best-free-project-management-tools-for-freelancers/` |
 | **Paid canonical (editorial)** | `/best-project-management-tools-for-freelancers/` |
 
-**Owner decision required:** Is redirect to the free guide intentional (post deep upgrade)? If paid roundup should receive legacy signals, redirect target may need changing.
+**P0-4 decision (2026-07-09):** **Keep 301 → free guide.** GSC confirms redirect behavior and canonical alignment. No change required.
 
 ---
 
-## 3. Sitemap evidence
+## 3. Sitemap evidence (historical)
 
 | Check | Result |
 |-------|--------|
 | `-2` in WP cache sitemap list | **Not applicable** — not in inventory |
 | Automated `sitemap.xml` probe (prior session) | **403** — inconclusive |
-| `curl` sitemap | **Not completed this session** |
-
-**Manual:** Search sitemap index for `freelancers-2` after fixing sitemap access.
+| GSC discovery (2026-07-09) | **No referring sitemaps** for legacy URL; referring pages include free guide and `post-sitemap.xml` |
 
 ---
 
 ## 4. Canonical tag evidence
 
-Not extracted in this session for `-2` (redirects before body). On final target (free guide), Rank Math emits canonical via WebPage entity:
+GSC URL Inspection (2026-07-09) on legacy URL:
 
-- `url`: `https://worktoolslab.com/best-free-project-management-tools-for-freelancers/`
+- **User-declared canonical:** `https://worktoolslab.com/best-free-project-management-tools-for-freelancers/`
+- **Google-selected canonical:** Same as user-declared
+- **Canonical disagreement:** None observed
 
-**Manual:** View source on final landing page after browser redirect and confirm `<link rel="canonical">`.
+On destination (free guide): **indexed**; HTTPS confirmed.
 
 ---
 
-## 5. Limitations of automated testing
+## 5. Limitations of automated testing (historical)
 
 - HEAD requests from some clients returned **403** while `curl` returned **301** — hosting/WAF may treat clients differently.
-- Remediation is **not complete** until owner confirms behavior in a normal browser and GSC URL Inspection.
+- P0-4 closeout relied on **owner GSC URL Inspection** and **Rank Math Redirections admin inspection** — not LinkOps `fetch`.
 
 ---
 
-## 6. Owner verification checklist
+## 6. Owner verification checklist — P0-4 completion
 
-Complete in order. Record results in a comment or worklog note.
+### Browser verification (historical / prior sessions)
 
-### Browser verification
+1. [x] Redirect behavior confirmed via curl (2026-07-05) — **301 → free guide**
+2. [x] Editorial decision: **keep redirect to free guide** (P0-4 closeout)
 
-1. [ ] Open `https://worktoolslab.com/best-project-management-tools-for-freelancers-2/` in **incognito** browser.
-2. [ ] Record **final browser URL** after redirects.
-3. [ ] Confirm which article content is shown (free guide vs paid roundup vs other).
-4. [ ] Open DevTools → **Network** tab → reload → note redirect status (**301**, **302**, etc.) and chain.
-5. [ ] On final page: **View Source** → find `rel="canonical"` → record href.
-6. [ ] Confirm page title and H1 match expected target.
+### WordPress admin (2026-07-09)
 
-### WordPress admin
+3. [x] **Rank Math → Redirections** — **0 rules** (All / Active / Inactive / Trash)
+4. [x] Redirect is **not** Rank Math-managed
 
-7. [ ] **Rank Math → Redirections** (or equivalent) — search `freelancers-2`.
-8. [ ] **Posts/Pages** — search slug `freelancers-2` (trash/draft).
-9. [ ] If redirect exists, confirm **destination URL** matches editorial intent.
+### Google Search Console (2026-07-09)
 
-### Sitemap + index
+5. [x] **URL Inspection** on `-2` — not indexed; Page with redirect; crawl Jul 8 2026 9:05:51 AM
+6. [x] **URL Inspection** on free guide destination — **indexed**
+7. [x] User-declared and Google-selected canonical **agree**
+8. [x] **No** indexing request for legacy URL
+9. [x] **No** GSC Removals
 
-10. [ ] Open live sitemap (`/wp-sitemap.xml` or working sitemap URL) — confirm `-2` is **absent**.
-11. [ ] Confirm intended target URL **is** listed.
+### Not performed (not required for closeout)
 
-### Google Search Console
-
-12. [ ] **URL Inspection** on `-2` URL — note coverage, redirect, last crawl.
-13. [ ] **URL Inspection** on intended canonical target (free and/or paid — decide which should own legacy intent).
-14. [ ] If redirect is correct and permanent: **Validate fix** / request indexing on target as needed.
+- [ ] WordPress database inspection of `_wp_old_slug` — mechanism remains **inferred**, not proven
+- [ ] Rank Math redirect creation — **explicitly not required**
 
 ---
 
-## 7. Decision branches
+## 7. Decision branches (historical reference)
 
-### If 301/308 to **free guide** (current live behavior)
+P0-4 closed under **“If 301/308 to free guide (current live behavior) — If intentional”**:
 
-**If intentional** (legacy URL was replaced by free cornerstone):
+- [x] Keep permanent redirect
+- [x] GSC validates redirect + canonical alignment
+- [ ] Monitor GSC until `-2` impressions fade (ongoing; fresh GSC export when available)
+- [ ] Do **not** request indexing for legacy URL
+- [ ] Do **not** claim LEVEL 3 content recrawl complete on destination
 
-- [ ] Keep permanent redirect
-- [ ] Ensure paid roundup links clearly to free guide where appropriate
-- [ ] Monitor GSC until `-2` impressions fade
-- [ ] Request recrawl of free guide if content updated
-
-**If NOT intentional** (paid roundup should own legacy PM-for-freelancers intent):
-
-- [ ] Change WordPress redirect destination to `/best-project-management-tools-for-freelancers/`
-- [ ] Use **301** (not 302)
-- [ ] Update internal links if any pointed incorrectly
-- [ ] GSC URL Inspection on new target
-- [ ] Document change date in worklog
-
-### If 302/307 only
-
-- [ ] Change to **301** if move is permanent
-
-### If 200 on `-2` (duplicate content)
-
-- [ ] Remove duplicate; set 301 to chosen canonical
-- [ ] Align canonical tag on all variants
-
-### If 404/410
-
-- [ ] Given 3 GSC impressions, consider **301 to chosen canonical** (free or paid — editorial decision)
-- [ ] Avoid leaving orphan historical URL without redirect
-
-### If 403 for humans (not just bots)
-
-- [ ] Fix server/WAF rule blocking public access — separate from SEO redirect strategy
+Other branches (paid canonical target, 302-only, 200 duplicate, 404, 403) — **not applicable** to current verified state.
 
 ---
 
-## 8. Recommended editorial default (repository recommendation)
+## 8. Editorial default (repository recommendation — adopted)
 
-Given:
+Given free guide LEVEL 3 LIVE, strongest LinkedIn signal, live 301 → free guide, and GSC canonical agreement:
 
-- Free guide received June deep upgrade
-- Strongest LinkedIn direct-link signal on free guide
-- Live redirect already points to free guide
-
-**Provisional recommendation:** **Keep 301 → free guide** unless owner explicitly wants paid roundup to absorb all legacy `-2` signals.
-
-Document the decision in `config/worklog.json` after verification.
+**Decision:** **Keep 301 → free guide.** **P0-4 PASS / CLOSED.**
 
 ---
 
-## 9. Unresolved manual items
+## 9. Unresolved items after P0-4 closeout
 
-- [ ] Incognito browser redirect chain confirmation
-- [ ] Canonical tag on final URL
-- [ ] Rank Math redirect admin screenshot/note
-- [ ] Sitemap presence/absence of `-2`
-- [ ] GSC URL Inspection for `-2` and target
-- [ ] Owner sign-off: free vs paid as legacy redirect target
+| Item | Status |
+|------|--------|
+| Exact WordPress redirect mechanism | **Unproven** — plausible `_wp_old_slug`; not a blocker |
+| Fresh GSC CSV import for performance tracking | **Future** — do not patch against 2026-06-05 export |
+| LEVEL 3 content recrawl on destination | **Not claimed** |
+| Publisher Knowledge Graph entity | **Separate** site-level follow-up |
 
-**Remediation complete:** Only when checklist is filled and GSC shows expected redirect/coverage.
+**Remediation complete:** P0-4 acceptance criteria satisfied. No WordPress or GSC mutation required.
 
 ---
 
 ## Related docs
 
+- Closeout: `docs/P0_4_LEGACY_FREELANCERS_URL_GSC_CLOSEOUT_2026_07.md`
 - Audit §9: `docs/SITE_FOCUS_AUTHORITY_AUDIT_2026_07.md`
 - WP checklist: `docs/P0_A_WORDPRESS_IMPLEMENTATION_CHECKLIST.md`
 - Roadmap P0-4: `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md`
+- P0-3 closeout: `docs/P0_3_FREE_PM_LEVEL3_LIVE_CLOSEOUT_2026_07.md`

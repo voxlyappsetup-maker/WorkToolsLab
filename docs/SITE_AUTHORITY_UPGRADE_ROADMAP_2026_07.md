@@ -64,20 +64,21 @@
 
 **Minimum met:** All five tools evidenced for defined scope; article published and validated live.
 
-### P0-4 — Resolve freelancers-2 URL + GSC cleanup — **NEXT**
+### P0-4 — Resolve freelancers-2 URL + GSC cleanup — **CLOSED PASS**
 
 | Field | Detail |
 |-------|--------|
-| **Problem** | Legacy URL in GSC (3 imp); 403 on bot HEAD; canonical unclear |
-| **Evidence** | Audit §9; GSC cache |
-| **Affected** | `-2` URL → canonical `/best-project-management-tools-for-freelancers/` |
-| **Expected benefit** | Consolidate signals; reduce duplicate URL confusion |
-| **Risk** | Medium — server/WAF may block automated checks |
-| **Cursor/repo** | Document redirect target in worklog after human verify |
-| **WordPress** | **Required** — 301 plugin or redirect rule; remove internal refs if any |
-| **Validation** | Browser GET; GSC URL inspection; cache `fetch` |
+| **Status** | **PASS / CLOSED** (2026-07-09) |
+| **Closeout** | `docs/P0_4_LEGACY_FREELANCERS_URL_GSC_CLOSEOUT_2026_07.md` |
+| **Legacy URL** | `/best-project-management-tools-for-freelancers-2/` |
+| **Destination** | `/best-free-project-management-tools-for-freelancers/` (indexed) |
+| **Rank Math Redirections** | **0 rules** — redirect not Rank Math-managed |
+| **GSC legacy** | Not indexed; Page with redirect; crawl Jul 8 2026 |
+| **GSC canonical** | User-declared = Google-selected; no disagreement |
+| **Decision** | **Keep current redirect** — no WordPress/GSC mutation |
+| **Redirect mechanism** | **Unproven** — `_wp_old_slug` plausible inference only |
 
-### P0-5 — Hub differentiation: Home audience routing (first pass)
+### P0-5 — Hub differentiation: Home audience routing (first pass) — **NEXT**
 
 | Field | Detail |
 |-------|--------|
@@ -203,11 +204,11 @@ Then: Fresh GSC → P1-9 → P1-2, P1-10 as capacity allows
 
 ## Next implementation phase (recommended)
 
-**Phase name:** **Authority Implementation — P0-4 (Technical URL fix)**
+**Phase name:** **Authority Implementation — P0-5 (Hub differentiation)**
 
-P0-1, P0-2, and P0-3 are **closed**. Next: **P0-4** — Resolve freelancers-2 URL + GSC cleanup.
+P0-1, P0-2, P0-3, and P0-4 are **closed**. Next: **P0-5** — Hub differentiation: Home audience routing (first pass).
 
-Publisher Knowledge Graph entity review remains a **separate** site-level follow-up (P0-7 / optional) — do not conflate with P0-4.
+Publisher Knowledge Graph entity review remains a **separate** site-level follow-up (P0-7 / optional).
 
 ---
 
