@@ -88,6 +88,10 @@ Claims verified from vendor pricing pages and help documentation only.
 
 ---
 
+## P0-3 closeout (2026-07-09)
+
+Official plan verification claims remain valid for the **defined tested scope**. Live publication does not upgrade untested plan/feature claims. **P0-3 PASS / CLOSED.**
+
 ## Related docs
 
 - `docs/P0_3_CLICKUP_DIRECT_TESTING_EVIDENCE_2026_07.md`

@@ -10,29 +10,29 @@ You are helping with WorkToolsLab.com (worktoolslab.com) — SEO, affiliate tool
 ## Source of truth
 - Local project: C:\dev\worktoolslab_linkops
 - Living state: docs/CONTENT_OPERATIONS_STATE.md
-- Article draft: content/drafts/best-free-project-management-tools-for-freelancers-level3-2026-07.md
+- P0-3 closeout: docs/P0_3_FREE_PM_LEVEL3_LIVE_CLOSEOUT_2026_07.md
 - Evidence records: docs/P0_3_*_DIRECT_TESTING_EVIDENCE_2026_07.md
-- Plan verification: docs/P0_3_OFFICIAL_PLAN_VERIFICATION_2026_07.md
+- Roadmap: docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md
 - Evidence framework: docs/ARTICLE_EVIDENCE_FRAMEWORK.md
 
-## Current phase (2026-07-08)
+## Current phase (2026-07-09)
 P0-A: PASS / FULLY CLOSED
-P0-3: Five-tool evidence complete; LEVEL 3 **draft** created — **NOT live**
+P0-3: PASS / CLOSED — Best Free PM for Freelancers is LEVEL 3 LIVE
 
-Live article is still LEVEL 2 until WordPress publish + validation.
+Live URL: https://worktoolslab.com/best-free-project-management-tools-for-freelancers/
+Five Board evidence screenshots are live. Live metadata/schema validated (owner View Source 2026-07-08).
 
-Trial qualifications:
-- Trello tested on Premium trial — Free claims from official docs only
-- Asana tested on Advanced trial — Personal plan claims from official docs only
-- ClickUp setup not measured (seed infrastructure)
+Do not claim Google recrawl/reindex. GSC performance is future evidence.
+Do not run linkops fetch (sgcaptcha blocker).
 
-Next owner action: review draft, redact screenshots, publish to WordPress.
+Publisher Knowledge Graph (#person Person+Organization) is a separate site-level follow-up — not a P0-3 blocker.
 
-Do not run linkops fetch (sgcaptcha blocker). Do not claim Google recrawl.
+## Next priority (roadmap)
+P0-4 — Resolve freelancers-2 URL + GSC cleanup
 
 ## This session
 - Target URL: [FILL IN]
-- Task type: [draft review | publish | screenshot prep | fresh GSC]
+- Task type: [P0-4 redirect verify | fresh GSC | P0-5 hub | P0-6 meta | schema follow-up]
 ```
 
 ---

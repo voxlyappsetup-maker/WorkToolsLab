@@ -178,7 +178,17 @@ Redaction done: yes/no
 | Minimum tools tested | Roadmap suggests **≥2** on free tier; this matrix plans **all 5** for full roundup upgrade |
 | Screenshot integrity | Real product UI only; no login pages; no AI-generated UI |
 | Wording gate | First-person testing blocks only for tools passing minimum above |
-| Publication gate | Article rewrite + WordPress publish + live validation — **out of scope for this phase** |
+| Publication gate | Article rewrite + WordPress publish + live validation — **COMPLETE** (2026-07-08) |
+
+---
+
+## P0-3 closeout (2026-07-09)
+
+| Field | Value |
+|-------|--------|
+| **Matrix status** | **COMPLETE** for defined tested scope |
+| **Live publication** | **LEVEL 3 LIVE** |
+| **Untested scope** | **Preserved** — see per-tool evidence records |
 
 ---
 

@@ -37,6 +37,14 @@
 
 ---
 
+## P0-3 closeout (2026-07-09)
+
+| Field | Value |
+|-------|--------|
+| **Cross-tool findings** | **Incorporated** in live LEVEL 3 article |
+| **Untested comparative claims** | **Not upgraded** beyond defined scope |
+| **Phase** | **PASS / CLOSED** — `docs/P0_3_FREE_PM_LEVEL3_LIVE_CLOSEOUT_2026_07.md` |
+
 ## Related docs
 
 Per-tool records: `docs/P0_3_*_DIRECT_TESTING_EVIDENCE_2026_07.md`

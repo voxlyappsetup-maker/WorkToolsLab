@@ -172,10 +172,12 @@ Pricing and limits (verified from official documentation, checked YYYY-MM): …
 
 | Field | Value |
 |-------|--------|
-| **Article rewrite drafted** | **Yes** — `content/drafts/best-free-project-management-tools-for-freelancers-level3-2026-07.md` |
+| **Article rewrite drafted** | **Yes** — published live 2026-07-08 |
 | **ClickUp evidence** | Recorded — all five tools |
-| **LEVEL 3 complete (live)** | **No** — draft only |
-| **Blocked on** | Owner draft review; screenshot redaction; WordPress publish; live validation |
+| **LEVEL 3 complete (live)** | **Yes** — validated |
+| **P0-3 status** | **PASS / CLOSED** |
+
+See `docs/P0_3_FREE_PM_LEVEL3_LIVE_CLOSEOUT_2026_07.md`.
 
 ---
 

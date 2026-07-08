@@ -51,22 +51,20 @@
 | **WordPress** | **Required** |
 | **Validation** | Internal links from A + C; manual read |
 
-### P0-3 — Evidence upgrade: Free PM for Freelancers (A → LEVEL 3)
+### P0-3 — Evidence upgrade: Free PM for Freelancers (A → LEVEL 3) — **CLOSED PASS**
 
 | Field | Detail |
 |-------|--------|
-| **Problem** | Strongest distribution signal but no testing artifacts |
-| **Evidence** | 3 LinkedIn link engagements @ 30d; audit LEVEL 2 |
-| **Affected** | `/best-free-project-management-tools-for-freelancers/` |
-| **Expected benefit** | Differentiation vs generic SERP; supports focus hypothesis |
-| **Risk** | Medium — requires real screenshots/time |
-| **Cursor/repo** | Deep upgrade report; evidence checklist |
-| **WordPress** | **Required** |
-| **Validation** | Self-audit against `ARTICLE_EVIDENCE_FRAMEWORK.md`; no “tested” in title until LEVEL 3 on page |
+| **Status** | **PASS / CLOSED** (2026-07-09) — **LEVEL 3 LIVE** |
+| **Closeout** | `docs/P0_3_FREE_PM_LEVEL3_LIVE_CLOSEOUT_2026_07.md` |
+| **Live URL** | `/best-free-project-management-tools-for-freelancers/` |
+| **Evidence** | Five-tool direct testing (defined scope); five Board screenshots live; live metadata/schema validated |
+| **Boundaries** | Google recrawl/reindex **not claimed**; GSC impact is future evidence |
+| **Separate follow-up** | Publisher Knowledge Graph `#person` entity — site-level; not P0-3 blocker |
 
-**Minimum:** Test 2 tools on free tier (recommend Trello + one of ClickUp/Asana based on operator access).
+**Minimum met:** All five tools evidenced for defined scope; article published and validated live.
 
-### P0-4 — Resolve freelancers-2 URL + GSC cleanup
+### P0-4 — Resolve freelancers-2 URL + GSC cleanup — **NEXT**
 
 | Field | Detail |
 |-------|--------|
@@ -205,9 +203,11 @@ Then: Fresh GSC → P1-9 → P1-2, P1-10 as capacity allows
 
 ## Next implementation phase (recommended)
 
-**Phase name:** **Authority Implementation — P0 (Author, Methodology, Evidence A, Technical URL fix)**
+**Phase name:** **Authority Implementation — P0-4 (Technical URL fix)**
 
-Start with P0-1 + P0-2 + P0-4 in one WordPress session, then P0-3 evidence work on Free PM for Freelancers.
+P0-1, P0-2, and P0-3 are **closed**. Next: **P0-4** — Resolve freelancers-2 URL + GSC cleanup.
+
+Publisher Knowledge Graph entity review remains a **separate** site-level follow-up (P0-7 / optional) — do not conflate with P0-4.
 
 ---
 

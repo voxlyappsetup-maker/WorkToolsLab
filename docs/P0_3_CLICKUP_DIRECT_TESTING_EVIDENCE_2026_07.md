@@ -161,3 +161,13 @@ Permitted substance when rewrite phase begins (see `docs/P0_3_FREE_PM_LEVEL3_ART
 - `docs/P0_3_FREE_PM_REAL_TESTING_MATRIX_2026_07.md`
 - `docs/P0_3_FREE_PM_SCREENSHOT_CAPTURE_PLAN_2026_07.md`
 - `docs/P0_3_OWNER_TESTING_EXECUTION_QUEUE_2026_07.md`
+
+---
+
+## P0-3 publication closeout (2026-07-09)
+
+| Field | Value |
+|-------|--------|
+| **Evidence incorporated in live article** | **Yes** — Board screenshot live |
+| **Untested scope** | **Preserved** — setup not measured; prohibited claims unchanged |
+| **Phase** | **PASS / CLOSED** |

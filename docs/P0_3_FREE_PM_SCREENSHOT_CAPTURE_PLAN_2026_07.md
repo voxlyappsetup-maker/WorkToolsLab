@@ -95,12 +95,18 @@ Every accepted screenshot record must include:
 
 ## Acceptance checklist (per screenshot)
 
-- [ ] Captured from authenticated **app** URL (not marketing site)  
-- [ ] Shows canonical tasks or clearly labeled test data  
-- [ ] Caption matches visible UI (no feature shown that is not in frame)  
-- [ ] Redaction pass complete  
-- [ ] File unique (not duplicate of another view)  
-- [ ] Marked `approved-for-article` in owner notes before WordPress upload  
+- [x] Captured from authenticated **app** URL (not marketing site)
+- [x] Shows canonical tasks or clearly labeled test data
+- [x] Caption matches visible UI (no feature shown that is not in frame)
+- [x] Redaction pass complete
+- [x] File unique (not duplicate of another view)
+- [x] Published live in WordPress article (2026-07-08)
+
+---
+
+## P0-3 closeout (2026-07-09)
+
+All five Board publication evidence images are **LIVE** on the article. See `docs/P0_3_FREE_PM_LEVEL3_LIVE_CLOSEOUT_2026_07.md`.
 
 ---
 

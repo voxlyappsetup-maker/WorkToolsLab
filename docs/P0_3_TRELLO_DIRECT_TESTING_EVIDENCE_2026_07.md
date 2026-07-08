@@ -69,3 +69,14 @@ Any **Free plan** feature statement in the article must use **official documenta
 
 - `docs/P0_3_OFFICIAL_PLAN_VERIFICATION_2026_07.md`
 - `docs/P0_3_FREE_PM_FREELANCERS_EVIDENCE_AUDIT_2026_07.md`
+
+---
+
+## P0-3 publication closeout (2026-07-09)
+
+| Field | Value |
+|-------|--------|
+| **Evidence incorporated in live article** | **Yes** — Board screenshot live |
+| **Trial/free distinction** | **Preserved** — Premium trial session; Free claims from official docs only |
+| **Untested scope** | **Preserved** |
+| **Phase** | **PASS / CLOSED** |

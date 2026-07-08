@@ -21,14 +21,16 @@ Official plan verification: `docs/P0_3_OFFICIAL_PLAN_VERIFICATION_2026_07.md`
 
 ---
 
-## Next owner actions (publication phase)
+## Next owner actions (publication phase) — **COMPLETE**
 
-1. **Review draft** — `content/drafts/best-free-project-management-tools-for-freelancers-level3-2026-07.md`
-2. **Redact/crop screenshots** — workspace names, emails, sidebar identity (all tools)
-3. **Upload images** to WordPress with draft captions
-4. **Replace live article** body (manual paste) — no Rank Math label prefixes
-5. **View Source** validation after publish
+1. ~~**Review draft**~~ — published 2026-07-08
+2. ~~**Redact/crop screenshots**~~ — complete
+3. ~~**Upload images** to WordPress~~ — five Board images live
+4. ~~**Replace live article** body~~ — evidence rewrite live
+5. ~~**View Source** validation~~ — passed (see closeout record)
 6. **Optional:** GSC URL Inspection — do not claim recrawl/reindex
+
+**P0-3:** **PASS / CLOSED** — `docs/P0_3_FREE_PM_LEVEL3_LIVE_CLOSEOUT_2026_07.md`
 
 Do **not** store credentials in the repository.
 

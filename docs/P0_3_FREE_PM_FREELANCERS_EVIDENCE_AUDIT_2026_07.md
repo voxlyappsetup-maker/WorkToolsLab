@@ -12,13 +12,13 @@
 
 | Field | Value |
 |-------|--------|
-| **Current evidence maturity** | **LEVEL 2** — transparent criteria, editorial best/poor fit, pricing caveats |
-| **Target maturity** | **LEVEL 3** — dated direct testing, real screenshots, honest limitations |
-| **First-person testing language in live article** | **None found** (`I tested`, `How I tested`, `screenshot`, `real use` absent) |
-| **Repository direct-testing artifacts for this article** | **ClickUp** — owner-confirmed session recorded (`docs/P0_3_CLICKUP_DIRECT_TESTING_EVIDENCE_2026_07.md`); screenshots external |
-| **P0-3 execution status** | **Draft complete — publication pending** (all five tools evidenced for defined scope) |
+| **Current evidence maturity** | **LEVEL 3 LIVE** — owner-published evidence rewrite (2026-07-08) |
+| **Target maturity** | **LEVEL 3** — **achieved** |
+| **First-person testing language in live article** | **Present** — defined tested scope only |
+| **Repository direct-testing artifacts for this article** | **All five tools** — per-tool evidence records (2026-07) |
+| **P0-3 execution status** | **PASS / CLOSED** — see `docs/P0_3_FREE_PM_LEVEL3_LIVE_CLOSEOUT_2026_07.md` |
 
-**Do not claim LEVEL 3 until owner testing, screenshots, article rewrite, WordPress publish, and live validation are complete.**
+**Historical note:** At audit time (2026-07-06) the live article was LEVEL 2. LEVEL 3 live validation completed 2026-07-08.
 
 ---
 
@@ -265,15 +265,26 @@ These do not require first-person testing blocks:
 
 ---
 
-## Evidence maturity gap (LEVEL 2 → LEVEL 3)
+## Evidence maturity gap (LEVEL 2 → LEVEL 3) — **CLOSED**
 
 | LEVEL 3 requirement | Current state |
 |---------------------|---------------|
 | Dated testing notes per tool | **All five recorded** (2026-07) |
-| Real product screenshots | **External** — publication pending redaction |
+| Real product screenshots | **LIVE** — five Board images published |
 | Testing environment documented | **Yes** |
-| Article draft | **Created** — not live |
-| Live LEVEL 3 | **No** |
+| Article draft | **Published** — live 2026-07-08 |
+| Live LEVEL 3 | **Yes** — validated via owner View Source |
+
+**Untested scope preserved:** Per-tool records still bound claims to defined tested scope. Live publication does not upgrade untested features.
+
+---
+
+## P0-3 closeout
+
+| Field | Value |
+|-------|--------|
+| **Phase** | **PASS / CLOSED** |
+| **Closeout record** | `docs/P0_3_FREE_PM_LEVEL3_LIVE_CLOSEOUT_2026_07.md` |
 
 ---
 

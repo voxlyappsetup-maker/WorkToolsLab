@@ -256,9 +256,13 @@ Patch types include `monitor_only`, `faq_patch`, `title_meta_patch`, `intro_patc
 
 **P0-A authority pages are live** and **fully closed (PASS)**. See `docs/P0_A_AUTHORITY_LIVE_IMPLEMENTATION_RECORD_2026_07.md`.
 
-**P0-3 in progress:** LEVEL 3 **draft** created — `content/drafts/best-free-project-management-tools-for-freelancers-level3-2026-07.md`. All five tools evidenced (2026-07). **Live article is not LEVEL 3 yet.**
+**P0-3 closed (PASS):** Best Free PM for Freelancers is **LEVEL 3 LIVE** — https://worktoolslab.com/best-free-project-management-tools-for-freelancers/ — see `docs/P0_3_FREE_PM_LEVEL3_LIVE_CLOSEOUT_2026_07.md`.
 
-**Operational:** Local `python -m linkops.cli fetch` may be blocked by SiteGround `sgcaptcha` — do not bypass CAPTCHA.
+**Next roadmap priority:** **P0-4** — Resolve freelancers-2 URL + GSC cleanup.
+
+**Operational:** Local `python -m linkops.cli fetch` may be blocked by SiteGround `sgcaptcha` — do not bypass CAPTCHA; do not run repeated fetch attempts.
+
+**Site-level follow-up (separate):** Rank Math publisher Knowledge Graph entity (`#person` Person+Organization) — not a P0-3 blocker.
 
 **Editorial focus:** Work management tools for freelancers and small teams. Pause new broad communication/video/remote roundups.
 
