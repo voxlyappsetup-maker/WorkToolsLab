@@ -3,19 +3,20 @@
 > **Living document.** Update at the end of each working session.
 > Do not rely on ChatGPT memory for this file — edit locally.
 
-**Last updated:** 2026-07-09 (P0-4 legacy freelancers-2 redirect closeout)
+**Last updated:** 2026-07-09 (P0-5 Home audience routing live closeout)
 
 ## Phase
 
 | Field | Value |
 |-------|--------|
-| **Latest phase** | **P0-4** Legacy freelancers-2 redirect + GSC cleanup — **PASS / CLOSED** |
+| **Latest phase** | **P0-5** Home audience routing (first pass) — **PASS / CLOSED** |
+| **Prior phase** | **P0-4** Legacy freelancers-2 redirect + GSC cleanup — **PASS / CLOSED** |
 | **Prior phase** | **P0-3** Free PM for Freelancers — **PASS / CLOSED** — **LEVEL 3 LIVE** |
 | **Prior phase** | P0-A Authority Live Implementation — **PASS / FULLY CLOSED** |
 | **Prior phase** | P0-A repository foundation — **complete** (`e613f50`) |
 | **Prior phase** | Distribution / LinkedIn experiment — **logged** (`distribution_log_2026_06.md`) |
 | **Earlier phase** | Next Actions cleanup / on-page optimization cycle — **complete** |
-| **Strategy docs** | `docs/P0_4_LEGACY_FREELANCERS_URL_GSC_CLOSEOUT_2026_07.md`, `docs/P0_3_FREE_PM_LEVEL3_LIVE_CLOSEOUT_2026_07.md`, `docs/LEGACY_FREELANCERS_URL_REMEDIATION_2026_07.md`, `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md` |
+| **Strategy docs** | `docs/P0_5_HOME_AUDIENCE_ROUTING_LIVE_CLOSEOUT_2026_07.md`, `docs/P0_4_LEGACY_FREELANCERS_URL_GSC_CLOSEOUT_2026_07.md`, `docs/P0_3_FREE_PM_LEVEL3_LIVE_CLOSEOUT_2026_07.md`, `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md` |
 | **MU plugin mirrors** | `wordpress/mu-plugins/worktoolslab-author-box.php`, `wordpress/mu-plugins/worktoolslab-author-links.php` |
 | **June docs (historical)** | `docs/TRAFFIC_DIAGNOSIS_2026_06.md`, `docs/CONTENT_STRATEGY_RESET_2026_06.md`, `docs/DISTRIBUTION_AUTHORITY_PLAN_2026_06.md` |
 
@@ -23,11 +24,12 @@
 
 | Field | Value |
 |-------|--------|
+| **Current hub / URL** | `/` — **Home audience routing LIVE** |
 | **Current article / URL** | `/best-free-project-management-tools-for-freelancers/` — **LEVEL 3 LIVE** |
 | **Legacy URL** | `/best-project-management-tools-for-freelancers-2/` — **301 → free guide; GSC validated; not indexed** |
-| **Focus keyword** | free project management tools for freelancers |
-| **Stage** | P0-4 closed — redirect/canonical state passes GSC validation |
-| **Next action** | **P0-5** — Hub differentiation: Home audience routing (first pass). Publisher Knowledge Graph remains separate site-level follow-up. Do **not** claim LEVEL 3 content recrawl complete. Do **not** run repeated `linkops fetch` (sgcaptcha blocker). |
+| **Focus keyword** | work management tools for freelancers and small teams (Home); free PM guide remains LEVEL 3 cornerstone |
+| **Stage** | P0-5 closed — Home routes freelancers/small teams into project/task/workflow content |
+| **Next action** | **P0-6** — CTR: differentiate Best PM for Freelancers (C) meta + intro. Publisher Knowledge Graph remains separate site-level follow-up. Do **not** claim homepage recrawl/reindex or performance impact. Do **not** run repeated `linkops fetch` (sgcaptcha blocker). |
 
 ## LinkOps snapshot
 
@@ -167,9 +169,16 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 - [x] Decision — **keep current redirect**; no WordPress/GSC mutation
 - [x] Closeout record — `docs/P0_4_LEGACY_FREELANCERS_URL_GSC_CLOSEOUT_2026_07.md`
 
+### P0-5 Home audience routing (closed)
+
+- [x] Owner replaced homepage content in WordPress (2026-07-09)
+- [x] Incognito browser validation — audience routes visible
+- [x] View Source validation — SEO/OG/Twitter metadata pass
+- [x] Closeout record — `docs/P0_5_HOME_AUDIENCE_ROUTING_LIVE_CLOSEOUT_2026_07.md`
+
 ### Authority implementation (next)
 
-- [ ] **P0-5** — Hub differentiation: Home audience routing (first pass)
+- [ ] **P0-6** — CTR: differentiate Best PM for Freelancers (C) meta + intro
 
 ### Deep upgrade backlog (if fresh GSC still shows 0 clicks)
 
@@ -195,12 +204,13 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 | 2026-07-06 | P0-A **PASS** — Notion SEO prefix fixed; P0-3 planning docs created; **READY FOR OWNER TESTING** |
 | 2026-07-08 | Five-tool evidence consolidated; official plan verification; LEVEL 3 draft created |
 | 2026-07-09 | P0-3 **PASS** — LEVEL 3 live publication validated |
-| 2026-07-09 | P0-4 **PASS** — legacy freelancers-2 redirect/GSC validated; keep current redirect |
+| 2026-07-09 | P0-4 **PASS** — legacy freelancers-2 redirect/GSC validated |
+| 2026-07-09 | P0-5 **PASS** — Home audience routing first pass live |
 
 ## Notes
 
 - Low traffic is **not** only an on-page problem — impressions exist; clicks and authority remain gaps.
 - On-page queue for current GSC export is **cleared** — further patch loops on stale data add little value.
 - Do not commit `config/worklog.json`, `reports/`, `exports/`, `data/`.
-- **LEVEL 3 content recrawl on free guide not claimed** — URL indexed; freshness/performance is future evidence.
+- **Homepage recrawl/reindex and performance impact not claimed** — fresh GSC required later.
 - **Publisher Knowledge Graph** (`#person` Person+Organization) is a **separate** site-level follow-up — not reopened by P0-3.

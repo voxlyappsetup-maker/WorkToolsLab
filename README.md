@@ -260,7 +260,9 @@ Patch types include `monitor_only`, `faq_patch`, `title_meta_patch`, `intro_patc
 
 **P0-4 closed (PASS):** Legacy `freelancers-2` redirect/GSC validated — keep current redirect — see `docs/P0_4_LEGACY_FREELANCERS_URL_GSC_CLOSEOUT_2026_07.md`.
 
-**Next roadmap priority:** **P0-5** — Hub differentiation: Home audience routing (first pass).
+**P0-5 closed (PASS):** Home audience routing first pass is **LIVE** — https://worktoolslab.com/ — see `docs/P0_5_HOME_AUDIENCE_ROUTING_LIVE_CLOSEOUT_2026_07.md`.
+
+**Next roadmap priority:** **P0-6** — CTR: differentiate Best PM for Freelancers (C) meta + intro.
 
 **Operational:** Local `python -m linkops.cli fetch` may be blocked by SiteGround `sgcaptcha` — do not bypass CAPTCHA; do not run repeated fetch attempts.
 

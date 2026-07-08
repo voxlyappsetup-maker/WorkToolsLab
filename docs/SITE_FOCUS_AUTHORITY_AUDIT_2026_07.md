@@ -241,6 +241,22 @@ Detailed proposal: `docs/AUTHOR_PROFILE_AND_REVIEW_METHODOLOGY_PLAN.md`.
 
 **Internal linking:** Hub pages should **not** list every category equally — weight freelancer PM, task, and workflow paths; demote communication/meetings to footer or “other topics”.
 
+**Historical status (July 2026 audit):** Finding above reflected cache/live observation at audit time.
+
+---
+
+## 7a. P0-5 Home audience routing — live supersession (2026-07-09)
+
+**Closeout:** `docs/P0_5_HOME_AUDIENCE_ROUTING_LIVE_CLOSEOUT_2026_07.md` — **PASS / CLOSED**
+
+| Audit finding (July 2026) | Live status after P0-5 |
+|---------------------------|------------------------|
+| Home broadly routed across productivity, collaboration, communication, video-meeting clusters | **Superseded** — live Home now audience-routes freelancers and small teams into project/task/workflow content |
+| Hub duplication (Home / Tools / Start Here) | **Partially addressed** — Home first pass complete; Tools and Start Here remain future P1 work |
+| Recommended H1 “Work management tools for freelancers and small teams” | **Implemented** — live H1 matches intent |
+
+**Do not rewrite §7 table** — it documents the pre-P0-5 baseline. **Do not claim** Google recrawl/reindex or performance impact from homepage change.
+
 ---
 
 ## 8. Search snippet / CTR opportunity audit

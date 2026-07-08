@@ -78,20 +78,19 @@
 | **Decision** | **Keep current redirect** — no WordPress/GSC mutation |
 | **Redirect mechanism** | **Unproven** — `_wp_old_slug` plausible inference only |
 
-### P0-5 — Hub differentiation: Home audience routing (first pass) — **NEXT**
+### P0-5 — Hub differentiation: Home audience routing (first pass) — **CLOSED PASS**
 
 | Field | Detail |
 |-------|--------|
-| **Problem** | Home/Tools/Start Here overlap |
-| **Evidence** | Audit §7 |
-| **Affected** | `/`, `/tools/`, `/start-here/` |
-| **Expected benefit** | Clear topical focus for users and crawlers |
-| **Risk** | Low–medium — avoid breaking existing inbound links |
-| **Cursor/repo** | Wireframe copy in reports |
-| **WordPress** | **Required** |
-| **Validation** | Manual UX read; internal link analyze after `fetch` |
+| **Status** | **PASS / CLOSED** (2026-07-09) |
+| **Closeout** | `docs/P0_5_HOME_AUDIENCE_ROUTING_LIVE_CLOSEOUT_2026_07.md` |
+| **Live URL** | `/` — audience routing first pass live |
+| **H1** | Work Management Tools for Freelancers and Small Teams |
+| **Focus** | Freelancer + small-team work-management routing; broader comm/video clusters demoted from primary Home architecture |
+| **Tools/Blog** | Remain broader browse destinations |
+| **Boundaries** | Google recrawl/reindex and performance impact **not claimed** |
 
-### P0-6 — CTR: differentiate Best PM for Freelancers (C) meta + intro
+### P0-6 — CTR: differentiate Best PM for Freelancers (C) meta + intro — **NEXT**
 
 | Field | Detail |
 |-------|--------|
@@ -204,9 +203,9 @@ Then: Fresh GSC → P1-9 → P1-2, P1-10 as capacity allows
 
 ## Next implementation phase (recommended)
 
-**Phase name:** **Authority Implementation — P0-5 (Hub differentiation)**
+**Phase name:** **Authority Implementation — P0-6 (CTR differentiation)**
 
-P0-1, P0-2, P0-3, and P0-4 are **closed**. Next: **P0-5** — Hub differentiation: Home audience routing (first pass).
+P0-1 through P0-5 are **closed**. Next: **P0-6** — CTR: differentiate Best PM for Freelancers (C) meta + intro.
 
 Publisher Knowledge Graph entity review remains a **separate** site-level follow-up (P0-7 / optional).
 
