@@ -1,184 +1,302 @@
 <?php
 /**
  * Plugin Name: WorkToolsLab Author Links
- * Description: Kadence profile links + Rank Math JSON-LD author identity for Hayssam Dennaoui.
- * Version: 1.1.0
- *
- * Live path: wp-content/mu-plugins/worktoolslab-author-links.php
- * Repository mirror — manual deployment only. See docs/WORDPRESS_MU_PLUGIN_DEPLOYMENT_STATE_2026_07.md
+ * Description: Use the canonical author profile in Kadence author links and Rank Math schema.
  */
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WORKTOOLSLAB_AUTHOR_PROFILE_URL', 'https://worktoolslab.com/about/hayssam-dennaoui/' );
-define( 'WORKTOOLSLAB_AUTHOR_LINKEDIN_URL', 'https://www.linkedin.com/in/hayssam-dennaoui/' );
-define( 'WORKTOOLSLAB_AUTHOR_SLUG', 'hayssam-dennaoui' );
-
 /**
- * Use WordPress user website URL for Kadence author/profile links when enabled.
- */
-function worktoolslab_kadence_author_use_profile_link( $use_profile_link ) {
-	return true;
-}
-add_filter( 'kadence_author_use_profile_link', 'worktoolslab_kadence_author_use_profile_link' );
-
-/**
- * Normalize Rank Math JSON-LD for Hayssam Dennaoui and profile page.
+ * Return the canonical author profile URL.
  *
- * @param array  $data   Schema graph or entity.
- * @param object $jsonld Rank Math JSON-LD helper instance.
- * @return array
+ * @return string
  */
-function worktoolslab_rank_math_json_ld( $data, $jsonld ) {
-	if ( ! is_array( $data ) ) {
-		return $data;
-	}
-
-	$profile_url = WORKTOOLSLAB_AUTHOR_PROFILE_URL;
-	$linkedin    = WORKTOOLSLAB_AUTHOR_LINKEDIN_URL;
-	$person_id   = $profile_url;
-
-	$is_profile_page = is_page() && WORKTOOLSLAB_AUTHOR_SLUG === get_post_field( 'post_name', get_queried_object_id() );
-
-	if ( isset( $data['@graph'] ) && is_array( $data['@graph'] ) ) {
-		foreach ( $data['@graph'] as $index => $entity ) {
-			$data['@graph'][ $index ] = worktoolslab_normalize_schema_entity( $entity, $person_id, $profile_url, $linkedin, $is_profile_page );
-		}
-		return $data;
-	}
-
-	return worktoolslab_normalize_schema_entity( $data, $person_id, $profile_url, $linkedin, $is_profile_page );
-}
-add_filter( 'rank_math/json_ld', 'worktoolslab_rank_math_json_ld', 99, 2 );
-
-/**
- * Normalize a single schema entity or graph node.
- *
- * @param array  $entity          Schema entity.
- * @param string $person_id       Canonical @id for Hayssam Person.
- * @param string $profile_url       Profile page URL.
- * @param string $linkedin          LinkedIn sameAs URL.
- * @param bool   $is_profile_page   Whether current request is the profile page.
- * @return array
- */
-function worktoolslab_normalize_schema_entity( $entity, $person_id, $profile_url, $linkedin, $is_profile_page ) {
-	if ( ! is_array( $entity ) ) {
-		return $entity;
-	}
-
-	$types = isset( $entity['@type'] ) ? (array) $entity['@type'] : array();
-
-	if ( in_array( 'Person', $types, true ) && worktoolslab_is_hayssam_person_entity( $entity ) ) {
-		$entity['@id']      = $person_id;
-		$entity['url']      = $profile_url;
-		$entity['name']     = 'Hayssam Dennaoui';
-		$entity['jobTitle'] = 'Editor';
-		$entity['sameAs']   = array( $linkedin );
-		$entity['worksFor'] = array(
-			'@type' => 'Organization',
-			'name'  => 'WorkToolsLab',
-			'url'   => home_url( '/' ),
-		);
-	}
-
-	$article_types = array( 'BlogPosting', 'Article', 'NewsArticle' );
-	if ( array_intersect( $article_types, $types ) && isset( $entity['author'] ) ) {
-		$entity['author'] = array(
-			'@id'   => $person_id,
-			'@type' => 'Person',
-			'name'  => 'Hayssam Dennaoui',
-			'url'   => $profile_url,
-		);
-	}
-
-	if ( $is_profile_page && in_array( 'WebPage', $types, true ) ) {
-		$entity['@type']      = 'ProfilePage';
-		$entity['mainEntity'] = array(
-			'@type' => 'Person',
-			'@id'   => $person_id,
-			'name'  => 'Hayssam Dennaoui',
-			'url'   => $profile_url,
-		);
-	}
-
-	if ( $is_profile_page && in_array( 'ProfilePage', $types, true ) ) {
-		$entity['mainEntity'] = array(
-			'@type' => 'Person',
-			'@id'   => $person_id,
-			'name'  => 'Hayssam Dennaoui',
-			'url'   => $profile_url,
-		);
-	}
-
-	return $entity;
+function worktoolslab_author_links_profile_url() {
+	return home_url( '/about/hayssam-dennaoui/' );
 }
 
 /**
- * Detect Hayssam Dennaoui Person nodes emitted by Rank Math or archives.
+ * Return the author's LinkedIn profile URL.
  *
- * @param array $entity Schema entity.
- * @return bool
+ * @return string
  */
-function worktoolslab_is_hayssam_person_entity( $entity ) {
-	if ( empty( $entity['@type'] ) || ! in_array( 'Person', (array) $entity['@type'], true ) ) {
-		return false;
-	}
-
-	$name = isset( $entity['name'] ) ? (string) $entity['name'] : '';
-	if ( 'Hayssam Dennaoui' === $name ) {
-		return true;
-	}
-
-	$url = isset( $entity['url'] ) ? (string) $entity['url'] : '';
-	if ( false !== strpos( $url, WORKTOOLSLAB_AUTHOR_SLUG ) ) {
-		return true;
-	}
-
-	$id = isset( $entity['@id'] ) ? (string) $entity['@id'] : '';
-	if ( false !== strpos( $id, WORKTOOLSLAB_AUTHOR_SLUG ) ) {
-		return true;
-	}
-
-	return false;
+function worktoolslab_author_links_linkedin_url() {
+	return 'https://www.linkedin.com/in/hayssam-dennaoui/';
 }
 
 /**
- * Ensure Person entity exists on dedicated profile page graph when missing.
+ * Return the canonical WorkToolsLab Organization entity ID.
  *
- * @param array $data Schema data.
- * @return array
+ * @return string
  */
-function worktoolslab_ensure_profile_page_person( $data ) {
-	if ( ! is_page() || WORKTOOLSLAB_AUTHOR_SLUG !== get_post_field( 'post_name', get_queried_object_id() ) ) {
-		return $data;
-	}
+function worktoolslab_author_links_organization_id() {
+	return home_url( '/#organization' );
+}
 
-	if ( ! isset( $data['@graph'] ) || ! is_array( $data['@graph'] ) ) {
-		return $data;
-	}
+/**
+ * Return the canonical WorkToolsLab WebSite entity ID.
+ *
+ * @return string
+ */
+function worktoolslab_author_links_website_id() {
+	return home_url( '/#website' );
+}
 
-	foreach ( $data['@graph'] as $entity ) {
-		if ( is_array( $entity ) && worktoolslab_is_hayssam_person_entity( $entity ) && WORKTOOLSLAB_AUTHOR_PROFILE_URL === ( $entity['@id'] ?? '' ) ) {
+/**
+ * Tell Kadence to use the Website/profile URL configured
+ * on the WordPress user instead of the author archive URL.
+ */
+add_filter(
+	'kadence_author_use_profile_link',
+	'__return_true',
+	999
+);
+
+/**
+ * Normalize WorkToolsLab author identity in Rank Math JSON-LD.
+ *
+ * The dedicated author profile page gets a bounded, explicit graph:
+ *
+ * Organization -> WebSite
+ * ProfilePage -> Person
+ *
+ * Other pages retain Rank Math's normal graph while Hayssam's Person
+ * identity and Article author references are normalized to the canonical
+ * author profile URL.
+ */
+add_filter(
+	'rank_math/json_ld',
+	static function ( $data, $jsonld ) {
+		if ( ! is_array( $data ) ) {
 			return $data;
 		}
-	}
 
-	$data['@graph'][] = array(
-		'@type'     => 'Person',
-		'@id'       => WORKTOOLSLAB_AUTHOR_PROFILE_URL,
-		'name'      => 'Hayssam Dennaoui',
-		'url'       => WORKTOOLSLAB_AUTHOR_PROFILE_URL,
-		'jobTitle'  => 'Editor',
-		'sameAs'    => array( WORKTOOLSLAB_AUTHOR_LINKEDIN_URL ),
-		'worksFor'  => array(
-			'@type' => 'Organization',
-			'name'  => 'WorkToolsLab',
-			'url'   => home_url( '/' ),
-		),
-	);
+		$profile_url     = worktoolslab_author_links_profile_url();
+		$linkedin_url    = worktoolslab_author_links_linkedin_url();
+		$organization_id = worktoolslab_author_links_organization_id();
+		$website_id      = worktoolslab_author_links_website_id();
 
-	return $data;
-}
-add_filter( 'rank_math/json_ld', 'worktoolslab_ensure_profile_page_person', 100, 1 );
+		$profile_url_normalized = untrailingslashit( $profile_url );
+		$home_url               = home_url( '/' );
+		$home_url_normalized    = untrailingslashit( $home_url );
+
+		$author_user = get_user_by( 'slug', 'hayssam-dennaoui' );
+		$archive_url = $author_user
+			? get_author_posts_url( $author_user->ID )
+			: home_url( '/author/hayssam-dennaoui/' );
+		$archive_url_normalized = untrailingslashit( $archive_url );
+
+		/*
+		 * Dedicated author profile page.
+		 *
+		 * Build a deterministic ProfilePage graph instead of depending
+		 * on another Rank Math entity being present for conversion.
+		 */
+		$is_author_profile = false;
+		$profile_page_id   = 0;
+
+		if ( is_page() ) {
+			$profile_page_id = (int) get_queried_object_id();
+			$current_url = $profile_page_id
+				? get_permalink( $profile_page_id )
+				: '';
+
+			$is_author_profile =
+				$current_url
+				&& untrailingslashit( $current_url ) === $profile_url_normalized;
+		}
+
+		if ( $is_author_profile ) {
+			$profile_page_entity_id = trailingslashit( $profile_url ) . '#webpage';
+			$page_name = get_the_title( $profile_page_id );
+
+			if ( ! $page_name ) {
+				$page_name = 'Hayssam Dennaoui | WorkToolsLab Editor & Product Builder';
+			}
+
+			$person = array(
+				'@type'       => 'Person',
+				'@id'         => $profile_url,
+				'name'        => 'Hayssam Dennaoui',
+				'url'         => $profile_url,
+				'jobTitle'    => 'Editor',
+				'description' =>
+					'Digital product builder and WorkToolsLab editor writing about work-management tools for freelancers and small teams.',
+				'worksFor'    => array(
+					'@type' => 'Organization',
+					'@id'   => $organization_id,
+					'name'  => 'WorkToolsLab',
+					'url'   => $home_url,
+				),
+				'sameAs'      => array(
+					$linkedin_url,
+				),
+			);
+
+			if ( $author_user ) {
+				$avatar_url = get_avatar_url(
+					$author_user->ID,
+					array(
+						'size' => 96,
+					)
+				);
+
+				if ( $avatar_url ) {
+					$person['image'] = array(
+						'@type'      => 'ImageObject',
+						'@id'        => $avatar_url,
+						'url'        => $avatar_url,
+						'caption'    => 'Hayssam Dennaoui',
+						'inLanguage' => 'en-US',
+					);
+				}
+			}
+
+			return array(
+				'worktoolslab_organization' => array(
+					'@type' => 'Organization',
+					'@id'   => $organization_id,
+					'name'  => 'WorkToolsLab',
+					'url'   => $home_url,
+				),
+				'worktoolslab_website' => array(
+					'@type'      => 'WebSite',
+					'@id'        => $website_id,
+					'url'        => $home_url_normalized,
+					'name'       => 'WorkToolsLab',
+					'publisher'  => array(
+						'@id' => $organization_id,
+					),
+					'inLanguage' => 'en-US',
+				),
+				'worktoolslab_author_profile_page' => array(
+					'@type'         => 'ProfilePage',
+					'@id'           => $profile_page_entity_id,
+					'url'           => $profile_url,
+					'name'          => $page_name,
+					'datePublished' => get_the_date( 'c', $profile_page_id ),
+					'dateModified'  => get_the_modified_date( 'c', $profile_page_id ),
+					'isPartOf'      => array(
+						'@id' => $website_id,
+					),
+					'inLanguage'    => 'en-US',
+					'mainEntity'    => array(
+						'@id' => $profile_url,
+					),
+				),
+				'worktoolslab_author_profile_person' => $person,
+			);
+		}
+
+		/*
+		 * All other pages:
+		 * normalize Hayssam's existing Person entity and Article author
+		 * references without rebuilding Rank Math's normal graph.
+		 */
+		foreach ( $data as $key => $entity ) {
+			if ( ! is_array( $entity ) ) {
+				continue;
+			}
+
+			$types = isset( $entity['@type'] )
+				? (array) $entity['@type']
+				: array();
+
+			$entity_name = isset( $entity['name'] )
+				? wp_strip_all_tags( (string) $entity['name'] )
+				: '';
+
+			$entity_id = isset( $entity['@id'] )
+				? untrailingslashit( (string) $entity['@id'] )
+				: '';
+
+			$is_hayssam_person =
+				in_array( 'Person', $types, true )
+				&& (
+					'Hayssam Dennaoui' === $entity_name
+					|| $archive_url_normalized === $entity_id
+					|| $profile_url_normalized === $entity_id
+				);
+
+			if ( $is_hayssam_person ) {
+				$data[ $key ]['@id']  = $profile_url;
+				$data[ $key ]['url']  = $profile_url;
+				$data[ $key ]['name'] = 'Hayssam Dennaoui';
+				$data[ $key ]['jobTitle'] = 'Editor';
+				$data[ $key ]['description'] =
+					'Digital product builder and WorkToolsLab editor writing about work-management tools for freelancers and small teams.';
+				$data[ $key ]['worksFor'] = array(
+					'@type' => 'Organization',
+					'@id'   => $organization_id,
+					'name'  => 'WorkToolsLab',
+					'url'   => $home_url,
+				);
+
+				$same_as = isset( $entity['sameAs'] ) && is_array( $entity['sameAs'] )
+					? $entity['sameAs']
+					: array();
+
+				$same_as = array_filter(
+					$same_as,
+					static function ( $url ) use (
+						$profile_url_normalized,
+						$archive_url_normalized,
+						$home_url_normalized
+					) {
+						$url = untrailingslashit( (string) $url );
+
+						return ! in_array(
+							$url,
+							array(
+								$profile_url_normalized,
+								$archive_url_normalized,
+								$home_url_normalized,
+							),
+							true
+						);
+					}
+				);
+
+				$same_as[] = $linkedin_url;
+
+				$data[ $key ]['sameAs'] = array_values(
+					array_unique( $same_as )
+				);
+			}
+
+			$is_article =
+				in_array( 'Article', $types, true )
+				|| in_array( 'BlogPosting', $types, true )
+				|| in_array( 'NewsArticle', $types, true );
+
+			if ( $is_article && isset( $entity['author'] ) ) {
+				$author = $entity['author'];
+
+				$author_name = is_array( $author ) && isset( $author['name'] )
+					? wp_strip_all_tags( (string) $author['name'] )
+					: '';
+
+				$author_id = is_array( $author ) && isset( $author['@id'] )
+					? untrailingslashit( (string) $author['@id'] )
+					: '';
+
+				$is_hayssam_author =
+					'Hayssam Dennaoui' === $author_name
+					|| $archive_url_normalized === $author_id
+					|| $profile_url_normalized === $author_id;
+
+				if ( $is_hayssam_author ) {
+					$data[ $key ]['author'] = array(
+						'@id'  => $profile_url,
+						'name' => 'Hayssam Dennaoui',
+					);
+				}
+			}
+		}
+
+		return $data;
+	},
+	99,
+	2
+);

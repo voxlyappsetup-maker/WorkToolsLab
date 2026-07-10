@@ -103,18 +103,17 @@
 | **WordPress** | **Required** — meta + intro lede only |
 | **Validation** | GSC CTR after 28+ days post-change |
 
-### P0-7 — Article + Person structured data
+### P0-7 — Article + Person structured data — **CLOSED PASS**
 
 | Field | Detail |
 |-------|--------|
-| **Problem** | Author URL likely missing in Article schema |
-| **Evidence** | Audit §9 |
-| **Affected** | Theme/SEO plugin sitewide |
-| **Expected benefit** | clearer entity graph |
-| **Risk** | Low |
-| **Cursor/repo** | Document expected JSON-LD |
-| **WordPress** | **Required** |
-| **Validation** | Rich Results Test on A, B, C |
+| **Status** | **PASS — LIVE FIX VERIFIED / GOOGLE REPROCESSING PENDING** (2026-07-10) |
+| **Closeout** | `docs/P0_7_PUBLISHER_PROFILEPAGE_SCHEMA_LIVE_FIX_2026_07.md` |
+| **Scope** | Rank Math site entity Person→Organization; deterministic ProfilePage graph; MU-plugin mirror sync |
+| **Live validation** | GSC TEST LIVE URL — **1 valid Profile page item** (Jul 10, 2026, 5:17 PM) |
+| **Indexing** | Requested once — do not repeat |
+| **Index tab** | May still show old invalid item until Google reprocesses — **not claimed** |
+| **Does not reopen** | P0-A, P0-3, P0-4, P0-5 |
 
 ---
 
@@ -205,9 +204,7 @@ Then: Fresh GSC → P1-9 → P1-2, P1-10 as capacity allows
 
 **Phase name:** **Authority Implementation — P0-6 (CTR differentiation)**
 
-P0-1 through P0-5 are **closed**. Next: **P0-6** — CTR: differentiate Best PM for Freelancers (C) meta + intro.
-
-Publisher Knowledge Graph entity review remains a **separate** site-level follow-up (P0-7 / optional).
+P0-1 through P0-5 and **P0-7** are **closed**. Next editorial priority: **P0-6** — CTR: differentiate Best PM for Freelancers (C) meta + intro.
 
 ---
 

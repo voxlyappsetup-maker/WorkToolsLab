@@ -42,7 +42,8 @@ Credentials live in `.env` (never commit). Reports go to `reports/` (gitignored)
 | [P0_3_FREE_PM_FREELANCERS_EVIDENCE_AUDIT_2026_07.md](P0_3_FREE_PM_FREELANCERS_EVIDENCE_AUDIT_2026_07.md) | P0-3 claim audit (LEVEL 3 live) |
 | [P0_3_OWNER_TESTING_EXECUTION_QUEUE_2026_07.md](P0_3_OWNER_TESTING_EXECUTION_QUEUE_2026_07.md) | Owner testing steps (completed) |
 | [P0_3_FREE_PM_LEVEL3_ARTICLE_BLUEPRINT_2026_07.md](P0_3_FREE_PM_LEVEL3_ARTICLE_BLUEPRINT_2026_07.md) | Article structure blueprint (published) |
-| [WORDPRESS_MU_PLUGIN_DEPLOYMENT_STATE_2026_07.md](WORDPRESS_MU_PLUGIN_DEPLOYMENT_STATE_2026_07.md) | MU plugin mirror + deployment notes |
+| [P0_7_PUBLISHER_PROFILEPAGE_SCHEMA_LIVE_FIX_2026_07.md](P0_7_PUBLISHER_PROFILEPAGE_SCHEMA_LIVE_FIX_2026_07.md) | **P0-7 PASS** — publisher/ProfilePage schema fix |
+| [WORDPRESS_MU_PLUGIN_DEPLOYMENT_STATE_2026_07.md](WORDPRESS_MU_PLUGIN_DEPLOYMENT_STATE_2026_07.md) | MU plugin mirror + deployment (author-links synced 2026-07-10) |
 | [../wordpress/mu-plugins/](../wordpress/mu-plugins/) | Repository mirrors of live MU plugins |
 | [TRAFFIC_DIAGNOSIS_2026_06.md](TRAFFIC_DIAGNOSIS_2026_06.md) | June traffic diagnosis (historical) |
 | [CONTENT_STRATEGY_RESET_2026_06.md](CONTENT_STRATEGY_RESET_2026_06.md) | June strategy reset + July addendum |

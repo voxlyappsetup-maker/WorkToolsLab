@@ -3,20 +3,21 @@
 > **Living document.** Update at the end of each working session.
 > Do not rely on ChatGPT memory for this file — edit locally.
 
-**Last updated:** 2026-07-09 (P0-5 Home audience routing live closeout)
+**Last updated:** 2026-07-10 (P0-7 publisher/ProfilePage schema live fix)
 
 ## Phase
 
 | Field | Value |
 |-------|--------|
-| **Latest phase** | **P0-5** Home audience routing (first pass) — **PASS / CLOSED** |
+| **Latest bounded fix** | **P0-7** Publisher / ProfilePage structured data — **PASS — LIVE FIX VERIFIED / GOOGLE REPROCESSING PENDING** |
+| **Latest editorial phase** | **P0-5** Home audience routing — **PASS / CLOSED** |
 | **Prior phase** | **P0-4** Legacy freelancers-2 redirect + GSC cleanup — **PASS / CLOSED** |
 | **Prior phase** | **P0-3** Free PM for Freelancers — **PASS / CLOSED** — **LEVEL 3 LIVE** |
 | **Prior phase** | P0-A Authority Live Implementation — **PASS / FULLY CLOSED** |
 | **Prior phase** | P0-A repository foundation — **complete** (`e613f50`) |
 | **Prior phase** | Distribution / LinkedIn experiment — **logged** (`distribution_log_2026_06.md`) |
 | **Earlier phase** | Next Actions cleanup / on-page optimization cycle — **complete** |
-| **Strategy docs** | `docs/P0_5_HOME_AUDIENCE_ROUTING_LIVE_CLOSEOUT_2026_07.md`, `docs/P0_4_LEGACY_FREELANCERS_URL_GSC_CLOSEOUT_2026_07.md`, `docs/P0_3_FREE_PM_LEVEL3_LIVE_CLOSEOUT_2026_07.md`, `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md` |
+| **Strategy docs** | `docs/P0_7_PUBLISHER_PROFILEPAGE_SCHEMA_LIVE_FIX_2026_07.md`, `docs/P0_5_HOME_AUDIENCE_ROUTING_LIVE_CLOSEOUT_2026_07.md`, `docs/WORDPRESS_MU_PLUGIN_DEPLOYMENT_STATE_2026_07.md`, `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md` |
 | **MU plugin mirrors** | `wordpress/mu-plugins/worktoolslab-author-box.php`, `wordpress/mu-plugins/worktoolslab-author-links.php` |
 | **June docs (historical)** | `docs/TRAFFIC_DIAGNOSIS_2026_06.md`, `docs/CONTENT_STRATEGY_RESET_2026_06.md`, `docs/DISTRIBUTION_AUTHORITY_PLAN_2026_06.md` |
 
@@ -28,8 +29,8 @@
 | **Current article / URL** | `/best-free-project-management-tools-for-freelancers/` — **LEVEL 3 LIVE** |
 | **Legacy URL** | `/best-project-management-tools-for-freelancers-2/` — **301 → free guide; GSC validated; not indexed** |
 | **Focus keyword** | work management tools for freelancers and small teams (Home); free PM guide remains LEVEL 3 cornerstone |
-| **Stage** | P0-5 closed — Home routes freelancers/small teams into project/task/workflow content |
-| **Next action** | **P0-6** — CTR: differentiate Best PM for Freelancers (C) meta + intro. Publisher Knowledge Graph remains separate site-level follow-up. Do **not** claim homepage recrawl/reindex or performance impact. Do **not** run repeated `linkops fetch` (sgcaptcha blocker). |
+| **Stage** | P0-7 schema fix live; Google Index reprocessing pending |
+| **Next action** | **P0-6** — CTR: differentiate Best PM for Freelancers (C) meta + intro. Do **not** request profile indexing again. Do **not** claim Google Index tab cleared. Do **not** run repeated `linkops fetch` (sgcaptcha blocker). |
 
 ## LinkOps snapshot
 
@@ -141,7 +142,7 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 - [x] SEO metadata prefix audit — `docs/SEO_METADATA_PREFIX_AUDIT_2026_07.md` — **0 confirmed errors remaining**
 - [x] **Fix Rank Math title prefix** — Notion vs Trello vs ClickUp (owner fixed 2026-07-06)
 - [ ] Spot-check meta descriptions on June-updated posts for label prefixes (optional P1)
-- [ ] **Publisher Knowledge Graph entity review** — separate site-level follow-up (`#person` Person+Organization)
+- [x] **Publisher / ProfilePage schema** — **P0-7 LIVE FIX** (`docs/P0_7_PUBLISHER_PROFILEPAGE_SCHEMA_LIVE_FIX_2026_07.md`); Google Index reprocessing pending
 - [x] Legacy `-2` GSC + Rank Math inspection — **P0-4 PASS** (`docs/P0_4_LEGACY_FREELANCERS_URL_GSC_CLOSEOUT_2026_07.md`)
 - [ ] `python -m linkops.cli fetch` when REST access works (optional — sgcaptcha blocker locally)
 
@@ -176,7 +177,17 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 - [x] View Source validation — SEO/OG/Twitter metadata pass
 - [x] Closeout record — `docs/P0_5_HOME_AUDIENCE_ROUTING_LIVE_CLOSEOUT_2026_07.md`
 
-### Authority implementation (next)
+### P0-7 Publisher / ProfilePage schema (closed — reprocessing pending)
+
+- [x] Rank Math Local SEO Person → Organization
+- [x] Article schema removed from dedicated profile page
+- [x] Live MU-plugin deterministic ProfilePage graph
+- [x] Repo mirror synchronized — `wordpress/mu-plugins/worktoolslab-author-links.php`
+- [x] GSC TEST LIVE URL — 1 valid Profile page item (Jul 10, 2026, 5:17 PM)
+- [x] Indexing requested once — do not repeat
+- [ ] Google Index tab reprocessing — **pending evidence**
+
+### Authority implementation (next — editorial)
 
 - [ ] **P0-6** — CTR: differentiate Best PM for Freelancers (C) meta + intro
 
@@ -205,12 +216,12 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 | 2026-07-08 | Five-tool evidence consolidated; official plan verification; LEVEL 3 draft created |
 | 2026-07-09 | P0-3 **PASS** — LEVEL 3 live publication validated |
 | 2026-07-09 | P0-4 **PASS** — legacy freelancers-2 redirect/GSC validated |
-| 2026-07-09 | P0-5 **PASS** — Home audience routing first pass live |
+| 2026-07-10 | P0-7 **PASS** — publisher/ProfilePage schema live fix; repo MU-plugin mirror synced |
 
 ## Notes
 
 - Low traffic is **not** only an on-page problem — impressions exist; clicks and authority remain gaps.
 - On-page queue for current GSC export is **cleared** — further patch loops on stale data add little value.
 - Do not commit `config/worklog.json`, `reports/`, `exports/`, `data/`.
-- **Homepage recrawl/reindex and performance impact not claimed** — fresh GSC required later.
+- **Google Index reprocessing for profile URL not claimed** — live test PASS; Index tab may lag.
 - **Publisher Knowledge Graph** (`#person` Person+Organization) is a **separate** site-level follow-up — not reopened by P0-3.

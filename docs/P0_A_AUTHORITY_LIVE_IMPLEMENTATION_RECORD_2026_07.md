@@ -140,9 +140,17 @@ Owner-supplied and prior live article HTML (June 2026) showed Rank Math publishe
 
 This does not block author-profile P0-A deliverables but should be reviewed before treating structured data as fully clean.
 
----
+### P0-7 resolution (2026-07-10) — supersession
 
-## Legacy freelancers-2 URL
+**Closeout:** `docs/P0_7_PUBLISHER_PROFILEPAGE_SCHEMA_LIVE_FIX_2026_07.md` — **PASS — LIVE FIX VERIFIED / GOOGLE REPROCESSING PENDING**
+
+| Historical evidence (above) | Live status after fix |
+|----------------------------|------------------------|
+| `#person` Person+Organization | **Superseded** — Organization `#organization` |
+| ProfilePage GSC invalid item | **Live test PASS** — 1 valid item (Jul 10, 2026, 5:17 PM) |
+| MU plugins caused publisher issue | **Still no** — fix was Rank Math Local SEO + profile-page schema + MU-plugin ProfilePage graph |
+
+Google Index tab reprocessing **not claimed**. P0-A closeout status **unchanged**.
 
 Not re-verified in this closeout session. Prior curl (July 2026) found **301 → free guide**. Owner decision still open — see `docs/LEGACY_FREELANCERS_URL_REMEDIATION_2026_07.md`.
 

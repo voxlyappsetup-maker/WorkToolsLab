@@ -204,3 +204,22 @@ Observed on live site:
 - Audit: `docs/SITE_FOCUS_AUTHORITY_AUDIT_2026_07.md`
 - Roadmap: `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md`
 - Legacy URL: `docs/LEGACY_FREELANCERS_URL_REMEDIATION_2026_07.md`
+- P0-7 live fix: `docs/P0_7_PUBLISHER_PROFILEPAGE_SCHEMA_LIVE_FIX_2026_07.md`
+- MU plugin state: `docs/WORDPRESS_MU_PLUGIN_DEPLOYMENT_STATE_2026_07.md`
+
+---
+
+## 9. P0-7 live schema fix supersession (2026-07-10)
+
+**Historical §1 publisher row** documented `@id` `/#person` as Person+Organization hybrid — **superseded live**.
+
+| Item | Live status after P0-7 |
+|------|------------------------|
+| WorkToolsLab site entity | **Organization** — `@id` `https://worktoolslab.com/#organization` |
+| WebSite publisher | References `#organization` |
+| Hayssam identity | **Person** — canonical profile URL unchanged |
+| Dedicated profile page | **ProfilePage** with `mainEntity` → Person |
+| GSC TEST LIVE URL | **1 valid Profile page item** (Jul 10, 2026, 5:17 PM) |
+| Google Index tab | May still show old invalid item — **reprocessing pending** |
+
+**Closeout:** `docs/P0_7_PUBLISHER_PROFILEPAGE_SCHEMA_LIVE_FIX_2026_07.md`
