@@ -279,6 +279,21 @@ GSC query-page dimension was **not** in cache — proposals use page-level data 
 
 ---
 
+## 8a. P0-6 Best PM for Freelancers CTR differentiation — live supersession (2026-07-11)
+
+**Closeout:** `docs/P0_6_BEST_PM_FREELANCERS_CTR_DIFFERENTIATION_LIVE_CLOSEOUT_2026_07.md` — **PASS / CLOSED**
+
+| Audit §8 proposal (July 2026) | Live status after P0-6 |
+|------------------------------|------------------------|
+| Test meta + intro lede on `/best-project-management-tools-for-freelancers/` | **Implemented** — intro + meta differentiated; SEO title unchanged |
+| Proposed title change to “Compared for Client Work” | **Not implemented** — P0-6 bounded to intro + meta only |
+| Cannibalization risk vs free guide | **Mitigated in copy** — intro routes free intent to LEVEL 3 free guide |
+| CTR/ranking impact | **NOT CLAIMED** — Google reprocessing pending; fresh GSC required |
+
+**Do not rewrite §8 table** — historical June 2026 GSC baseline. **Do not claim** snippet/CTR improvement yet.
+
+---
+
 ## 9. Technical SEO audit (repo + read-only live)
 
 | Check | Finding |

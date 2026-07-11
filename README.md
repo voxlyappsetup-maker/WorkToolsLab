@@ -262,13 +262,13 @@ Patch types include `monitor_only`, `faq_patch`, `title_meta_patch`, `intro_patc
 
 **P0-5 closed (PASS):** Home audience routing first pass is **LIVE** — https://worktoolslab.com/ — see `docs/P0_5_HOME_AUDIENCE_ROUTING_LIVE_CLOSEOUT_2026_07.md`.
 
-**P0-7 closed (PASS — reprocessing pending):** Publisher/ProfilePage schema live fix — see `docs/P0_7_PUBLISHER_PROFILEPAGE_SCHEMA_LIVE_FIX_2026_07.md`. Repo MU-plugin mirror synced.
+**P0-6 closed (PASS):** Best PM for Freelancers meta + intro differentiated — https://worktoolslab.com/best-project-management-tools-for-freelancers/ — see `docs/P0_6_BEST_PM_FREELANCERS_CTR_DIFFERENTIATION_LIVE_CLOSEOUT_2026_07.md`.
 
-**Next editorial priority:** **P0-6** — CTR: differentiate Best PM for Freelancers (C) meta + intro.
+**P0 roadmap complete.** Next priority: **P1-1** — Task vs PM (B) LEVEL 2 polish + methodology links.
 
-**Operational:** Local `python -m linkops.cli fetch` may be blocked by SiteGround `sgcaptcha` — do not bypass CAPTCHA; do not run repeated fetch attempts.
+**Operational:** Local `python -m linkops.cli fetch` may be blocked by SiteGround `sgcaptcha` — do not run repeated fetch attempts.
 
-**Site-level follow-up (separate):** Rank Math publisher Knowledge Graph entity (`#person` Person+Organization) — not a P0-3 blocker.
+**P0-7:** Google Index reprocessing pending for profile URL — live test PASS.
 
 **Editorial focus:** Work management tools for freelancers and small teams. Pause new broad communication/video/remote roundups.
 

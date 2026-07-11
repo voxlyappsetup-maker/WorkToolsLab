@@ -90,18 +90,17 @@
 | **Tools/Blog** | Remain broader browse destinations |
 | **Boundaries** | Google recrawl/reindex and performance impact **not claimed** |
 
-### P0-6 — CTR: differentiate Best PM for Freelancers (C) meta + intro — **NEXT**
+### P0-6 — CTR: differentiate Best PM for Freelancers (C) meta + intro — **CLOSED PASS**
 
 | Field | Detail |
 |-------|--------|
-| **Problem** | 681 imp, 0 clicks; overlaps free guide |
-| **Evidence** | GSC; audit §8 |
-| **Affected** | `/best-project-management-tools-for-freelancers/` |
-| **Expected benefit** | Improved snippet clarity for paid/broad freelancer intent |
-| **Risk** | Low if no false testing claims |
-| **Cursor/repo** | `patch` report after fresh GSC (optional) |
-| **WordPress** | **Required** — meta + intro lede only |
-| **Validation** | GSC CTR after 28+ days post-change |
+| **Status** | **PASS / CLOSED** (2026-07-11) |
+| **Closeout** | `docs/P0_6_BEST_PM_FREELANCERS_CTR_DIFFERENTIATION_LIVE_CLOSEOUT_2026_07.md` |
+| **Live URL** | `/best-project-management-tools-for-freelancers/` |
+| **Scope** | Intro lede + meta description only — H1/slug/SEO title unchanged |
+| **Differentiation** | Structured client workload vs LEVEL 3 free-first guide |
+| **GSC** | Indexed; indexing requested once — reprocessing pending |
+| **Performance** | CTR/ranking impact **not claimed** |
 
 ### P0-7 — Article + Person structured data — **CLOSED PASS**
 
@@ -119,7 +118,7 @@
 
 ## P1 — Useful follow-up improvements
 
-### P1-1 — Evidence upgrade: Task vs PM (B) — LEVEL 2 polish + methodology links
+### P1-1 — Evidence upgrade: Task vs PM (B) — LEVEL 2 polish + methodology links — **NEXT**
 
 Add methodology link, improved decision table, FAQ tightening. **Do not** fake testing.
 
@@ -202,9 +201,9 @@ Then: Fresh GSC → P1-9 → P1-2, P1-10 as capacity allows
 
 ## Next implementation phase (recommended)
 
-**Phase name:** **Authority Implementation — P0-6 (CTR differentiation)**
+**Phase name:** **Authority Implementation — P1 (follow-up improvements)**
 
-P0-1 through P0-5 and **P0-7** are **closed**. Next editorial priority: **P0-6** — CTR: differentiate Best PM for Freelancers (C) meta + intro.
+**All P0 items are closed** (P0-7 completed out of editorial order; Google reprocessing pending). Next unresolved priority: **P1-1** — Task vs PM (B) LEVEL 2 polish + methodology links.
 
 ---
 
