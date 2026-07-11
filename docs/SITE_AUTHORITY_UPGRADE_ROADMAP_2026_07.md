@@ -118,15 +118,24 @@
 
 ## P1 — Useful follow-up improvements
 
-### P1-1 — Evidence upgrade: Task vs PM (B) — LEVEL 2 polish + methodology links — **NEXT**
+### P1-1 — Evidence upgrade: Task vs PM (B) — LEVEL 2 polish + methodology links — **CLOSED PASS**
 
-Add methodology link, improved decision table, FAQ tightening. **Do not** fake testing.
+| Field | Detail |
+|-------|--------|
+| **Status** | **PASS / CLOSED** (2026-07-11) |
+| **Closeout** | `docs/P1_1_TASK_VS_PROJECT_MANAGEMENT_LEVEL2_POLISH_LIVE_CLOSEOUT_2026_07.md` |
+| **Live URL** | `/task-management-vs-project-management/` |
+| **Evidence maturity** | **LEVEL 2** — not LEVEL 3 |
+| **Scope** | Repetition reduction, decision table, FAQ, methodology link; no fake testing |
+| **GSC Index** | **Currently not indexed** — last crawl Jun 21 2026 (historical) |
+| **Live test** | Page can be indexed (Jul 11, 2026, 5:14 PM); indexing requested once |
+| **Performance** | CTR/ranking/traffic **not claimed** |
 
 ### P1-2 — Evidence upgrade: Best PM for Freelancers (C) — LEVEL 3 partial
 
 Hands-on sections for 2–3 tools; comparison table with criteria from framework.
 
-### P1-3 — Tools page problem-oriented restructure
+### P1-3 — Tools page problem-oriented restructure — **NEXT**
 
 Categories: manage client work, track daily tasks, run team projects, standardize workflows, organize knowledge, improve coordination.
 
@@ -203,7 +212,7 @@ Then: Fresh GSC → P1-9 → P1-2, P1-10 as capacity allows
 
 **Phase name:** **Authority Implementation — P1 (follow-up improvements)**
 
-**All P0 items are closed** (P0-7 completed out of editorial order; Google reprocessing pending). Next unresolved priority: **P1-1** — Task vs PM (B) LEVEL 2 polish + methodology links.
+P1-1 is **closed**. Next unresolved priority: **P1-3** — Tools page problem-oriented restructure (Week 4 sequence: P1-3, P1-4, P1-5). P0-7 Google Index reprocessing remains pending.
 
 ---
 

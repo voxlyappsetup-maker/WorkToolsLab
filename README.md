@@ -264,7 +264,9 @@ Patch types include `monitor_only`, `faq_patch`, `title_meta_patch`, `intro_patc
 
 **P0-6 closed (PASS):** Best PM for Freelancers meta + intro differentiated — https://worktoolslab.com/best-project-management-tools-for-freelancers/ — see `docs/P0_6_BEST_PM_FREELANCERS_CTR_DIFFERENTIATION_LIVE_CLOSEOUT_2026_07.md`.
 
-**P0 roadmap complete.** Next priority: **P1-1** — Task vs PM (B) LEVEL 2 polish + methodology links.
+**P1-1 closed (PASS):** Task vs PM LEVEL 2 polish **LIVE** — https://worktoolslab.com/task-management-vs-project-management/ — see `docs/P1_1_TASK_VS_PROJECT_MANAGEMENT_LEVEL2_POLISH_LIVE_CLOSEOUT_2026_07.md`. **Currently not indexed** — Google decision pending.
+
+**Next priority:** **P1-3** — Tools page problem-oriented restructure.
 
 **Operational:** Local `python -m linkops.cli fetch` may be blocked by SiteGround `sgcaptcha` — do not run repeated fetch attempts.
 

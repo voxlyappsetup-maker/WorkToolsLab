@@ -137,9 +137,22 @@
 
 **Classification:** **LEVEL 1–2** — excellent decision framing; no evaluation methodology or testing.
 
----
+**Historical status (July 2026 audit):** Finding above reflected pre-P1-1 baseline.
 
-### C. Best Project Management Tools for Freelancers (canonical URL)
+#### B — P1-1 live supersession (2026-07-11)
+
+**Closeout:** `docs/P1_1_TASK_VS_PROJECT_MANAGEMENT_LEVEL2_POLISH_LIVE_CLOSEOUT_2026_07.md` — **PASS / CLOSED**
+
+| Audit baseline | Live status after P1-1 |
+|----------------|------------------------|
+| No methodology link | **Added** — `/how-we-review-tools/` |
+| LEVEL 1–2 conceptual only | **LEVEL 2** — decision table, FAQ, workflow scope; **not LEVEL 3** |
+| Modified 2026-05-29 | **2026-07-11** revision live |
+| GSC indexed | **Currently not indexed** — Jun 21 crawl historical; live test PASS Jul 11; indexing requested once |
+
+**Do not claim** indexed, CTR, or ranking improvement.
+
+---
 
 | Field | Finding |
 |-------|---------|

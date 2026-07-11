@@ -3,13 +3,14 @@
 > **Living document.** Update at the end of each working session.
 > Do not rely on ChatGPT memory for this file — edit locally.
 
-**Last updated:** 2026-07-11 (P0-6 Best PM freelancers CTR differentiation closeout)
+**Last updated:** 2026-07-11 (P1-1 Task vs PM LEVEL 2 polish closeout)
 
 ## Phase
 
 | Field | Value |
 |-------|--------|
-| **Latest editorial phase** | **P0-6** Best PM for Freelancers CTR differentiation — **PASS / CLOSED** |
+| **Latest editorial phase** | **P1-1** Task vs PM LEVEL 2 polish — **PASS / CLOSED** |
+| **Evidence maturity (P1-1)** | **LEVEL 2** — not LEVEL 3 |
 | **Latest bounded fix** | **P0-7** Publisher / ProfilePage structured data — **PASS — LIVE FIX VERIFIED / GOOGLE REPROCESSING PENDING** |
 | **Prior phase** | **P0-4** Legacy freelancers-2 redirect + GSC cleanup — **PASS / CLOSED** |
 | **Prior phase** | **P0-3** Free PM for Freelancers — **PASS / CLOSED** — **LEVEL 3 LIVE** |
@@ -17,7 +18,7 @@
 | **Prior phase** | P0-A repository foundation — **complete** (`e613f50`) |
 | **Prior phase** | Distribution / LinkedIn experiment — **logged** (`distribution_log_2026_06.md`) |
 | **Earlier phase** | Next Actions cleanup / on-page optimization cycle — **complete** |
-| **Strategy docs** | `docs/P0_6_BEST_PM_FREELANCERS_CTR_DIFFERENTIATION_LIVE_CLOSEOUT_2026_07.md`, `docs/P0_7_PUBLISHER_PROFILEPAGE_SCHEMA_LIVE_FIX_2026_07.md`, `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md` |
+| **Strategy docs** | `docs/P1_1_TASK_VS_PROJECT_MANAGEMENT_LEVEL2_POLISH_LIVE_CLOSEOUT_2026_07.md`, `docs/P0_6_BEST_PM_FREELANCERS_CTR_DIFFERENTIATION_LIVE_CLOSEOUT_2026_07.md`, `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md` |
 | **MU plugin mirrors** | `wordpress/mu-plugins/worktoolslab-author-box.php`, `wordpress/mu-plugins/worktoolslab-author-links.php` |
 | **June docs (historical)** | `docs/TRAFFIC_DIAGNOSIS_2026_06.md`, `docs/CONTENT_STRATEGY_RESET_2026_06.md`, `docs/DISTRIBUTION_AUTHORITY_PLAN_2026_06.md` |
 
@@ -25,12 +26,12 @@
 
 | Field | Value |
 |-------|--------|
-| **Current article / URL** | `/best-project-management-tools-for-freelancers/` — **P0-6 differentiated meta + intro LIVE** |
+| **Current article / URL** | `/task-management-vs-project-management/` — **P1-1 LEVEL 2 polish LIVE** |
+| **GSC indexing (P1-1)** | **Currently not indexed** — indexing requested once; Google decision pending |
 | **LEVEL 3 article** | `/best-free-project-management-tools-for-freelancers/` — **LEVEL 3 LIVE** |
-| **Legacy URL** | `/best-project-management-tools-for-freelancers-2/` — **301 → free guide; GSC validated; not indexed** |
-| **Focus keyword** | project management tools for freelancers (P0-6); free PM guide remains LEVEL 3 cornerstone |
-| **Stage** | **P0 roadmap complete** — P0-7 Index reprocessing pending |
-| **Next action** | **P1-1** — Task vs PM (B) LEVEL 2 polish + methodology links. Do **not** request P0-6 indexing again. Do **not** claim CTR/ranking improvement. Do **not** run repeated `linkops fetch` (sgcaptcha blocker). |
+| **P0-6 article** | `/best-project-management-tools-for-freelancers/` — differentiated meta + intro LIVE |
+| **Stage** | P1-1 closed; P0-7 Index reprocessing pending |
+| **Next action** | **P1-3** — Tools page problem-oriented restructure. Do **not** request P1-1 indexing again. Do **not** claim page indexed. Do **not** run repeated `linkops fetch` (sgcaptcha blocker). |
 
 ## LinkOps snapshot
 
@@ -195,9 +196,18 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 - [x] GSC — indexed; indexing requested once
 - [x] Closeout record — `docs/P0_6_BEST_PM_FREELANCERS_CTR_DIFFERENTIATION_LIVE_CLOSEOUT_2026_07.md`
 
+### P1-1 Task vs PM LEVEL 2 polish (closed)
+
+- [x] Revised article published — methodology link, decision table, FAQ, workflow scope
+- [x] LEVEL 2 maintained — no fake testing
+- [x] Live SEO + structured data validated
+- [x] GSC live test — page can be indexed (Jul 11, 2026, 5:14 PM)
+- [x] Indexing requested once — do not repeat
+- [x] Closeout record — `docs/P1_1_TASK_VS_PROJECT_MANAGEMENT_LEVEL2_POLISH_LIVE_CLOSEOUT_2026_07.md`
+
 ### Authority implementation (next — P1)
 
-- [ ] **P1-1** — Task vs PM (B) LEVEL 2 polish + methodology links
+- [ ] **P1-3** — Tools page problem-oriented restructure
 
 ### Deep upgrade backlog (if fresh GSC still shows 0 clicks)
 
@@ -224,7 +234,8 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 | 2026-07-08 | Five-tool evidence consolidated; official plan verification; LEVEL 3 draft created |
 | 2026-07-09 | P0-3 **PASS** — LEVEL 3 live publication validated |
 | 2026-07-09 | P0-4 **PASS** — legacy freelancers-2 redirect/GSC validated |
-| 2026-07-11 | P0-6 **PASS** — Best PM freelancers meta + intro differentiated; P0 roadmap complete |
+| 2026-07-11 | P1-1 **PASS** — Task vs PM LEVEL 2 polish live; currently not indexed; live test PASS |
+| 2026-07-11 | P0-6 **PASS** — Best PM freelancers meta + intro differentiated |
 | 2026-07-10 | P0-7 **PASS** — publisher/ProfilePage schema live fix; repo MU-plugin mirror synced |
 
 ## Notes
@@ -232,6 +243,7 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 - Low traffic is **not** only an on-page problem — impressions exist; clicks and authority remain gaps.
 - On-page queue for current GSC export is **cleared** — further patch loops on stale data add little value.
 - Do not commit `config/worklog.json`, `reports/`, `exports/`, `data/`.
+- **P1-1 page not indexed** — GSC Index tab shows Crawled — currently not indexed; live test PASS Jul 11; do not claim inclusion.
 - **P0-6 Google reprocessing and CTR impact not claimed** — indexing requested once; fresh GSC after lag.
 - **P0-7 Google Index reprocessing for profile URL not claimed** — live test PASS; Index tab may lag.
-- **Publisher Knowledge Graph** (`#person` Person+Organization) is a **separate** site-level follow-up — not reopened by P0-3.
+- **Publisher schema** — P0-7 live fix verified; Organization `#organization` publisher live.
