@@ -3,14 +3,14 @@
 > **Living document.** Update at the end of each working session.
 > Do not rely on ChatGPT memory for this file — edit locally.
 
-**Last updated:** 2026-07-11 (P1-1 Task vs PM LEVEL 2 polish closeout)
+**Last updated:** 2026-07-14 (P1-3 Tools page problem-oriented restructure closeout)
 
 ## Phase
 
 | Field | Value |
 |-------|--------|
-| **Latest editorial phase** | **P1-1** Task vs PM LEVEL 2 polish — **PASS / CLOSED** |
-| **Evidence maturity (P1-1)** | **LEVEL 2** — not LEVEL 3 |
+| **Latest editorial phase** | **P1-3** Tools page problem-oriented restructure — **PASS / CLOSED** |
+| **Prior editorial phase** | **P1-1** Task vs PM LEVEL 2 polish — **PASS / CLOSED** |
 | **Latest bounded fix** | **P0-7** Publisher / ProfilePage structured data — **PASS — LIVE FIX VERIFIED / GOOGLE REPROCESSING PENDING** |
 | **Prior phase** | **P0-4** Legacy freelancers-2 redirect + GSC cleanup — **PASS / CLOSED** |
 | **Prior phase** | **P0-3** Free PM for Freelancers — **PASS / CLOSED** — **LEVEL 3 LIVE** |
@@ -18,7 +18,7 @@
 | **Prior phase** | P0-A repository foundation — **complete** (`e613f50`) |
 | **Prior phase** | Distribution / LinkedIn experiment — **logged** (`distribution_log_2026_06.md`) |
 | **Earlier phase** | Next Actions cleanup / on-page optimization cycle — **complete** |
-| **Strategy docs** | `docs/P1_1_TASK_VS_PROJECT_MANAGEMENT_LEVEL2_POLISH_LIVE_CLOSEOUT_2026_07.md`, `docs/P0_6_BEST_PM_FREELANCERS_CTR_DIFFERENTIATION_LIVE_CLOSEOUT_2026_07.md`, `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md` |
+| **Strategy docs** | `docs/P1_3_TOOLS_PAGE_PROBLEM_ORIENTED_RESTRUCTURE_LIVE_CLOSEOUT_2026_07.md`, `docs/P1_1_TASK_VS_PROJECT_MANAGEMENT_LEVEL2_POLISH_LIVE_CLOSEOUT_2026_07.md`, `docs/SITE_AUTHORITY_UPGRADE_ROADMAP_2026_07.md` |
 | **MU plugin mirrors** | `wordpress/mu-plugins/worktoolslab-author-box.php`, `wordpress/mu-plugins/worktoolslab-author-links.php` |
 | **June docs (historical)** | `docs/TRAFFIC_DIAGNOSIS_2026_06.md`, `docs/CONTENT_STRATEGY_RESET_2026_06.md`, `docs/DISTRIBUTION_AUTHORITY_PLAN_2026_06.md` |
 
@@ -26,12 +26,14 @@
 
 | Field | Value |
 |-------|--------|
-| **Current article / URL** | `/task-management-vs-project-management/` — **P1-1 LEVEL 2 polish LIVE** |
-| **GSC indexing (P1-1)** | **Currently not indexed** — indexing requested once; Google decision pending |
+| **Current hub / URL** | `/tools/` — **P1-3 problem-oriented decision hub LIVE** |
+| **GSC indexing (Tools)** | **Indexed** — recrawl requested once; Google reprocessing pending |
+| **P1-1 article** | `/task-management-vs-project-management/` — LEVEL 2 polish LIVE; **currently not indexed** |
+| **P1-1 evidence maturity** | **LEVEL 2** — not LEVEL 3 |
 | **LEVEL 3 article** | `/best-free-project-management-tools-for-freelancers/` — **LEVEL 3 LIVE** |
 | **P0-6 article** | `/best-project-management-tools-for-freelancers/` — differentiated meta + intro LIVE |
-| **Stage** | P1-1 closed; P0-7 Index reprocessing pending |
-| **Next action** | **P1-3** — Tools page problem-oriented restructure. Do **not** request P1-1 indexing again. Do **not** claim page indexed. Do **not** run repeated `linkops fetch` (sgcaptcha blocker). |
+| **Stage** | P1-3 closed; P1-1 indexing pending; P0-7 reprocessing pending |
+| **Next action** | **P1-4** — Start Here decision path. Do **not** request Tools indexing again. Do **not** claim Google processed July 12 update. Do **not** run repeated `linkops fetch` (sgcaptcha blocker). |
 
 ## LinkOps snapshot
 
@@ -205,9 +207,17 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 - [x] Indexing requested once — do not repeat
 - [x] Closeout record — `docs/P1_1_TASK_VS_PROJECT_MANAGEMENT_LEVEL2_POLISH_LIVE_CLOSEOUT_2026_07.md`
 
+### P1-3 Tools page problem-oriented restructure (closed)
+
+- [x] Problem-oriented decision hub published — Jul 12, 2026
+- [x] Work-management clusters primary; communication/meetings secondary
+- [x] Methodology link + evidence-type distinction live
+- [x] GSC — indexed; indexing requested once (priority crawl queue)
+- [x] Closeout record — `docs/P1_3_TOOLS_PAGE_PROBLEM_ORIENTED_RESTRUCTURE_LIVE_CLOSEOUT_2026_07.md`
+
 ### Authority implementation (next — P1)
 
-- [ ] **P1-3** — Tools page problem-oriented restructure
+- [ ] **P1-4** — Start Here decision path
 
 ### Deep upgrade backlog (if fresh GSC still shows 0 clicks)
 
@@ -234,7 +244,8 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 | 2026-07-08 | Five-tool evidence consolidated; official plan verification; LEVEL 3 draft created |
 | 2026-07-09 | P0-3 **PASS** — LEVEL 3 live publication validated |
 | 2026-07-09 | P0-4 **PASS** — legacy freelancers-2 redirect/GSC validated |
-| 2026-07-11 | P1-1 **PASS** — Task vs PM LEVEL 2 polish live; currently not indexed; live test PASS |
+| 2026-07-14 | P1-3 **PASS** — Tools page problem-oriented restructure live; indexed; recrawl pending |
+| 2026-07-11 | P1-1 **PASS** — Task vs PM LEVEL 2 polish live; currently not indexed |
 | 2026-07-11 | P0-6 **PASS** — Best PM freelancers meta + intro differentiated |
 | 2026-07-10 | P0-7 **PASS** — publisher/ProfilePage schema live fix; repo MU-plugin mirror synced |
 
@@ -243,7 +254,7 @@ Counts reflect latest next-actions match — open `config/worklog.json` for URLs
 - Low traffic is **not** only an on-page problem — impressions exist; clicks and authority remain gaps.
 - On-page queue for current GSC export is **cleared** — further patch loops on stale data add little value.
 - Do not commit `config/worklog.json`, `reports/`, `exports/`, `data/`.
-- **P1-1 page not indexed** — GSC Index tab shows Crawled — currently not indexed; live test PASS Jul 11; do not claim inclusion.
+- **P1-3 Tools page recrawl/reprocessing not claimed** — indexed; priority crawl queue requested once Jul 12.
 - **P0-6 Google reprocessing and CTR impact not claimed** — indexing requested once; fresh GSC after lag.
 - **P0-7 Google Index reprocessing for profile URL not claimed** — live test PASS; Index tab may lag.
 - **Publisher schema** — P0-7 live fix verified; Organization `#organization` publisher live.

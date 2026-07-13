@@ -42,6 +42,7 @@ Credentials live in `.env` (never commit). Reports go to `reports/` (gitignored)
 | [P0_3_FREE_PM_FREELANCERS_EVIDENCE_AUDIT_2026_07.md](P0_3_FREE_PM_FREELANCERS_EVIDENCE_AUDIT_2026_07.md) | P0-3 claim audit (LEVEL 3 live) |
 | [P0_3_OWNER_TESTING_EXECUTION_QUEUE_2026_07.md](P0_3_OWNER_TESTING_EXECUTION_QUEUE_2026_07.md) | Owner testing steps (completed) |
 | [P0_3_FREE_PM_LEVEL3_ARTICLE_BLUEPRINT_2026_07.md](P0_3_FREE_PM_LEVEL3_ARTICLE_BLUEPRINT_2026_07.md) | Article structure blueprint (published) |
+| [P1_3_TOOLS_PAGE_PROBLEM_ORIENTED_RESTRUCTURE_LIVE_CLOSEOUT_2026_07.md](P1_3_TOOLS_PAGE_PROBLEM_ORIENTED_RESTRUCTURE_LIVE_CLOSEOUT_2026_07.md) | **P1-3 PASS** — Tools page problem-oriented restructure |
 | [P1_1_TASK_VS_PROJECT_MANAGEMENT_LEVEL2_POLISH_LIVE_CLOSEOUT_2026_07.md](P1_1_TASK_VS_PROJECT_MANAGEMENT_LEVEL2_POLISH_LIVE_CLOSEOUT_2026_07.md) | **P1-1 PASS** — Task vs PM LEVEL 2 polish |
 | [P0_6_BEST_PM_FREELANCERS_CTR_DIFFERENTIATION_LIVE_CLOSEOUT_2026_07.md](P0_6_BEST_PM_FREELANCERS_CTR_DIFFERENTIATION_LIVE_CLOSEOUT_2026_07.md) | **P0-6 PASS** — paid freelancer roundup CTR differentiation |
 | [P0_7_PUBLISHER_PROFILEPAGE_SCHEMA_LIVE_FIX_2026_07.md](P0_7_PUBLISHER_PROFILEPAGE_SCHEMA_LIVE_FIX_2026_07.md) | **P0-7 PASS** — publisher/ProfilePage schema fix |
@@ -59,7 +60,7 @@ Credentials live in `.env` (never commit). Reports go to `reports/` (gitignored)
 |------|----------------|
 | Home | `/` |
 | Start Here | `/start-here/` |
-| Tools | `/tools/` |
+| Tools | `/tools/` — **P1-3 problem-oriented decision hub LIVE** |
 | Blog | `/blog/` |
 | About | `/about/` |
 | Contact | `/contact/` |

@@ -135,11 +135,19 @@
 
 Hands-on sections for 2–3 tools; comparison table with criteria from framework.
 
-### P1-3 — Tools page problem-oriented restructure — **NEXT**
+### P1-3 — Tools page problem-oriented restructure — **CLOSED PASS**
 
-Categories: manage client work, track daily tasks, run team projects, standardize workflows, organize knowledge, improve coordination.
+| Field | Detail |
+|-------|--------|
+| **Status** | **PASS / CLOSED** (2026-07-14) |
+| **Closeout** | `docs/P1_3_TOOLS_PAGE_PROBLEM_ORIENTED_RESTRUCTURE_LIVE_CLOSEOUT_2026_07.md` |
+| **Live URL** | `/tools/` — problem-oriented decision hub |
+| **Focus** | Work-management clusters primary; communication/meetings secondary |
+| **Methodology link** | `/how-we-review-tools/` |
+| **GSC** | **Indexed** — recrawl requested once (priority crawl queue) |
+| **Reprocessing** | July 12 update — **pending**; CTR/ranking **not claimed** |
 
-### P1-4 — Start Here decision path
+### P1-4 — Start Here decision path — **NEXT**
 
 Problem → recommended guide → comparison → review (see audit §7).
 
@@ -212,7 +220,7 @@ Then: Fresh GSC → P1-9 → P1-2, P1-10 as capacity allows
 
 **Phase name:** **Authority Implementation — P1 (follow-up improvements)**
 
-P1-1 is **closed**. Next unresolved priority: **P1-3** — Tools page problem-oriented restructure (Week 4 sequence: P1-3, P1-4, P1-5). P0-7 Google Index reprocessing remains pending.
+P1-1 and P1-3 are **closed**. Next unresolved priority: **P1-4** — Start Here decision path (Week 4 sequence: P1-4, P1-5). P1-1 indexing and P0-7 reprocessing remain pending.
 
 ---
 

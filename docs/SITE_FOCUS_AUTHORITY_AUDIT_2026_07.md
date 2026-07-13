@@ -272,6 +272,21 @@ Detailed proposal: `docs/AUTHOR_PROFILE_AND_REVIEW_METHODOLOGY_PLAN.md`.
 
 ---
 
+## 7b. P1-3 Tools page restructure — live supersession (2026-07-14)
+
+**Closeout:** `docs/P1_3_TOOLS_PAGE_PROBLEM_ORIENTED_RESTRUCTURE_LIVE_CLOSEOUT_2026_07.md` — **PASS / CLOSED**
+
+| Audit §7 baseline (July 2026) | Live status after P1-3 |
+|------------------------------|------------------------|
+| Tools = category directory mirroring full site breadth | **Superseded** — problem-oriented decision hub |
+| Duplicates Home and Start Here | **Partially addressed** — Tools restructured; Start Here remains P1-4 |
+| Proposed problem-oriented directory | **Implemented** — problem-first routing live |
+| Communication/meetings equal weight | **Demoted** — secondary resources section |
+
+**GSC:** Indexed; indexing requested once for July 12 recrawl — reprocessing **pending**. **Do not claim** CTR/ranking improvement.
+
+---
+
 ## 8. Search snippet / CTR opportunity audit
 
 **Rules applied:** Meaningful impressions at site scale; zero/weak CTR; clear intent; page already relevant; no clickbait; no false “tested” claims.
