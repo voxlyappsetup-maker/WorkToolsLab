@@ -1,35 +1,73 @@
 project: "WorkToolsLab"
-repository_path: "C:\dev\worktoolslab_linkops"
+repository_path: 'C:\dev\worktoolslab_linkops'
+
+repository_scope: >
+  LinkOps, operational documentation, and selected WordPress MU-plugin
+  mirrors. The live public site and published content are managed in
+  WordPress and are not fully represented by this repository.
+
 portfolio_state: "maintain_queue"
 priority: 4
 
 current_gate: "decision_tool_definition"
+
 next_external_outcome: >
-  Convert existing content and data into a practical work-tool selection experience.
+  Publish a practical work-tool selector that routes users to relevant
+  existing comparison and review content and measures result clicks after
+  an active Portfolio Ops execution slot becomes available.
 
 success_metric: >
-  A published selector routes users to relevant existing content and tracks result clicks.
+  Users complete the selector, open recommended comparison or review
+  pages, and generate measurable outbound or affiliate clicks.
 
+external_outcome_achieved: false
 deadline: null
 
+latest_verified_analytics:
+  gsc_import_date: "2026-06-05"
+  distribution_period: "June 2026 LinkedIn distribution log with partial 7-day and 30-day results"
+  google_analytics_dataset: "No verified repository dataset"
+
 current_blockers:
-  - Waiting for an active portfolio slot
+  - "Waiting for an active Portfolio Ops execution slot"
+
+current_constraints:
+  - "Local LinkOps WordPress REST fetch is blocked by SiteGround sgcaptcha, so its WordPress content cache may be stale"
+  - "Fresh GSC or Google Analytics performance data is not currently available for new performance conclusions"
 
 owner_decisions_required: []
 
 last_meaningful_progress:
-  date: 2026-07-12
-  evidence: "Corrected portfolio status initialized from the approved central plan."
+  date: "2026-07-12"
+  evidence: >
+    P1-3 Tools page problem-oriented restructure was closed and pushed at
+    commit e1ab382. WorkToolsLab was then placed in maintain_queue under
+    the approved Portfolio Ops active-project limit.
 
 next_action: >
-  Maintain analytics and existing content; do not begin a new general article cycle.
+  Preserve the existing site, analytics, distribution records, and LinkOps
+  state. Prepare only a bounded selector requirements and rule-matrix
+  definition without starting implementation.
 
 allowed_work:
-  - critical maintenance
-  - analytics review
-  - existing-content fixes
+  - "critical site maintenance"
+  - "broken-link correction"
+  - "verified indexing fixes"
+  - "analytics documentation"
+  - "distribution-result recording"
+  - "selector requirements definition"
 
 prohibited_work:
-  - new article production cycle
-  - large redesign
-  - new unrelated tool
+  - "new general article cycle"
+  - "major site redesign"
+  - "Work Tool Selector implementation"
+  - "unrelated LinkOps expansion"
+  - "untracked or random distribution"
+  - "new unrelated tool or subproject"
+
+future_bounded_phase:
+  id: "WTL-SELECTOR-0"
+  name: "Selector Definition and Rule Matrix"
+  mode: "documentation_only"
+  implementation_allowed: false
+  mvp_approach: "deterministic_rule_based"
