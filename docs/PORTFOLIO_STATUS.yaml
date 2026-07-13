@@ -1,0 +1,35 @@
+project: "WorkToolsLab"
+repository_path: "C:\dev\worktoolslab_linkops"
+portfolio_state: "maintain_queue"
+priority: 4
+
+current_gate: "decision_tool_definition"
+next_external_outcome: >
+  Convert existing content and data into a practical work-tool selection experience.
+
+success_metric: >
+  A published selector routes users to relevant existing content and tracks result clicks.
+
+deadline: null
+
+current_blockers:
+  - Waiting for an active portfolio slot
+
+owner_decisions_required: []
+
+last_meaningful_progress:
+  date: 2026-07-12
+  evidence: "Corrected portfolio status initialized from the approved central plan."
+
+next_action: >
+  Maintain analytics and existing content; do not begin a new general article cycle.
+
+allowed_work:
+  - critical maintenance
+  - analytics review
+  - existing-content fixes
+
+prohibited_work:
+  - new article production cycle
+  - large redesign
+  - new unrelated tool
